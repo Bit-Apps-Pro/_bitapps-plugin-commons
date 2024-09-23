@@ -2,7 +2,22 @@
   This component will be displayed in the WordPress admin dashboard if the plugin needs to be updated.
   It will prompt the user to update the plugin to the latest version.
 */
+
+import { SyncOutlined } from '@ant-design/icons'
+import useUpdatePlugin from '@pages/root/data/useUpdatePlugin'
+import { Button } from 'antd'
+
 export default function PluginUpdateNotice() {
+  const { isLoadingUpdatePlugin, updatePlugin } = useUpdatePlugin()
+
+  const proPluginVersion = SERVER_VARIABLES.proPluginVersion || ''
+
+  const freePLuginVersion = SERVER_VARIABLES.version || ''
+
+  if (proPluginVersion === freePLuginVersion) {
+    return null
+  }
+
   return (
     <div
       style={{
@@ -13,12 +28,14 @@ export default function PluginUpdateNotice() {
       }}
     >
       <div className="notice notice-warning">
-        <h4 className="mt-2">Plugin Update Required (Bit Social)</h4>
+        <h4 className="mt-2">Plugin Update Required (Bit Social) </h4>
         <p>
           To maintain consistency between the Free and Pro versions, please update your plugin to ensure
           both versions share the same version number.
         </p>
-        <button
+        <Button
+          onClick={() => updatePlugin()}
+          icon={<SyncOutlined spin={isLoadingUpdatePlugin} />}
           style={{
             background: '#3858e9',
             color: '#fff',
@@ -28,9 +45,10 @@ export default function PluginUpdateNotice() {
             cursor: 'pointer',
             fontWeight: 400
           }}
+          disabled={isLoadingUpdatePlugin}
         >
-          Update Now
-        </button>
+          Update Now {isLoadingUpdatePlugin && '...'}
+        </Button>
       </div>
     </div>
   )
