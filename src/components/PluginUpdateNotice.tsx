@@ -4,7 +4,7 @@
 */
 
 import { SyncOutlined } from '@ant-design/icons'
-import useUpdatePlugin from '@pages/root/data/useUpdatePlugin'
+import useUpdatePlugin from '@bitapps-plugin-utils/components/VersionMismatchedNotice/useUpdatePlugin'
 import { Button } from 'antd'
 
 export default function PluginUpdateNotice() {
