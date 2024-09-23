@@ -24,6 +24,13 @@ interface ProLoaderProperties {
     | ReactNode
 }
 
+/**
+ * This component is used to load the pro module and provide it to the children.
+ * It will provide the pro module to the children as a prop named `proModule`.
+ * It will only render the children if the user has the pro version of the plugin.
+ * Otherwise, it will render the free fallback.
+ */
+
 export default function ProLoader({ children, freeFallback, loadingFallback }: ProLoaderProperties) {
   const { isPro } = useAtomValue($appConfig)
   const versionMatched = SERVER_VARIABLES.version === SERVER_VARIABLES.proPluginVersion

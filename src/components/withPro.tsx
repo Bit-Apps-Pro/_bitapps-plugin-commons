@@ -7,6 +7,7 @@ import { useAtomValue } from 'jotai'
 import { type ProModulesType } from './ProLoader'
 import VersionMismatchedNotice from './VersionMismatchedNotice'
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 const ProModule = loadable.lib(() => import('pro-module'))
 
 function withPro(

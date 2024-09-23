@@ -1,6 +1,10 @@
 import { Alert } from 'antd'
 import { LucideAlertOctagon } from 'lucide-react'
 
+/**
+ * This component is used to show a notice when the plugin version is mismatched.
+ */
+
 export default function VersionMismatchedNotice() {
   return (
     <div>

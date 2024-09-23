@@ -1,4 +1,9 @@
+/*
+  This component will be displayed in the WordPress admin dashboard if the plugin needs to be updated.
+  It will prompt the user to update the plugin to the latest version.
+*/
 export default function PluginUpdateNotice() {
+  
   return (
     <div
       style={{
