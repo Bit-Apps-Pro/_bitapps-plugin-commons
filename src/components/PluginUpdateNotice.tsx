@@ -3,7 +3,6 @@
   It will prompt the user to update the plugin to the latest version.
 */
 export default function PluginUpdateNotice() {
-  
   return (
     <div
       style={{

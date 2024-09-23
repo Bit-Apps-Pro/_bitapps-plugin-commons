@@ -13,6 +13,7 @@ export interface ProModulesType {
   proModule?: ProModules
 }
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 const ProModule = loadable.lib(() => import('pro-module'))
 
 interface ProLoaderProperties {
