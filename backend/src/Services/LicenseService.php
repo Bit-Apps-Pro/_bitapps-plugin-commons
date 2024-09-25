@@ -3,8 +3,6 @@
 namespace BitApps\Utils\Services;
 
 use BitApps\Utils\UtilsConfig;
-use BitApps\WPKit\Helpers\DateTimeHelper;
-use BitApps\WPKit\Http\Client\HttpClient;
 use WP_Error;
 
 class LicenseService
@@ -34,16 +32,15 @@ class LicenseService
 
     public static function getUpdatedInfo()
     {
-        // $licenseKey = Config::getLicenseKey();
         $licenseData = get_option(UtilsConfig::getProPluginPrefix() . 'license_data');
+        $licenseKey = '';
 
         if (!empty($licenseData) && \is_array($licenseData) && $licenseData['status'] === 'success') {
             $licenseKey = $licenseData['key'];
-        } else {
-            return false;
         }
+        $httpClass = UtilsConfig::getClassPreFix() . 'WPKit\Http\Client\HttpClient';
 
-        $client = (new HttpClient())->setBaseUri(UtilsConfig::getApiEndPoint());
+        $client = (new $httpClass())->setBaseUri(UtilsConfig::getApiEndPoint());
 
         $pluginInfoResponse = $client->get('/update/' . UtilsConfig::getProPluginSlug());
 
@@ -63,9 +60,11 @@ class LicenseService
 
         $pluginData = $pluginInfoResponse->data;
 
-        $dateTimeHelper = new DateTimeHelper();
+        $dateTimeClass = UtilsConfig::getClassPreFix() . 'WPKit\Helpers\DateTimeHelper';
 
-        $pluginData->updatedAt = $dateTimeHelper->getFormated($pluginData->updatedAt, 'Y-m-d\TH:i:s.u\Z', DateTimeHelper::wp_timezone(), 'Y-m-d H:i:s', null);
+        $dateTimeHelper = new $dateTimeClass();
+
+        $pluginData->updatedAt = $dateTimeHelper->getFormated($pluginData->updatedAt, 'Y-m-d\TH:i:s.u\Z', $dateTimeClass::wp_timezone(), 'Y-m-d H:i:s', null);
 
         if (!empty($pluginData->details)) {
             $pluginData->sections['description'] = $pluginData->details;

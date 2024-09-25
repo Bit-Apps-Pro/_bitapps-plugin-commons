@@ -1,16 +1,15 @@
 <?php
 
-namespace BitApps\Utils\License;
+namespace BitApps\Utils;
 
 use BitApps\Utils\Services\LicenseService;
-use BitApps\Utils\UtilsConfig;
 
 use stdClass;
 
 /**
  * Helps to update plugin
  */
-final class Updater
+final class ProPluginUpdater
 {
     public const PLUGIN_AUTHOR_HOMEPAGE_URL = 'https://bitapps.pro';
 
@@ -31,12 +30,19 @@ final class Updater
     public function __construct()
     {
         $this->slug = UtilsConfig::getProPluginSlug();
+
         $this->name = $this->slug . '/' . $this->slug . '.php';
+
         $this->version = UtilsConfig::getProPluginVersion();
+
         $this->label = UtilsConfig::getFreePluginTitle() . ' Connect Wordpress Plugins And External Applications';
+
         $this->cacheKey = md5($this->slug . '_plugin_info');
+
         $this->registerHooks();
+
         $this->removeCache();
+
         add_action('admin_notices', [$this, 'licenseExpirationNotice']);
     }
 
@@ -52,7 +58,7 @@ final class Updater
             return;
         }
 
-        $licenseData = get_option(UtilsConfig::getProPluginSlug() . 'license_data', null);
+        $licenseData = get_option(UtilsConfig::getProPluginPrefix() . 'license_data', null);
 
         if (!empty($licenseData['expireIn'])) {
             $expireInDays = (strtotime($licenseData['expireIn']) - time()) / DAY_IN_SECONDS;
@@ -66,8 +72,8 @@ final class Updater
 
             if ($expireInDays < 25) {
                 $notice = $expireInDays > 0
-                    ? \sprintf(__('%s License will expire in %s days', 'bit-pi'), (int) $expireInDays, UtilsConfig::getFreePluginTitle())
-                    : \sprintf(__('%s License is expired', 'bit-pi'), UtilsConfig::getFreePluginTitle());
+                    ? \sprintf('%s License will expire in %s days', (int) $expireInDays, UtilsConfig::getFreePluginTitle())
+                    : \sprintf('%s License is expired', UtilsConfig::getFreePluginTitle());
 
                 echo wp_kses("<div class='notice notice-error is-dismissible'>
                 <p>{$notice}</p>
@@ -83,6 +89,7 @@ final class Updater
         if (!\is_object($cacheData)) {
             $cacheData = new stdClass();
         }
+
         if ('plugins.php' === $pagenow && is_multisite()) {
             return $cacheData;
         }
@@ -107,7 +114,6 @@ final class Updater
             $apiResponse = LicenseService::getUpdatedInfo();
 
             $formattedApiResponse = $this->formatApiResponse($apiResponse);
-
             set_site_transient($cacheKey, $formattedApiResponse, DAY_IN_SECONDS);
 
             return $formattedApiResponse;
@@ -150,17 +156,20 @@ final class Updater
         global $pagenow;
 
         if ('update-core.php' === $pagenow && isset($_GET['force-check'])) {
-            delete_option(UtilsConfig::getProPluginSlug() . $this->cacheKey);
+            delete_option(UtilsConfig::getProPluginPrefix() . $this->cacheKey);
         }
     }
 
     private function registerHooks()
     {
         add_filter('pre_set_site_transient_update_plugins', [$this, 'checkUpdate']);
+
         add_action('delete_site_transient_update_plugins', [$this, 'removeCache']);
+
         add_filter('plugins_api', [$this, 'setProPluginInfo'], 10, 3);
 
         remove_action('after_plugin_row_' . $this->name, 'wp_plugin_update_row');
+
         add_action('after_plugin_row_' . $this->name, [$this, 'showUpdateInfo'], 10, 2);
     }
 
@@ -178,20 +187,20 @@ final class Updater
 
         if (\is_null($versionInfo) || $versionInfo === false) {
             $versionInfo = LicenseService::getUpdatedInfo();
-
             if (is_wp_error($versionInfo)) {
                 $versionInfo = new stdClass();
                 $versionInfo->error = true;
             }
-
             $this->setCache($versionInfo);
         }
+
         if (!empty($versionInfo->error)) {
             return $cacheData;
         }
 
         // include an unmodified $wp_version
         include ABSPATH . WPINC . '/version.php';
+
         if (version_compare($wp_version, $versionInfo->requireWP, '<')) {
             return $cacheData;
         }
@@ -231,7 +240,7 @@ final class Updater
 
     private function getCache()
     {
-        $cacheData = get_option(UtilsConfig::getProPluginSlug() . $this->cacheKey);
+        $cacheData = get_option(UtilsConfig::getProPluginPrefix() . $this->cacheKey);
 
         if (empty($cacheData['timeout']) || current_time('timestamp') > $cacheData['timeout']) {
             return false;
@@ -243,43 +252,61 @@ final class Updater
     private function setCache($cacheValue)
     {
         $expiration = strtotime('+12 hours', current_time('timestamp'));
+
         $data = [
             'timeout' => $expiration,
             'value'   => $cacheValue,
         ];
 
-        update_option(UtilsConfig::getProPluginSlug() . $this->cacheKey, $data, 'no');
+        update_option(UtilsConfig::getProPluginPrefix() . $this->cacheKey, $data, 'no');
     }
 
     private function formatApiResponse($apiResponse)
     {
         $formattedData = new stdClass();
+
         $formattedData->name = $this->label;
+
         $formattedData->slug = $this->slug;
+
         $formattedData->plugin = $this->name;
+
         $formattedData->id = $this->name;
+
         $formattedData->author = self::PLUGIN_AUTHOR;
+
         $formattedData->homepage = self::PLUGIN_AUTHOR_HOMEPAGE_URL;
         if (is_wp_error($apiResponse)) {
             $formattedData->requires = '';
+
             $formattedData->tested = '';
+
             $formattedData->new_version = $this->version;
+
             $formattedData->last_updated = '';
+
             $formattedData->download_link = '';
+
             $formattedData->banners = [
                 'high' => 'https://ps.w.org/bit-flow/assets/banner-772x250.jpg?rev=2657199'
             ];
+
             $formattedData->sections = null;
 
             return $formattedData;
         }
         $formattedData->requires = $apiResponse->requireWP;
+
         $formattedData->tested = $apiResponse->tested;
 
         $formattedData->new_version = $apiResponse->version;
+
         $formattedData->last_updated = $apiResponse->updatedAt;
+
         $formattedData->download_link = !empty($apiResponse->downloadLink) ? $apiResponse->downloadLink . '/' . $this->slug . '.zip' : '';
+
         $formattedData->package = !empty($apiResponse->downloadLink) ? $apiResponse->downloadLink . '/' . $this->slug . '.zip' : '';
+
         $formattedData->banners = [
             'high' => 'https://ps.w.org/bit-flow/assets/banner-772x250.jpg?rev=2657199'
         ];

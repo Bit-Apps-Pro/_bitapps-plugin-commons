@@ -3,9 +3,8 @@
 namespace BitApps\Utils\HTTP\Controllers;
 
 use BitApps\Utils\Services\LicenseService;
+
 use BitApps\Utils\UtilsConfig;
-use BitApps\WPKit\Http\Client\HttpClient;
-use BitApps\WPKit\Http\Request\Request;
 
 final class LicenseController
 {
@@ -13,18 +12,24 @@ final class LicenseController
 
     public function __construct()
     {
-        $this->httpClient = (new HttpClient())->setBaseUri(UtilsConfig::getApiEndPoint());
+        $httpClass = UtilsConfig::getClassPreFix() . 'WPKit\Http\Client\HttpClient';
+
+        if (class_exists($httpClass)) {
+            $this->httpClient = (new $httpClass())->setBaseUri(UtilsConfig::getApiEndPoint());
+        }
     }
 
-    public function activateLicense(Request $request)
+    public function activateLicense()
     {
-        $validated = $request->validate(
-            [
-                'licenseKey' => ['required', 'sanitize:text']
-            ]
-        );
+        // TODO:: IMPLEMENT REQUEST VALIDATION
+        // $validated = $request->validate(
+        //     [
+        //         'licenseKey' => ['required', 'sanitize:text']
+        //     ]
+        // );
+        $licenseKey = $_POST['licenseKey'];
 
-        $data['licenseKey'] = $validated->licenseKey;
+        $data['licenseKey'] = $licenseKey;
 
         $data['domain'] = site_url();
 
@@ -39,12 +44,12 @@ final class LicenseController
         $licenseActivationResponse = $this->httpClient->post('/activate');
 
         if (!is_wp_error($licenseActivationResponse) && $licenseActivationResponse->status === 'success') {
-            LicenseService::setLicenseData($validated->licenseKey, $licenseActivationResponse);
+            LicenseService::setLicenseData($licenseKey, $licenseActivationResponse);
 
             return true;
         }
 
-        return empty($licenseActivationResponse->message) ? __('Unknown error occurred', 'bit-pi') : $licenseActivationResponse->message;
+        return empty($licenseActivationResponse->message) ? 'Unknown error occurred' : $licenseActivationResponse->message;
     }
 
     public function deactivateLicense()
@@ -73,6 +78,13 @@ final class LicenseController
             return empty($licenseDeactivationResponse->message) ? 'Unknown error occurred' : $licenseDeactivationResponse->message;
         }
 
-        return __('License data is missing', 'bit-pi');
+        return 'License data is missing';
+    }
+
+    public function checkLicenseStatus()
+    {
+        $licenseData = get_option(UtilsConfig::getProPluginPrefix() . 'license_data');
+
+        return (bool) (!empty($licenseData) && \is_array($licenseData) && $licenseData['status'] === 'success');
     }
 }

@@ -20,9 +20,16 @@ final class UtilsConfig
 
     public static $apiEndPoint;
 
+    public static $pluginNamespace;
+
     public static function setFreePluginVersion(string $freePluginVersion)
     {
         self::$freePluginVersion = $freePluginVersion;
+    }
+
+    public static function setPluginNamespace(string $pluginNamespace)
+    {
+        self::$pluginNamespace = $pluginNamespace;
     }
 
     public static function setProPluginVersion(string $proPluginVersion)
@@ -98,5 +105,17 @@ final class UtilsConfig
     public static function getApiEndPoint()
     {
         return self::$apiEndPoint;
+    }
+
+    public static function getClassPreFix()
+    {
+        return !empty(self::$pluginNamespace) ? self::$pluginNamespace : 'BitApps\\' . self::convertToCamelCase(self::$freePluginSlug) . '\\Deps\\BitApps\\';
+    }
+
+    private static function convertToCamelCase($slug)
+    {
+        $slugParts = \array_slice(explode('-', $slug), -2);
+
+        return implode('', array_map('ucfirst', $slugParts));
     }
 }
