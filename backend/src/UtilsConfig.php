@@ -109,7 +109,7 @@ final class UtilsConfig
 
     public static function getClassPreFix()
     {
-        return !empty(self::$pluginNamespace) ? self::$pluginNamespace : 'BitApps\\' . self::convertToCamelCase(self::$freePluginSlug) . '\\Deps\\BitApps\\';
+        return !empty(self::$pluginNamespace) ? self::$pluginNamespace : 'BitApps\\' . self::convertToCamelCase(self::$proPluginSlug) . '\\Deps\\BitApps\\';
     }
 
     private static function convertToCamelCase($slug)
