@@ -1,5 +1,5 @@
 import { SyncOutlined } from '@ant-design/icons'
-import aboutStatic from '@bitapps-plugin-utils/components/SupportPage/data/about.static'
+import aboutStatic from '@bitapps-plugin-utils/components/SupportPage/data/pluginInfoData'
 import LucideIcn from '@icons/LucideIcn'
 import { Badge, Button, Flex, theme, Tooltip } from 'antd'
 import Paragraph from 'antd/es/typography/Paragraph'
