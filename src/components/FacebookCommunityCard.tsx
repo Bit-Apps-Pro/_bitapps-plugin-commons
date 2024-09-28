@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import LucideIcn from '@icons/LucideIcn'
 import { Button, Flex, theme } from 'antd'
 
@@ -22,15 +23,6 @@ export default function FacebookCommunityCard({
         marginTop: 30
       }}
     >
-      {/* <img
-        css={{
-          width: '100%'
-        }}
-        // TODO: Separate this image into a separate component or as a resouce
-
-        src=""
-        alt="bit-apps facebook community"
-      /> */}
       <div
         css={{
           height: 165,
@@ -45,7 +37,7 @@ export default function FacebookCommunityCard({
         justify="end"
         css={{
           position: 'absolute',
-          background: 'linear-gradient(0deg, #00000095, transparent)',
+          background: 'linear-gradient(0deg, #00169a, transparent)',
           width: '100%',
           top: '-11%',
           height: 205,
