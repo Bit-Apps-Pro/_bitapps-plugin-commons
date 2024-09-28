@@ -24,7 +24,8 @@ export default function SupportLinks({ pluginSlug }: { pluginSlug: string }) {
     { icon: 'book-check', text: 'Documentation', href: aboutPlugin.docLink },
     { icon: 'youtube', text: 'YouTube Channel', href: pluginInfoData.youtubeChannel },
     { icon: 'facebook', text: 'Facebook Community', href: pluginInfoData.facebookCommunity },
-    { icon: <XOutlined />, text: 'X (Formerly Twitter)', href: pluginInfoData.x }
+    { icon: <XOutlined />, text: 'X (Formerly Twitter)', href: pluginInfoData.x },
+    { icon: 'messages-square', text: 'WordPress Support Thread', href: aboutPlugin.wpSupportThread }
   ]
   return (
     <div className="mb-5">
