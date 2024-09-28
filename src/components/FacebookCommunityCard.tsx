@@ -64,7 +64,8 @@ export default function FacebookCommunityCard({
           background: '#1877F2 !important',
           color: 'white !important',
           width: '90%!important',
-          marginBottom: 20
+          marginBottom: 20,
+          borderRadius: '100px !important'
         }}
         icon={<LucideIcn name="facebook" />}
       >
