@@ -46,10 +46,16 @@ final class LicenseController
         if (!is_wp_error($licenseActivationResponse) && $licenseActivationResponse->status === 'success') {
             LicenseService::setLicenseData($licenseKey, $licenseActivationResponse);
 
+            return wp_send_json_success(
+                ['message' => 'License activated successfully']
+            );
+
             return true;
         }
 
-        return empty($licenseActivationResponse->message) ? 'Unknown error occurred' : $licenseActivationResponse->message;
+        return wp_send_json_error(
+            ['message' => empty($licenseActivationResponse->message) ? 'Unknown error occurred' : $licenseActivationResponse->message]
+        );
     }
 
     public function deactivateLicense()
@@ -72,19 +78,29 @@ final class LicenseController
             if (!is_wp_error($licenseDeactivationResponse) && $licenseDeactivationResponse->status === 'success' || $licenseDeactivationResponse->code === 'INVALID_LICENSE') {
                 LicenseService::removeLicenseData();
 
-                return true;
+                return wp_send_json_success(
+                    ['message' => 'License deactivated successfully']
+                );
             }
 
-            return empty($licenseDeactivationResponse->message) ? 'Unknown error occurred' : $licenseDeactivationResponse->message;
+            return wp_send_json_error(
+                ['message' => empty($licenseDeactivationResponse->message) ? 'Unknown error occurred' : $licenseDeactivationResponse->message]
+            );
         }
 
-        return 'License data is missing';
+        return wp_send_json_error(
+            ['message' => 'License data is missing']
+        );
     }
 
     public function checkLicenseStatus()
     {
         $licenseData = get_option(UtilsConfig::getProPluginPrefix() . 'license_data');
 
-        return (bool) (!empty($licenseData) && \is_array($licenseData) && $licenseData['status'] === 'success');
+        $status = (bool) (!empty($licenseData) && \is_array($licenseData) && $licenseData['status'] === 'success');
+
+        return wp_send_json_success(
+            ['status' => $status, 'message' => $status ? 'License is active' : 'License is not active']
+        );
     }
 }
