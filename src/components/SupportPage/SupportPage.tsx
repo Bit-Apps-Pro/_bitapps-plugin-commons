@@ -1,11 +1,9 @@
 import { useState, type ReactNode } from 'react'
 
-import { XOutlined } from '@ant-design/icons'
 import config from '@config/config'
-import LucideIcn, { type IconNames } from '@icons/LucideIcn'
+import LucideIcn from '@icons/LucideIcn'
 import { useQuery } from '@tanstack/react-query'
-import { Avatar, Card, Col, Flex, Row, Skeleton, Space, Typography, theme } from 'antd'
-import { type CheckboxChangeEvent } from 'antd/es/checkbox'
+import { Avatar, Card, Col, Flex, Row, Skeleton, Typography, theme } from 'antd'
 import FacebookCommunityCard from '../FacebookCommunityCard'
 import ProLoader from '../ProLoader'
 import pluginInfoData from './data/pluginInfoData'
@@ -45,7 +43,7 @@ export default function SupportPage({ pluginSlug, logoComponent }: SupportPagePr
   const { token } = theme.useToken()
   const [loading] = useState(false)
 
-  const { data: supportInfo, isLoading } = useQuery<SupportObject, Error>({
+  const { data: supportInfo } = useQuery<SupportObject, Error>({
     queryKey: ['support'],
     queryFn: () => fetch(`${SUPPORT_FETCH_URL}`).then(res => res.json() as Promise<SupportObject>),
     staleTime: 1000 * 60 * 60 * 12 // 12 hours

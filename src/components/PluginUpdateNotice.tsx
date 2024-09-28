@@ -15,7 +15,7 @@ export default function PluginUpdateNotice() {
   const freePLuginVersion = SERVER_VARIABLES.version || ''
 
   if (proPluginVersion === freePLuginVersion) {
-    return null
+    return
   }
 
   return (

@@ -14,7 +14,7 @@ export default {
       docLink: 'https://bit-social.com/documentation/',
       buyLink: 'https://bit-social.com/#pricing/',
       website: 'https://bit-social.com',
-      reviewLink: 'https://wordpress.org/support/plugin/bit-social/reviews/',
+      reviewLink: 'https://wordpress.org/support/plugin/bit-social/reviews/'
     }
   }
 } as const
