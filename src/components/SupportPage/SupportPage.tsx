@@ -67,7 +67,7 @@ export default function SupportPage({
             <Paragraph style={{ color: token.colorTextSecondary }}>{aboutPlugin.description}</Paragraph>
           </div>
 
-          <ProExistLoader
+          {/* <ProExistLoader
             freeFallback={<></>}
             loadingFallback={
               <>
@@ -77,7 +77,7 @@ export default function SupportPage({
             }
           >
             {({ ProLicenseChecker }) => <ProLicenseChecker pluginSlug={pluginSlug} />}
-          </ProExistLoader>
+          </ProExistLoader> */}
 
           <Improvement />
 
