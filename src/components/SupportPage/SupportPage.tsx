@@ -9,7 +9,6 @@ import pluginInfoData from './data/pluginInfoData'
 import GiveReview from './GiveReview'
 import Improvement from './Imporvement'
 import SupportLinks from './SupportLinks'
-import ProExistLoader from '../ProExistLoader'
 
 interface Plugin {
   name: string
