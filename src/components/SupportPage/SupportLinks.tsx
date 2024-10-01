@@ -1,5 +1,5 @@
 import { XOutlined } from '@ant-design/icons'
-import { type IconNames } from '@icons/LucideIcn'
+import { type LucideIconNames } from '@icons/LucideIcn'
 import LucideIcn from '@icons/LucideIcn'
 import pluginInfoData from './data/pluginInfoData'
 import { Flex, theme, Typography } from 'antd'
@@ -35,7 +35,7 @@ export default function SupportLinks({ pluginSlug }: { pluginSlug: string }) {
         {supportLinks.map(({ icon, text, href, copyable }) => (
           <Text key={text}>
             <Flex gap={10}>
-              {typeof icon === 'string' ? <LucideIcn name={icon as IconNames} size={18} /> : icon}
+              {typeof icon === 'string' ? <LucideIcn name={icon as LucideIconNames} size={18} /> : icon}
               {copyable ? (
                 <Text copyable={{ text }}>
                   <Link
