@@ -21,13 +21,17 @@ final class LicenseController
 
     public function activateLicense()
     {
-        // TODO:: IMPLEMENT REQUEST VALIDATION
-        // $validated = $request->validate(
-        //     [
-        //         'licenseKey' => ['required', 'sanitize:text']
-        //     ]
-        // );
-        $licenseKey = $_POST['licenseKey'];
+        $json_payload = file_get_contents('php://input');
+
+        $req_data = json_decode($json_payload, true);
+
+        $licenseKey = isset($req_data['licenseKey']) ? sanitize_text_field($req_data['licenseKey']) : '';
+
+        if (empty($licenseKey)) {
+            return wp_send_json_error(
+                ['message' => 'License key is required']
+            );
+        }
 
         $data['licenseKey'] = $licenseKey;
 
@@ -49,8 +53,6 @@ final class LicenseController
             return wp_send_json_success(
                 ['message' => 'License activated successfully']
             );
-
-            return true;
         }
 
         return wp_send_json_error(
@@ -62,34 +64,34 @@ final class LicenseController
     {
         $licenseData = get_option(UtilsConfig::getProPluginPrefix() . 'license_data');
 
-        if (!empty($licenseData) && \is_array($licenseData) && $licenseData['status'] === 'success') {
-            $data['licenseKey'] = $licenseData['key'];
-
-            $data['domain'] = site_url();
-
-            $this->httpClient->setHeaders([
-                'content-type' => 'application/json',
-            ]);
-
-            $this->httpClient->setBody($data);
-
-            $licenseDeactivationResponse = $this->httpClient->post('/deactivate');
-
-            if (!is_wp_error($licenseDeactivationResponse) && $licenseDeactivationResponse->status === 'success' || $licenseDeactivationResponse->code === 'INVALID_LICENSE') {
-                LicenseService::removeLicenseData();
-
-                return wp_send_json_success(
-                    ['message' => 'License deactivated successfully']
-                );
-            }
-
+        if (empty($licenseData) || !\is_array($licenseData) || $licenseData['status'] !== 'success') {
             return wp_send_json_error(
-                ['message' => empty($licenseDeactivationResponse->message) ? 'Unknown error occurred' : $licenseDeactivationResponse->message]
+                ['message' => 'License data is missing']
+            );
+        }
+
+        $data['licenseKey'] = $licenseData['key'];
+
+        $data['domain'] = site_url();
+
+        $this->httpClient->setHeaders([
+            'content-type' => 'application/json',
+        ]);
+
+        $this->httpClient->setBody($data);
+
+        $licenseDeactivationResponse = $this->httpClient->post('/deactivate');
+
+        if (!is_wp_error($licenseDeactivationResponse) && $licenseDeactivationResponse->status === 'success' || $licenseDeactivationResponse->code === 'INVALID_LICENSE') {
+            LicenseService::removeLicenseData();
+
+            return wp_send_json_success(
+                ['message' => 'License deactivated successfully']
             );
         }
 
         return wp_send_json_error(
-            ['message' => 'License data is missing']
+            ['message' => empty($licenseDeactivationResponse->message) ? 'Unknown error occurred' : $licenseDeactivationResponse->message]
         );
     }
 

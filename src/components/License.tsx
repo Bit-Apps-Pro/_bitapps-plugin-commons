@@ -1,5 +1,7 @@
 import { SyncOutlined } from '@ant-design/icons'
 import aboutStatic from '@bitapps-plugin-utils/components/SupportPage/data/pluginInfoData'
+import request from '@common/helpers/request'
+import config from '@config/config'
 import LucideIcn from '@icons/LucideIcn'
 import { Badge, Button, Flex, theme, Tooltip } from 'antd'
 import Paragraph from 'antd/es/typography/Paragraph'
@@ -19,9 +21,16 @@ const SUBS_URL =
     ''
   )
 
+const handleDeactivateLicense = async () => {
+  await request('pro_license/deactivate')
+
+  window.location.reload()
+}
+
 export default function License({ pluginSlug }: { pluginSlug: string }) {
   const { token } = theme.useToken()
-  const aboutPlugin = aboutStatic[pluginSlug as keyof typeof aboutStatic]
+  const aboutPlugin = aboutStatic.plugins[pluginSlug as keyof typeof aboutStatic.plugins]
+
   const isCheckingUpdates = false
   const isNewVersionAvailable = false
   const isProNewVersionAvailable = false
@@ -33,26 +42,42 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
   const availableNewProVersion = '1.2.3'
   // const isFreeUptoDate = !isCheckingUpdates && !isNewVersionAvailable
   // const isProUptoDate = isPro && !isProNewVersionAvailable && !isProCheckingUpdates
-  const isLicenseConnected = false
+  const isLicenseConnected = config.IS_PRO
 
   const licenseKey = useRef(useSearchParam('licenseKey'))
 
-  useEffect(() => {
-    if (licenseKey.current) {
-      const url = new URL(window.location.href)
-      url.searchParams.delete('licenseKey')
-      window.history.replaceState({}, '', url)
-    }
-  }, [])
+  const handleActivateLicense = () => {
+    if (isLicenseConnected) return
 
-  const handleLicense = () => {
-    if (!isLicenseConnected) {
-      window.open(SUBS_URL, 'newWindow', 'width=800,height=600')
-    }
+    const openedWindow = window.open(SUBS_URL, 'newWindow', 'width=800,height=600')
+
+    const windowCloseChecker = setInterval(() => {
+      if (!openedWindow?.closed) return
+
+      clearInterval(windowCloseChecker)
+
+      window.location.reload()
+    }, 1000)
   }
 
+  const activateLicense = async () => {
+    await request('pro_license/activate', { licenseKey: licenseKey.current })
+
+    window.close()
+  }
+
+  useEffect(() => {
+    if (!licenseKey.current) return
+
+    const url = new URL(window.location.href)
+    url.searchParams.delete('licenseKey')
+    window.history.replaceState({}, '', url)
+
+    activateLicense()
+  }, [])
+
   return (
-    <div>
+    <>
       <Title level={5}>License & Activation</Title>
       <Paragraph>
         <Flex gap={15} align="center">
@@ -130,18 +155,30 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
             )} */}
 
             <Flex>
-              <Button
-                onClick={handleLicense}
-                icon={<LucideIcn name="badge-check" />}
-                type="primary"
-                size="large"
-              >
-                {isLicenseConnected ? 'Deactivate License' : 'Activate License'}
-              </Button>
+              {isLicenseConnected ? (
+                <Button
+                  onClick={handleDeactivateLicense}
+                  icon={<LucideIcn name="circle-x" />}
+                  type="primary"
+                  size="large"
+                  danger
+                >
+                  Deactivate License
+                </Button>
+              ) : (
+                <Button
+                  onClick={handleActivateLicense}
+                  icon={<LucideIcn name="badge-check" />}
+                  type="primary"
+                  size="large"
+                >
+                  Activate License
+                </Button>
+              )}
             </Flex>
           </Flex>
         )}
       </Paragraph>
-    </div>
+    </>
   )
 }

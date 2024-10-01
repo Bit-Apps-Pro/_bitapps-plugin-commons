@@ -34,20 +34,19 @@ export default function PluginUpdateNotice() {
           both versions share the same version number.
         </p>
         <Button
-          onClick={() => updatePlugin()}
-          icon={<SyncOutlined spin={isLoadingUpdatePlugin} />}
+          onClick={updatePlugin}
+          icon={isLoadingUpdatePlugin && <SyncOutlined spin />}
           style={{
             background: '#3858e9',
             color: '#fff',
-            padding: '6px 12px',
             border: 'none',
             marginBottom: 10,
-            cursor: 'pointer',
-            fontWeight: 400
+            fontWeight: 500,
+            borderRadius: 0
           }}
           disabled={isLoadingUpdatePlugin}
         >
-          Update Now {isLoadingUpdatePlugin && '...'}
+          {isLoadingUpdatePlugin ? 'Updating...' : 'Update Now'}
         </Button>
       </div>
     </div>

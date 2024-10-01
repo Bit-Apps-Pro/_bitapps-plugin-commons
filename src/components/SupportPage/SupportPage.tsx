@@ -5,11 +5,11 @@ import LucideIcn from '@icons/LucideIcn'
 import { useQuery } from '@tanstack/react-query'
 import { Avatar, Card, Col, Flex, Row, Skeleton, Typography, theme } from 'antd'
 import FacebookCommunityCard from '../FacebookCommunityCard'
-import ProLoader from '../ProLoader'
 import pluginInfoData from './data/pluginInfoData'
 import GiveReview from './GiveReview'
 import Improvement from './Imporvement'
 import SupportLinks from './SupportLinks'
+import ProExistLoader from '../ProExistLoader'
 
 interface Plugin {
   name: string
@@ -37,9 +37,14 @@ const SUPPORT_FETCH_URL =
 interface SupportPageProps {
   pluginSlug: string
   logoComponent: ReactNode
+  isCashBackVisible: boolean
 }
 
-export default function SupportPage({ pluginSlug, logoComponent }: SupportPageProps) {
+export default function SupportPage({
+  pluginSlug,
+  logoComponent,
+  isCashBackVisible = true
+}: SupportPageProps) {
   const { token } = theme.useToken()
   const [loading] = useState(false)
 
@@ -62,7 +67,7 @@ export default function SupportPage({ pluginSlug, logoComponent }: SupportPagePr
             <Paragraph style={{ color: token.colorTextSecondary }}>{aboutPlugin.description}</Paragraph>
           </div>
 
-          <ProLoader
+          <ProExistLoader
             freeFallback={<></>}
             loadingFallback={
               <>
@@ -72,7 +77,7 @@ export default function SupportPage({ pluginSlug, logoComponent }: SupportPagePr
             }
           >
             {({ ProLicenseChecker }) => <ProLicenseChecker pluginSlug={pluginSlug} />}
-          </ProLoader>
+          </ProExistLoader>
 
           <Improvement />
 
@@ -81,7 +86,7 @@ export default function SupportPage({ pluginSlug, logoComponent }: SupportPagePr
 
         <Col md={{ span: 9, offset: 2 }} sm={{ span: 24 }}>
           <div className="mb-5">
-            <GiveReview pluginSlug={pluginSlug} />
+            {isCashBackVisible && <GiveReview pluginSlug={pluginSlug} />}
 
             <FacebookCommunityCard facebookCommunityLink={pluginInfoData.facebookCommunity} />
           </div>
