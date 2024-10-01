@@ -6,13 +6,20 @@
 import { SyncOutlined } from '@ant-design/icons'
 import useUpdatePlugin from '@bitapps-plugin-utils/components/VersionMismatchedNotice/useUpdatePlugin'
 import { Button } from 'antd'
+import { type CSSProperties } from 'react'
+import { useState } from 'react'
 
 export default function PluginUpdateNotice() {
   const { isLoadingUpdatePlugin, updatePlugin } = useUpdatePlugin()
+  const [updateResponse, setUpdateResponse] = useState({ status: '', data: '' })
 
   const proPluginVersion = SERVER_VARIABLES.proPluginVersion || ''
 
   const freePLuginVersion = SERVER_VARIABLES.version || ''
+
+  if (proPluginVersion === '' || proPluginVersion === undefined) {
+    return
+  }
 
   if (proPluginVersion === undefined || proPluginVersion === '') {
     return
@@ -21,6 +28,22 @@ export default function PluginUpdateNotice() {
   if (proPluginVersion === freePLuginVersion) {
     return
   }
+
+  const handleUpdate = async () => {
+    const res = await updatePlugin()
+    setUpdateResponse(res as { status: string; data: string })
+
+    setTimeout(() => {
+      if (res.status === 'success') {
+        window.location.reload()
+      }
+    }, 1000)
+  }
+
+  const isError = updateResponse.status === 'error'
+  const style: CSSProperties = isError
+    ? { color: 'red', background: '', marginBlock: 5, textTransform: 'capitalize' }
+    : { color: 'green', background: '', marginBlock: 5, textTransform: 'capitalize' }
 
   return (
     <div
@@ -38,7 +61,7 @@ export default function PluginUpdateNotice() {
           both versions share the same version number.
         </p>
         <Button
-          onClick={updatePlugin}
+          onClick={handleUpdate}
           icon={isLoadingUpdatePlugin && <SyncOutlined spin />}
           style={{
             background: '#3858e9',
@@ -52,6 +75,12 @@ export default function PluginUpdateNotice() {
         >
           {isLoadingUpdatePlugin ? 'Updating...' : 'Update Now'}
         </Button>
+
+        {updateResponse.status && (
+          <div style={style}>
+            <b>{updateResponse.status}</b> {updateResponse.data}
+          </div>
+        )}
       </div>
     </div>
   )
