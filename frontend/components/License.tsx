@@ -1,5 +1,5 @@
 import { SyncOutlined } from '@ant-design/icons'
-import aboutStatic from '@bitapps-plugin-utils/components/SupportPage/data/pluginInfoData'
+import aboutStatic from '@bitapps-plugin-commons/components/SupportPage/data/pluginInfoData'
 import request from '@common/helpers/request'
 import config from '@config/config'
 import LucideIcn from '@icons/LucideIcn'
