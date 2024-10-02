@@ -1,5 +1,3 @@
-// Readme
-
 ## Bit Apps Plugin Utils
 
 In this repository, you will find a collection of utilities that can be used to create Bit apps plugins.
