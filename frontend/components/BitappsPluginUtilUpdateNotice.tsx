@@ -20,6 +20,9 @@ export function BitAppsPluginUtilUpdateNotice() {
             <Link href="https://github.com/Bit-Apps-Pro/_bitapps-plugin-utils" target="_blank">
               GitHub
             </Link>
+            .
+            <br />
+            If you already pulled the changes, please restart the dev server.
           </>
         }
       />
