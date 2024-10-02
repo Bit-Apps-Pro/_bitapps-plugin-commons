@@ -20,3 +20,8 @@ commit-msg:
   commands:
     commit-lint:
       run: pnpm commitlint --edit {1}
+
+post-merge:
+  commands:
+    sync-plugin-commons-files:
+      run: node .\frontend\bin\sync-plugin-commons-files.mjs
