@@ -57,8 +57,8 @@ export default function PluginUpdateNotice() {
       <div className="notice notice-warning">
         <h4 className="mt-2">Plugin Update Required (Bit Social) </h4>
         <p>
-          To maintain consistency between the Free and Pro versions, please update your plugin to ensure
-          both versions share the same version number.
+          Please update both Free and Pro plugins to the latest version. Keeping them the same is crucial
+          to avoid potential issues.
         </p>
         <Button
           onClick={handleUpdate}
