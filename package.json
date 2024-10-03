@@ -65,7 +65,6 @@
     "@eslint/compat": "^1.1.0",
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.9.1",
-    "@ls-lint/ls-lint": "^2.2.3",
     "@rollup/plugin-commonjs": "^26.0.1",
     "@stylistic/eslint-plugin": "^2.6.4",
     "@stylistic/eslint-plugin-ts": "^2.6.4",
