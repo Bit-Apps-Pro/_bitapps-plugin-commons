@@ -1,5 +1,5 @@
 import { SyncOutlined } from '@ant-design/icons'
-import aboutStatic from '@bitapps-plugin-utils/components/SupportPage/data/pluginInfoData'
+import pluginInfo from './SupportPage/data/pluginInfoData'
 import request from '@common/helpers/request'
 import config from '@config/config'
 import LucideIcn from '@icons/LucideIcn'
@@ -29,7 +29,7 @@ const handleDeactivateLicense = async () => {
 
 export default function License({ pluginSlug }: { pluginSlug: string }) {
   const { token } = theme.useToken()
-  const aboutPlugin = aboutStatic.plugins[pluginSlug as keyof typeof aboutStatic.plugins]
+  const aboutPlugin = pluginInfo.plugins[pluginSlug as keyof typeof pluginInfo.plugins]
 
   const isCheckingUpdates = false
   const isNewVersionAvailable = false
