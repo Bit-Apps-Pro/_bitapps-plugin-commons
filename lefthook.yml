@@ -23,5 +23,5 @@ commit-msg:
 
 post-merge:
   commands:
-    sync-plugin-commons-files:
-      run: node .\frontend\bin\sync-plugin-commons-files.mjs
+    sync-plugin-common-files:
+      run: node .\frontend\bin\sync-plugin-common-files.mjs
