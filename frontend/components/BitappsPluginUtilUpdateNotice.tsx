@@ -16,8 +16,8 @@ export function BitAppsPluginUtilUpdateNotice() {
         closable
         message={
           <>
-            "_bitapps-plugin-utils" updated, please pull new changes from{' '}
-            <Link href="https://github.com/Bit-Apps-Pro/_bitapps-plugin-utils" target="_blank">
+            "_bitapps-plugin-commons" updated, please pull new changes from{' '}
+            <Link href="https://github.com/Bit-Apps-Pro/_bitapps-plugin-commons" target="_blank">
               GitHub
             </Link>
             .
