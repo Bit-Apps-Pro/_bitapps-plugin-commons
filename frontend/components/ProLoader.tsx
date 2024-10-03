@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useAtomValue } from 'jotai'
 // eslint-disable-next-line custom/no-pro-module-import
 import { type ProModules } from 'pro-module'
-import VersionMismatchedNotice from '@bitapps-plugin-commons/components/VersionMismatchedNotice'
+import VersionMismatchedNotice from './VersionMismatchedNotice'
 
 export interface ProModulesType {
   proModule?: ProModules

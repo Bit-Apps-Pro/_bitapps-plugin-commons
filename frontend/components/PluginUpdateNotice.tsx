@@ -4,7 +4,7 @@
 */
 
 import { SyncOutlined } from '@ant-design/icons'
-import useUpdatePlugin from '@bitapps-plugin-commons/components/VersionMismatchedNotice/useUpdatePlugin'
+import useUpdatePlugin from './VersionMismatchedNotice/useUpdatePlugin'
 import { Button } from 'antd'
 import { type CSSProperties } from 'react'
 import { useState } from 'react'
