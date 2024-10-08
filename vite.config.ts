@@ -30,7 +30,7 @@ export default defineConfig(({ mode }) => {
   const ASSETS_DIR = 'assets'
   const PLUGIN_ASSETS_DIR = `${PLUGIN_SLUG}/${ASSETS_DIR}`
   const PRO_PLUGIN_ASSETS_DIR = `${PLUGIN_SLUG_PRO}/${ASSETS_DIR}`
-  const codeName = humanId({ separator: '-', capitalize: false, })
+  const codeName = humanId({ separator: '-', capitalize: false })
 
   return {
     root: 'src',
