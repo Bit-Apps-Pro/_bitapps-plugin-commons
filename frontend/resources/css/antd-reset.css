@@ -1,5 +1,4 @@
 @layer reset {
-
   /* stylelint-disable */
   html,
   body {
@@ -303,5 +302,4 @@
     padding: 0.2em;
     background-color: #feffe6;
   }
-
 }
