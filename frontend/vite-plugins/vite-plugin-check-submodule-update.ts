@@ -6,7 +6,7 @@ export default function checkSubmoduleUpdatesPlugin() {
 
     config() {
       const hasSubmoduleUpdates = checkForSubmoduleUpdates()
-      console.log(`Submodule update check completed. Updates available: ${hasSubmoduleUpdates}`)
+      console.log(`📦 Submodule update check completed. Updates available: ${hasSubmoduleUpdates}`)
 
       return {
         define: {
