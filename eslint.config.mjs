@@ -70,6 +70,7 @@ export default tseslint.config(
       'unicorn/no-array-callback-reference': 'off',
       'unicorn/explicit-length-check': 'off',
       'unicorn/no-array-for-each': 'off',
+      'unicorn/prefer-global-this': 'off',
       'unicorn/prevent-abbreviations': [
         'error',
         {
