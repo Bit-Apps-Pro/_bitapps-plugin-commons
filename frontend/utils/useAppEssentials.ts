@@ -1,10 +1,16 @@
 import { useEffect, useLayoutEffect } from 'react'
 import { setAppBgFromAdminBarBg, setCascadeLayerToWordpressStyles } from './themeUtils'
 
-export function useAppEssentials() {
+interface UseAppEssentialsProps {
+  cssLayers?: string
+}
+
+export function useAppEssentials(props?: UseAppEssentialsProps) {
+  const { cssLayers = '@layer wp, reset, antd, tailwind;' } = props || {}
+
   useLayoutEffect(() => {
-    setCascadeLayerToWordpressStyles()
-  }, [])
+    setCascadeLayerToWordpressStyles(cssLayers)
+  }, [cssLayers])
 
   useEffect(() => {
     setTimeout(setAppBgFromAdminBarBg, 500)

@@ -19,7 +19,7 @@ export function setAppBgFromAdminBarBg() {
   const bitAppsRootElm = select('#bit-apps-root')
   const wpAdminBarElm = select('#wpadminbar')
   if (bitAppsRootElm && wpAdminBarElm) {
-    bitAppsRootElm.style.backgroundColor = window.getComputedStyle(wpAdminBarElm)?.backgroundColor
+    bitAppsRootElm.style.backgroundColor = globalThis.getComputedStyle(wpAdminBarElm)?.backgroundColor
   }
 }
 
@@ -33,30 +33,50 @@ export function isConflictingCSS(cssUrl: string) {
 }
 
 /**
+ * Check if the css file is from the plugin
+ * @param cssUrl url of the css file
+ * @returns boolean indicating if the css file is from the plugin
+ */
+function isPluginCss(cssUrl: string) {
+  return cssUrl.includes(SERVER_VARIABLES.slug)
+}
+
+/**
  * Set the cascade layer to wordpress styles
  * To avoid conflicts with other stylesheets, we remove the conflicting
  * stylesheets and add wordpress styles in a @layer called wp
  * @returns void
  */
-export function setCascadeLayerToWordpressStyles() {
-  const styleSheetUrls = []
+export function setCascadeLayerToWordpressStyles(cssLayers: string) {
+  const styleSheetUrls: string[] = []
 
   const styleSheets = document.styleSheets
   for (const styleSheet of styleSheets) {
     if (styleSheet.href && !styleSheet.href.includes('antd')) {
       const url = new URL(styleSheet.href)
       if (url.pathname.endsWith('.css')) {
+        const isIgnoreFromLayer = isPluginCss(url.href)
+        if (isIgnoreFromLayer) continue
+
         if (!isConflictingCSS(url.href)) {
           styleSheetUrls.push(url.href)
         }
+        styleSheet.disabled = true
         styleSheet?.ownerNode?.remove()
       }
     }
   }
 
+  // const developmentAntdResetCss =
+  // '/wp-content/plugins/bit-social/frontend/_plugin-commons/resources/css/antd-reset.css'
+  // const productionAntdResetCss = SERVER_VARIABLES.assetsURL + '/antd-reset.css'
+  // const antdResetCss = import.meta.env.DEV ? developmentAntdResetCss : productionAntdResetCss
+  // @import url('${antdResetCss}') layer(reset);
   const wpStyles = document.createElement('style')
   wpStyles.textContent = `
-      ${styleSheetUrls.map(url => `@import url('${url}') layer(wp);`).join('\n')}
+      ${cssLayers}
+      ${styleSheetUrls.map(url => `@import url('${url}') layer(wp);`).join('\n')}\
     `
+
   document.head.insertBefore(wpStyles, document.head.firstChild)
 }
