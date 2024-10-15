@@ -5,7 +5,7 @@ export default function checkSubmoduleUpdatesPlugin() {
     name: 'vite-plugin-check-submodule-updates',
 
     config(_, { mode }) {
-      if(mode === 'production') return 
+      if (mode === 'production') return
 
       const hasSubmoduleUpdates = checkForSubmoduleUpdates()
       console.log(`Submodule update check completed. Updates available: ${hasSubmoduleUpdates}`)
