@@ -22,9 +22,10 @@ const SUBS_URL =
   )
 
 const handleDeactivateLicense = async () => {
-  await request('pro_license/deactivate')
+  const res = await request('pro_license/deactivate')
+  console.log('==== ~ res:', res)
 
-  window.location.reload()
+  // window.location.reload()
 }
 
 export default function License({ pluginSlug }: { pluginSlug: string }) {
