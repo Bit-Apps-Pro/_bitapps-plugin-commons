@@ -9,6 +9,8 @@ import pluginInfoData from './data/pluginInfoData'
 import GiveReview from './GiveReview'
 import Improvement from './Imporvement'
 import SupportLinks from './SupportLinks'
+import isPro from '../../utils/isPro'
+import License from '@plugin-commons/components/License.pro'
 
 interface Plugin {
   name: string
@@ -66,17 +68,7 @@ export default function SupportPage({
             <Paragraph style={{ color: token.colorTextSecondary }}>{aboutPlugin.description}</Paragraph>
           </div>
 
-          {/* <ProExistLoader
-            freeFallback={<></>}
-            loadingFallback={
-              <>
-                <Title level={5}>License & Activation</Title>
-                <Skeleton active title round />
-              </>
-            }
-          >
-            {({ ProLicenseChecker }) => <ProLicenseChecker pluginSlug={pluginSlug} />}
-          </ProExistLoader> */}
+          {isPro() && <License pluginSlug={pluginSlug} />}
 
           <Improvement />
 
