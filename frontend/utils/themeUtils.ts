@@ -49,12 +49,13 @@ function isPluginCss(cssUrl: string) {
  */
 export function setCascadeLayerToWordpressStyles(cssLayers: string) {
   const styleSheetUrls: string[] = []
+  const links = document.querySelectorAll('link[rel="stylesheet"]') || []
+  const styleSheets = [...document.styleSheets, ...links] as CSSStyleSheet[]
 
-  const styleSheets = document.styleSheets
   for (const styleSheet of styleSheets) {
     if (styleSheet.href && !styleSheet.href.includes('antd')) {
       const url = new URL(styleSheet.href)
-      if (url.pathname.endsWith('.css')) {
+      if (url.pathname.endsWith('.css') || url.pathname.includes('load-styles.php')) {
         const isIgnoreFromLayer = isPluginCss(url.href)
         if (isIgnoreFromLayer) continue
 
