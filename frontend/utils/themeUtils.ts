@@ -38,7 +38,7 @@ export function isConflictingCSS(cssUrl: string) {
  * @returns boolean indicating if the css file is from the plugin
  */
 function isPluginCss(cssUrl: string) {
-  return cssUrl.includes(SERVER_VARIABLES.slug)
+  return cssUrl.replaceAll(window.location.host, '').includes(SERVER_VARIABLES.slug)
 }
 
 /**
@@ -49,10 +49,11 @@ function isPluginCss(cssUrl: string) {
  */
 export function setCascadeLayerToWordpressStyles(cssLayers: string) {
   const styleSheetUrls: string[] = []
-  const links = document.querySelectorAll('link[rel="stylesheet"]') || []
+  const links = document.querySelectorAll('link') || []
   const styleSheets = [...document.styleSheets, ...links] as CSSStyleSheet[]
 
-  for (const styleSheet of styleSheets) {
+
+for (const styleSheet of styleSheets) {
     if (styleSheet.href && !styleSheet.href.includes('antd')) {
       const url = new URL(styleSheet.href)
       if (url.pathname.endsWith('.css') || url.pathname.includes('load-styles.php')) {
