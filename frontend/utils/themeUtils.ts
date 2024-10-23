@@ -52,8 +52,7 @@ export function setCascadeLayerToWordpressStyles(cssLayers: string) {
   const links = document.querySelectorAll('link') || []
   const styleSheets = [...document.styleSheets, ...links] as CSSStyleSheet[]
 
-
-for (const styleSheet of styleSheets) {
+  for (const styleSheet of styleSheets) {
     if (styleSheet.href && !styleSheet.href.includes('antd')) {
       const url = new URL(styleSheet.href)
       if (url.pathname.endsWith('.css') || url.pathname.includes('load-styles.php')) {
