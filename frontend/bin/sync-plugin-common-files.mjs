@@ -14,6 +14,7 @@ console.log('Current Working Dir', process.cwd())
 
 Promise.all([
   fse.copy('./_bitapps-plugin-commons/frontend', './frontend/_plugin-commons', { overwrite: true }),
+  fse.copy('./_bitapps-plugin-commons/configs', './.config/_plugin-commons', { overwrite: true }),
   // fse.copy('./_bitapps-plugin-commons/backend/free', '/backend/_plugin-commons', { overwrite: true })
   fse.copy('./_bitapps-plugin-commons/backend/pro', './pro/backend/_plugin-commons', { overwrite: true })
 ])
