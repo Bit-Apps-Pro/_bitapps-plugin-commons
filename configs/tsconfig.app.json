@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "typeRoots": ["./frontend/src/types"],
     "target": "ESNext",
     "useDefineForClassFields": true,
@@ -46,7 +47,6 @@
     "frontend/src/types",
     "vite.config.ts",
     "scripts/",
-    "bin/add-free-deps-to-pro.mjs",
     "_bitapps-plugin-commons"
   ],
   "exclude": ["node_modules"],
