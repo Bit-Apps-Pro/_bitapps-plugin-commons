@@ -28,11 +28,11 @@
     "baseUrl": ".",
     "rootDir": "src",
     "paths": {
-      "@src/*": ["src/*"],
+      "@src/*": ["src/*"]
     },
 
     "allowImportingTsExtensions": true,
-    "moduleDetection": "force",
+    "moduleDetection": "force"
   },
-  "include": ["src",]
+  "include": ["src"]
 }
