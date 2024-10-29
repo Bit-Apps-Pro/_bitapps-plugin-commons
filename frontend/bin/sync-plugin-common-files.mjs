@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint-disable unicorn/prefer-top-level-await */
 
 import fse from 'fs-extra'
 import process from 'node:process'
