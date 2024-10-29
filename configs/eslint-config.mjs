@@ -1,7 +1,6 @@
 import { fixupPluginRules } from '@eslint/compat'
 import { default as eslint } from '@eslint/js'
 import stylisticTs from '@stylistic/eslint-plugin-ts'
-import { eslintRulesNoImportFromSubmodule } from 'bitapps-dev-utils'
 import cypress from 'eslint-plugin-cypress'
 import importPlugin from 'eslint-plugin-import'
 import jsxA11Y from 'eslint-plugin-jsx-a11y'
@@ -42,11 +41,11 @@ export default tseslint.config(
       }
     },
     plugins: {
-      custom: {
-        rules: {
-          'no-import-from-submodule': eslintRulesNoImportFromSubmodule
-        }
-      },
+      // custom: {
+      //   rules: {
+      //     // 'plugin-name': importedPlugin,
+      //   }
+      // },
       cypress,
       import: fixupPluginRules(importPlugin),
       jsxA11Y,
@@ -74,8 +73,6 @@ export default tseslint.config(
       'arrow-parens': 0,
       camelcase: ['error', { properties: 'never' }],
       'consistent-return': 'off',
-      'custom/no-import-from-submodule': ['error', { forbiddenFolder: '_bitapps-plugin-commons' }],
-      // "import/no-relative-parent-imports": "error",
       'import/consistent-type-specifier-style': ['error', 'prefer-inline'],
       'import/extensions': 'off',
       'import/first': 'error',
@@ -92,10 +89,26 @@ export default tseslint.config(
       'max-len': ['error', { code: 350 }],
       'newline-per-chained-call': ['error', { ignoreChainWithDepth: 4 }],
       'no-console': ['warn', { allow: ['warn', 'error'] }],
-
       'no-param-reassign': [
         'error',
         { ignorePropertyModificationsForRegex: ['^draft', '^prev', '^prv', 'acc'], props: true }
+      ],
+
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['_bitapps-plugin-commons'],
+              message:
+                'Use `@plugin-commons/*` instead, make sure plugin commons are synced and up to date.'
+            },
+            {
+              group: ['lucide-react'],
+              message: 'Use the <LucideIcn /> component instead.'
+            }
+          ]
+        }
       ],
 
       'object-curly-newline': [
