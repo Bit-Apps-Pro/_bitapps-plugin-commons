@@ -1,25 +1,27 @@
 import { fixupPluginRules } from '@eslint/compat'
 import { default as eslint } from '@eslint/js'
 import stylisticTs from '@stylistic/eslint-plugin-ts'
-import { eslintRulesNoImportFromSubmodule, eslintRulesNoProModuleImport } from 'bitapps-dev-utils'
+import { eslintRulesNoImportFromSubmodule } from 'bitapps-dev-utils'
 import cypress from 'eslint-plugin-cypress'
 import importPlugin from 'eslint-plugin-import'
 import jsxA11Y from 'eslint-plugin-jsx-a11y'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import perfectionist from 'eslint-plugin-perfectionist'
 import prettier from 'eslint-plugin-prettier'
 import promise from 'eslint-plugin-promise'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import eslintPluginUnicorn from 'eslint-plugin-unicorn'
+import unusedImports from 'eslint-plugin-unused-imports'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
-import simpleImportSort from 'eslint-plugin-simple-import-sort'
-import unusedImports from 'eslint-plugin-unused-imports'
 
 export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.strict,
   ...tseslint.configs.stylistic,
+  perfectionist.configs['recommended-natural'],
   jsxA11Y.flatConfigs.recommended,
   {
     ignores: [
@@ -32,170 +34,163 @@ export default tseslint.config(
     ],
     languageOptions: {
       ecmaVersion: 'latest',
+      globals: globals.browser,
       parserOptions: {
         ecmaFeatures: {
           jsx: true
         }
-      },
-      globals: globals.browser
-    },
-    plugins: {
-      react,
-      'react-hooks': fixupPluginRules(reactHooks),
-      jsxA11Y,
-      import: fixupPluginRules(importPlugin),
-      cypress,
-      prettier,
-      promise,
-      stylisticTs,
-      'unused-imports': unusedImports,
-      'simple-import-sort': simpleImportSort,
-      'react-refresh': reactRefresh,
-      unicorn: eslintPluginUnicorn,
-      custom: {
-        rules: {
-          'no-pro-module-import': eslintRulesNoProModuleImport,
-          'no-import-from-submodule': eslintRulesNoImportFromSubmodule
-        }
       }
     },
-    settings: {
-      react: { version: 'detect' },
-      'import/resolver': { typescript: true }
+    plugins: {
+      custom: {
+        rules: {
+          'no-import-from-submodule': eslintRulesNoImportFromSubmodule
+        }
+      },
+      cypress,
+      import: fixupPluginRules(importPlugin),
+      jsxA11Y,
+      prettier,
+      promise,
+      react,
+      'react-hooks': fixupPluginRules(reactHooks),
+      'react-refresh': reactRefresh,
+      stylisticTs,
+      unicorn: eslintPluginUnicorn,
+      'unused-imports': unusedImports
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
       ...react.configs.recommended.rules,
       ...eslintPluginUnicorn.configs['flat/recommended'].rules,
-      'custom/no-pro-module-import': 'error',
-      'custom/no-import-from-submodule': ['error', { forbiddenFolder: '_bitapps-plugin-commons' }],
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
-      'unicorn/filename-case': [
-        'error',
-        { cases: { pascalCase: true, camelCase: true, kebabCase: true } }
-      ],
-      'unicorn/no-array-callback-reference': 'off',
-      'unicorn/explicit-length-check': 'off',
-      'unicorn/no-array-for-each': 'off',
-      'unicorn/prefer-global-this': 'off',
-      'unicorn/prevent-abbreviations': [
-        'error',
-        {
-          replacements: {
-            e: false,
-            err: false,
-            prv: false,
-            prev: false,
-            prop: false,
-            props: false,
-            param: false,
-            params: false,
-            num: false,
-            msg: false,
-            obj: false,
-            res: false,
-            val: false,
-            req: false,
-            arr: false,
-            tmp: false,
-            i: false,
-            ref: false,
-            arg: false,
-            args: false,
-            var: false,
-            vars: false,
-            func: false,
-            btn: false,
-            str: false,
-            idx: false,
-            elm: false,
-            db: false,
-            doc: false,
-            docs: false
-          }
-        }
-      ],
-      'unicorn/prefer-switch': ['error', { minimumCases: 6 }],
-      'unicorn/no-array-reduce': 'off',
-      'unused-imports/no-unused-imports': 'error',
-      'unused-imports/no-unused-vars': [
-        'warn',
-        {
-          vars: 'all',
-          varsIgnorePattern: '^_',
-          args: 'after-used',
-          argsIgnorePattern: '^_'
-        }
-      ],
-      'simple-import-sort/exports': 'error',
-      indent: 'off',
+      '@typescript-eslint/consistent-type-imports': 'error',
+      '@typescript-eslint/indent': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/no-use-before-define': ['error', { classes: false, functions: false }],
+      '@typescript-eslint/semi': 'off',
       allowImplicit: 'off',
-      camelcase: ['error', { properties: 'never' }],
-
-      'react/require-default-props': [0, { functions: 'ignore' }],
-
-      'react/no-unescaped-entities': [
-        'error',
-        {
-          forbid: [
-            { char: '>', alternatives: ['&gt;'] },
-            { char: '<', alternatives: ['&lt;'] }
-          ]
-        }
-      ],
-
-      'template-curly-spacing': 'off',
-      'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
-      'react/destructuring-assignment': 0,
+      'array-callback-return': 'off',
       'arrow-parens': 0,
-      'react/prop-types': 0,
-      'max-len': ['error', { code: 350 }],
+      camelcase: ['error', { properties: 'never' }],
+      'consistent-return': 'off',
+      'custom/no-import-from-submodule': ['error', { forbiddenFolder: '_bitapps-plugin-commons' }],
+      // "import/no-relative-parent-imports": "error",
+      'import/consistent-type-specifier-style': ['error', 'prefer-inline'],
+      'import/extensions': 'off',
+      'import/first': 'error',
+      'import/newline-after-import': 'error',
+      'import/no-duplicates': 'error',
+      'import/no-empty-named-blocks': 'error',
+      'import/no-extraneous-dependencies': 'error',
+      'import/no-import-module-exports': 'error',
+      'import/no-relative-packages': 'error',
+      'import/no-self-import': 'error',
+      'import/no-useless-path-segments': ['error', { noUselessIndex: true }],
+      indent: 'off',
       'linebreak-style': ['error', 'unix'],
-      'react-hooks/exhaustive-deps': 'warn',
-      'react/jsx-uses-react': 'off',
-      'react/react-in-jsx-scope': 'off',
+      'max-len': ['error', { code: 350 }],
+      'newline-per-chained-call': ['error', { ignoreChainWithDepth: 4 }],
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+
+      'no-param-reassign': [
+        'error',
+        { ignorePropertyModificationsForRegex: ['^draft', '^prev', '^prv', 'acc'], props: true }
+      ],
 
       'object-curly-newline': [
         'error',
         {
-          ImportDeclaration: { consistent: true },
           ExportDeclaration: { consistent: true },
-          ObjectPattern: { consistent: true },
-          ObjectExpression: { consistent: true }
+          ImportDeclaration: { consistent: true },
+          ObjectExpression: { consistent: true },
+          ObjectPattern: { consistent: true }
         }
       ],
 
-      'array-callback-return': 'off',
-      'consistent-return': 'off',
-
-      'newline-per-chained-call': ['error', { ignoreChainWithDepth: 4 }],
-      'import/extensions': 'off',
-      'import/no-extraneous-dependencies': 'error',
-      'import/no-duplicates': 'error',
-      'import/no-self-import': 'error',
-      'import/no-relative-packages': 'error',
-      'import/first': 'error',
-      // "import/no-relative-parent-imports": "error",
-      'import/consistent-type-specifier-style': ['error', 'prefer-inline'],
-      '@typescript-eslint/consistent-type-imports': 'error',
-      '@typescript-eslint/no-non-null-assertion': 'off',
-      'import/no-empty-named-blocks': 'error',
-      'import/no-import-module-exports': 'error',
-      'import/newline-after-import': 'error',
-      'import/no-useless-path-segments': ['error', { noUselessIndex: true }],
-      '@typescript-eslint/no-unused-vars': 'error',
-      '@typescript-eslint/indent': 'off',
-      '@typescript-eslint/semi': 'off',
       'prettier/prettier': ['warn', {}],
-
-      '@typescript-eslint/no-use-before-define': ['error', { functions: false, classes: false }],
-
-      'react/no-unknown-property': ['error', { ignore: ['css'] }],
-
-      'no-param-reassign': [
+      'react/destructuring-assignment': 0,
+      'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
+      'react/jsx-uses-react': 'off',
+      'react/no-unescaped-entities': [
         'error',
-        { props: true, ignorePropertyModificationsForRegex: ['^draft', '^prev', '^prv', 'acc'] }
+        {
+          forbid: [
+            { alternatives: ['&gt;'], char: '>' },
+            { alternatives: ['&lt;'], char: '<' }
+          ]
+        }
+      ],
+      'react/no-unknown-property': ['error', { ignore: ['css'] }],
+      'react/prop-types': 0,
+      'react/react-in-jsx-scope': 'off',
+      'react/require-default-props': [0, { functions: 'ignore' }],
+      'react-hooks/exhaustive-deps': 'warn',
+      'template-curly-spacing': 'off',
+      'unicorn/explicit-length-check': 'off',
+      'unicorn/filename-case': [
+        'error',
+        { cases: { camelCase: true, kebabCase: true, pascalCase: true } }
+      ],
+      'unicorn/no-array-callback-reference': 'off',
+      'unicorn/no-array-for-each': 'off',
+      'unicorn/no-array-reduce': 'off',
+      'unicorn/prefer-global-this': 'off',
+      'unicorn/prefer-switch': ['error', { minimumCases: 6 }],
+
+      'unicorn/prevent-abbreviations': [
+        'error',
+        {
+          replacements: {
+            arg: false,
+            args: false,
+            arr: false,
+            btn: false,
+            db: false,
+            doc: false,
+            docs: false,
+            e: false,
+            elm: false,
+            err: false,
+            func: false,
+            i: false,
+            idx: false,
+            msg: false,
+            num: false,
+            obj: false,
+            param: false,
+            params: false,
+            prev: false,
+            prop: false,
+            props: false,
+            prv: false,
+            ref: false,
+            req: false,
+            res: false,
+            str: false,
+            tmp: false,
+            val: false,
+            var: false,
+            vars: false
+          }
+        }
+      ],
+
+      'unused-imports/no-unused-imports': 'error',
+
+      'unused-imports/no-unused-vars': [
+        'warn',
+        {
+          args: 'after-used',
+          argsIgnorePattern: '^_',
+          vars: 'all',
+          varsIgnorePattern: '^_'
+        }
       ]
+    },
+    settings: {
+      'import/resolver': { typescript: true },
+      react: { version: 'detect' }
     }
   }
 )

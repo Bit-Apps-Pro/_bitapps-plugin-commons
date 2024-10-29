@@ -1,6 +1,6 @@
 import LucideIcn from '@icons/LucideIcn'
-import { Button, Flex, theme } from 'antd'
 import fbCommunityImg from '@plugin-commons/resources/img/fbCommunity.webp'
+import { Button, Flex, theme } from 'antd'
 
 export default function FacebookCommunityCard({
   facebookCommunityLink
@@ -11,44 +11,44 @@ export default function FacebookCommunityCard({
 
   return (
     <Flex
+      align="center"
+      css={{
+        border: `1px solid ${token.colorBorder}`,
+        borderRadius: 10,
+        marginTop: 30,
+        overflow: 'hidden',
+        position: 'relative'
+      }}
+      gap={20}
       justify="center"
       vertical
-      align="center"
-      gap={20}
-      css={{
-        position: 'relative',
-        borderRadius: 10,
-        overflow: 'hidden',
-        border: `1px solid ${token.colorBorder}`,
-        marginTop: 30
-      }}
     >
       <div
         css={{
-          height: 165,
-          width: '100%',
+          backgroundImage: `url(${fbCommunityImg})`,
           backgroundSize: 'cover',
-          backgroundImage: `url(${fbCommunityImg})`
+          height: 165,
+          width: '100%'
         }}
       />
       <Flex
-        vertical
-        justify="end"
         css={{
-          position: 'absolute',
           background: 'linear-gradient(0deg, #00169a, transparent)',
-          width: '100%',
-          top: '-11%',
           height: 205,
-          paddingLeft: 20
+          paddingLeft: 20,
+          position: 'absolute',
+          top: '-11%',
+          width: '100%'
         }}
+        justify="end"
+        vertical
       >
-        <h3 css={{ fontWeight: 'bold', fontSize: 25, color: 'white' }}>Join Our Facebook Community</h3>
-        <p css={{ fontSize: 18, color: 'white' }}>
+        <h3 css={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>Join Our Facebook Community</h3>
+        <p css={{ color: 'white', fontSize: 18 }}>
           Connect, share, and grow with like-minded individuals
         </p>
       </Flex>
-      <Flex justify="center" gap={15} css={{ marginBlock: 0 }}>
+      <Flex css={{ marginBlock: 0 }} gap={15} justify="center">
         <span>🌟 Exclusive Content</span>
         <span>💬 Daily Discussion</span>
         <span>🎉 Special Events</span>
@@ -56,17 +56,17 @@ export default function FacebookCommunityCard({
 
       <Button
         block
-        href={facebookCommunityLink}
-        target="_blank"
-        size="large"
         css={{
           background: '#1877F2 !important',
+          borderRadius: '100px !important',
           color: 'white !important',
-          width: '90%!important',
           marginBottom: 20,
-          borderRadius: '100px !important'
+          width: '90%!important'
         }}
+        href={facebookCommunityLink}
         icon={<LucideIcn name="facebook" />}
+        size="large"
+        target="_blank"
       >
         Join Now
       </Button>

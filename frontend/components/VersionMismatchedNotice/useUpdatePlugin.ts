@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export default function useUpdatePlugin() {
   const queryClient = useQueryClient()
-  const { mutateAsync, isPending } = useMutation({
+  const { isPending, mutateAsync } = useMutation({
     mutationFn: () => request(`pro_update-plugin`, undefined, undefined, 'GET'),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pro_update-plugin'] })
@@ -11,7 +11,7 @@ export default function useUpdatePlugin() {
   })
 
   return {
-    updatePlugin: () => mutateAsync(),
-    isLoadingUpdatePlugin: isPending
+    isLoadingUpdatePlugin: isPending,
+    updatePlugin: () => mutateAsync()
   }
 }

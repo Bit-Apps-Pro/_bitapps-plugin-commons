@@ -7,12 +7,12 @@ interface Tracking {
 
 export default function useTracking() {
   const { data, isLoading } = useQuery<{ data: Tracking }, Error>({
-    queryKey: ['tracking'],
-    queryFn: () => request('plugin-improvement', undefined, undefined, 'GET')
+    queryFn: () => request('plugin-improvement', undefined, undefined, 'GET'),
+    queryKey: ['tracking']
   })
 
   return {
-    tracking: data?.data,
-    isTrackingLoading: isLoading
+    isTrackingLoading: isLoading,
+    tracking: data?.data
   }
 }

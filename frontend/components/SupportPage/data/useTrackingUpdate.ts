@@ -4,10 +4,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 export default function useTrackingUpdate() {
   const queryClient = useQueryClient()
 
-  const { mutateAsync, isPending } = useMutation({
-    mutationKey: ['update-tracking'],
+  const { isPending, mutateAsync } = useMutation({
     mutationFn: (allowTracking: boolean) =>
       request<{ allowTracking: boolean }>('plugin-improvement', { allowTracking }, undefined, 'POST'),
+    mutationKey: ['update-tracking'],
     onSuccess: data => {
       if (data.status === 'success') {
         queryClient.setQueryData(['tracking'], { data: { allowTracking: data?.data?.allowTracking } })
@@ -16,7 +16,7 @@ export default function useTrackingUpdate() {
   })
 
   return {
-    updateTracking: mutateAsync,
-    isUpdatingTracking: isPending
+    isUpdatingTracking: isPending,
+    updateTracking: mutateAsync
   }
 }

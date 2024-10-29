@@ -4,14 +4,15 @@
 */
 
 import { SyncOutlined } from '@ant-design/icons'
-import useUpdatePlugin from './VersionMismatchedNotice/useUpdatePlugin'
 import { Button } from 'antd'
 import { type CSSProperties } from 'react'
 import { useState } from 'react'
 
+import useUpdatePlugin from './VersionMismatchedNotice/useUpdatePlugin'
+
 export default function PluginUpdateNotice() {
   const { isLoadingUpdatePlugin, updatePlugin } = useUpdatePlugin()
-  const [updateResponse, setUpdateResponse] = useState({ status: '', data: '' })
+  const [updateResponse, setUpdateResponse] = useState({ data: '', status: '' })
 
   const proPluginVersion = SERVER_VARIABLES.proPluginVersion || ''
 
@@ -31,7 +32,7 @@ export default function PluginUpdateNotice() {
 
   const handleUpdate = async () => {
     const res = await updatePlugin()
-    setUpdateResponse(res as { status: string; data: string })
+    setUpdateResponse(res as { data: string; status: string })
 
     setTimeout(() => {
       if (res.status === 'success') {
@@ -42,16 +43,16 @@ export default function PluginUpdateNotice() {
 
   const isError = updateResponse.status === 'error'
   const style: CSSProperties = isError
-    ? { color: 'red', background: '', marginBlock: 5, textTransform: 'capitalize' }
-    : { color: 'green', background: '', marginBlock: 5, textTransform: 'capitalize' }
+    ? { background: '', color: 'red', marginBlock: 5, textTransform: 'capitalize' }
+    : { background: '', color: 'green', marginBlock: 5, textTransform: 'capitalize' }
 
   return (
     <div
       style={{
         background: 'white',
-        padding: '10px 4px',
         fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif'
+          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
+        padding: '10px 4px'
       }}
     >
       <div className="notice notice-warning">
@@ -61,17 +62,17 @@ export default function PluginUpdateNotice() {
           to avoid potential issues.
         </p>
         <Button
-          onClick={handleUpdate}
+          disabled={isLoadingUpdatePlugin}
           icon={isLoadingUpdatePlugin && <SyncOutlined spin />}
+          onClick={handleUpdate}
           style={{
             background: '#3858e9',
-            color: '#fff',
             border: 'none',
-            marginBottom: 10,
+            borderRadius: 0,
+            color: '#fff',
             fontWeight: 500,
-            borderRadius: 0
+            marginBottom: 10
           }}
-          disabled={isLoadingUpdatePlugin}
         >
           {isLoadingUpdatePlugin ? 'Updating...' : 'Update Now'}
         </Button>

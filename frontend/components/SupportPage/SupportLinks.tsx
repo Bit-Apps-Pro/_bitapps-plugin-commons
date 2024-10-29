@@ -1,10 +1,11 @@
 import { XOutlined } from '@ant-design/icons'
 import { type LucideIconNames } from '@icons/LucideIcn'
 import LucideIcn from '@icons/LucideIcn'
-import pluginInfoData from './data/pluginInfoData'
 import { Flex, theme, Typography } from 'antd'
 
-const { Title, Link, Text } = Typography
+import pluginInfoData from './data/pluginInfoData'
+
+const { Link, Text, Title } = Typography
 
 export default function SupportLinks({ pluginSlug }: { pluginSlug: string }) {
   const { token } = theme.useToken()
@@ -13,43 +14,43 @@ export default function SupportLinks({ pluginSlug }: { pluginSlug: string }) {
 
   const supportLinks = [
     {
-      icon: 'mail',
-      text: pluginInfoData.supportEmail,
+      copyable: true,
       href: `mailto:${pluginInfoData.supportEmail}`,
-      copyable: true
+      icon: 'mail',
+      text: pluginInfoData.supportEmail
     },
-    { icon: 'globe', text: 'Website', href: aboutPlugin.website },
-    { icon: 'message-circle', text: 'Chat here', href: pluginInfoData.chatLink },
-    { icon: 'linkedin', text: 'LinkedIn', href: pluginInfoData.linkedIn },
-    { icon: 'book-check', text: 'Documentation', href: aboutPlugin.docLink },
-    { icon: 'youtube', text: 'YouTube Channel', href: pluginInfoData.youtubeChannel },
-    { icon: 'facebook', text: 'Facebook Community', href: pluginInfoData.facebookCommunity },
-    { icon: <XOutlined />, text: 'X (Formerly Twitter)', href: pluginInfoData.x },
-    { icon: 'messages-square', text: 'WordPress Support Thread', href: aboutPlugin.wpSupportThread }
+    { href: aboutPlugin.website, icon: 'globe', text: 'Website' },
+    { href: pluginInfoData.chatLink, icon: 'message-circle', text: 'Chat here' },
+    { href: pluginInfoData.linkedIn, icon: 'linkedin', text: 'LinkedIn' },
+    { href: aboutPlugin.docLink, icon: 'book-check', text: 'Documentation' },
+    { href: pluginInfoData.youtubeChannel, icon: 'youtube', text: 'YouTube Channel' },
+    { href: pluginInfoData.facebookCommunity, icon: 'facebook', text: 'Facebook Community' },
+    { href: pluginInfoData.x, icon: <XOutlined />, text: 'X (Formerly Twitter)' },
+    { href: aboutPlugin.wpSupportThread, icon: 'messages-square', text: 'WordPress Support Thread' }
   ]
   return (
     <div className="mb-5">
       <Title level={5}>Support</Title>
 
       <div css={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-        {supportLinks.map(({ icon, text, href, copyable }) => (
+        {supportLinks.map(({ copyable, href, icon, text }) => (
           <Text key={text}>
             <Flex gap={10}>
               {typeof icon === 'string' ? <LucideIcn name={icon as LucideIconNames} size={18} /> : icon}
               {copyable ? (
                 <Text copyable={{ text }}>
                   <Link
-                    rel="noopener noreferrer nofollow"
                     href={href}
+                    rel="noopener noreferrer nofollow"
                     strong
-                    underline
                     style={{ color: token.colorText }}
+                    underline
                   >
                     {text}
                   </Link>
                 </Text>
               ) : (
-                <Link target="_blank" rel="noopener noreferrer nofollow" href={href} strong>
+                <Link href={href} rel="noopener noreferrer nofollow" strong target="_blank">
                   {text}
                   <LucideIcn name="move-up-right" size={12} style={{ transform: 'translateY(-4px)' }} />
                 </Link>

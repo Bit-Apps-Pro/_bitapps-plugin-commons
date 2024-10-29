@@ -1,8 +1,9 @@
 import config from '@config/config'
+import LucideIcn from '@icons/LucideIcn'
 import { Badge, Button } from 'antd'
 import Link from 'antd/es/typography/Link'
+
 import pluginInfoData from './data/pluginInfoData'
-import LucideIcn from '@icons/LucideIcn'
 
 export default function GiveReview({ pluginSlug }: { pluginSlug: string }) {
   const aboutPlugin = pluginInfoData.plugins[pluginSlug as keyof typeof pluginInfoData.plugins]
@@ -10,12 +11,12 @@ export default function GiveReview({ pluginSlug }: { pluginSlug: string }) {
   return (
     <div
       css={{
-        padding: 6,
-        borderRadius: 14,
+        animation: 'gradient-animation 5s ease infinite',
         background:
           'linear-gradient(135deg, hsla(260, 100%, 80%, 1) 0%, hsla(338, 100%, 71%, 1) 25%, hsla(215, 95%, 78%, 1) 55%, hsla(116, 41%, 78%, 1) 79%, hsla(330, 53%, 77%, 1) 100%)',
         backgroundSize: '300% 300%',
-        animation: 'gradient-animation 5s ease infinite'
+        borderRadius: 14,
+        padding: 6
       }}
     >
       <Badge.Ribbon
@@ -46,18 +47,18 @@ export default function GiveReview({ pluginSlug }: { pluginSlug: string }) {
           </p>
           <Button
             block
-            href={aboutPlugin.reviewLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            type="primary"
-            size="large"
-            icon="💬"
             css={{
-              marginTop: 10,
-              borderRadius: '100px!important',
               background: '#a300ff!important',
-              color: 'white!important'
+              borderRadius: '100px!important',
+              color: 'white!important',
+              marginTop: 10
             }}
+            href={aboutPlugin.reviewLink}
+            icon="💬"
+            rel="noopener noreferrer"
+            size="large"
+            target="_blank"
+            type="primary"
           >
             Review Now
           </Button>

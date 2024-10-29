@@ -1,5 +1,4 @@
 import { SyncOutlined } from '@ant-design/icons'
-import pluginInfo from './SupportPage/data/pluginInfoData'
 import request from '@common/helpers/request'
 import config from '@config/config'
 import LucideIcn from '@icons/LucideIcn'
@@ -8,6 +7,8 @@ import Paragraph from 'antd/es/typography/Paragraph'
 import Title from 'antd/es/typography/Title'
 import { useEffect, useRef } from 'react'
 import { useSearchParam } from 'react-use'
+
+import pluginInfo from './SupportPage/data/pluginInfoData'
 
 // TODO: add update functionality
 // TODO: changelog fetch
@@ -81,7 +82,7 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
     <>
       <Title level={5}>License & Activation</Title>
       <Paragraph>
-        <Flex gap={15} align="center">
+        <Flex align="center" gap={15}>
           Version: {freeVersion}
           {isCheckingUpdates && (
             <b>
@@ -89,14 +90,14 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
             </b>
           )}
           {isNewVersionAvailable && (
-            <Flex gap={10} align="center">
+            <Flex align="center" gap={10}>
               <b>New version ({availableNewFreeVersion}) available</b>
               <Badge dot>
                 <Button icon={<LucideIcn name="circle-fading-arrow-up" />}>Update Now</Button>
               </Badge>
               <Tooltip title="Please update to the latest version to ensure plugin security and optimal performance. Stay safe and enjoy the enhanced features!">
                 <div>
-                  <LucideIcn name="info" size="22" css={{ color: token.colorTextTertiary }} />
+                  <LucideIcn css={{ color: token.colorTextTertiary }} name="info" size="22" />
                 </div>
               </Tooltip>
             </Flex>
@@ -110,14 +111,14 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
         </Flex>
 
         {!isPro && (
-          <Flex gap={15} align="center" css={{ marginTop: 5 }}>
+          <Flex align="center" css={{ marginTop: 5 }} gap={15}>
             Pro Version: <b>Not Activated</b>
             <Badge dot>
               <Button
-                target="_blank"
-                icon={<LucideIcn name="crown" />}
                 href={aboutPlugin.buyLink}
+                icon={<LucideIcn name="crown" />}
                 rel="noopener noreferrer nofollow"
+                target="_blank"
               >
                 Buy Pro Version
               </Button>
@@ -126,7 +127,7 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
         )}
 
         {isPro && (
-          <Flex gap={10} vertical css={{ marginTop: 5 }}>
+          <Flex css={{ marginTop: 5 }} gap={10} vertical>
             <Flex gap={15}>
               Pro Version: {proVersion}
               {isProCheckingUpdates && (
@@ -135,14 +136,14 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
                 </b>
               )}
               {isProNewVersionAvailable && (
-                <Flex gap={10} align="center">
+                <Flex align="center" gap={10}>
                   <b>New version ({availableNewProVersion}) available</b>
                   <Badge dot>
                     <Button icon={<LucideIcn name="circle-fading-arrow-up" />}>Update Now</Button>
                   </Badge>
                   <Tooltip title="Please update to the latest version to ensure plugin security and optimal performance. Stay safe and enjoy the enhanced features!">
                     <div>
-                      <LucideIcn name="info" size="22" css={{ color: token.colorTextTertiary }} />
+                      <LucideIcn css={{ color: token.colorTextTertiary }} name="info" size="22" />
                     </div>
                   </Tooltip>
                 </Flex>
@@ -158,20 +159,20 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
             <Flex>
               {isLicenseConnected ? (
                 <Button
-                  onClick={handleDeactivateLicense}
-                  icon={<LucideIcn name="circle-x" />}
-                  type="primary"
-                  size="large"
                   danger
+                  icon={<LucideIcn name="circle-x" />}
+                  onClick={handleDeactivateLicense}
+                  size="large"
+                  type="primary"
                 >
                   Deactivate License
                 </Button>
               ) : (
                 <Button
-                  onClick={handleActivateLicense}
                   icon={<LucideIcn name="badge-check" />}
-                  type="primary"
+                  onClick={handleActivateLicense}
                   size="large"
+                  type="primary"
                 >
                   Activate License
                 </Button>

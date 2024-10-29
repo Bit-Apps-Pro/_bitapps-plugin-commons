@@ -1,57 +1,57 @@
-import { useState, type ReactNode } from 'react'
-
 import config from '@config/config'
 import LucideIcn from '@icons/LucideIcn'
+import License from '@plugin-commons/components/License.pro'
 import { useQuery } from '@tanstack/react-query'
-import { Avatar, Card, Col, Flex, Row, Skeleton, Typography, theme } from 'antd'
+import { Avatar, Card, Col, Flex, Row, Skeleton, theme, Typography } from 'antd'
+import { type ReactNode, useState } from 'react'
+
+import isPro from '../../utils/isPro'
 import FacebookCommunityCard from '../FacebookCommunityCard'
 import pluginInfoData from './data/pluginInfoData'
 import GiveReview from './GiveReview'
 import Improvement from './Imporvement'
 import SupportLinks from './SupportLinks'
-import isPro from '../../utils/isPro'
-import License from '@plugin-commons/components/License.pro'
 
 interface Plugin {
-  name: string
-  slug: string
-  icon: string
   description: string
   doc: string
+  icon: string
+  name: string
+  slug: string
   url: string
 }
 
 interface SupportObject {
-  supportEmail: string
-  supportLink: string
   bitAppsLogo: string
   pluginsList: Plugin[]
+  supportEmail: string
+  supportLink: string
 }
 
 const { Meta } = Card
 
-const { Title, Paragraph, Link, Text } = Typography
+const { Link, Paragraph, Text, Title } = Typography
 
 const SUPPORT_FETCH_URL =
   'h_t_t_p_s_:_/_/w_p-ap_i_._b_i_ta_pp_s_._pro_/p_ub_li_c/p_lu_gi_ns-i_nf_o'.replaceAll('_', '')
 
 interface SupportPageProps {
-  pluginSlug: string
-  logoComponent: ReactNode
   isCashBackVisible: boolean
+  logoComponent: ReactNode
+  pluginSlug: string
 }
 
 export default function SupportPage({
-  pluginSlug,
+  isCashBackVisible = true,
   logoComponent,
-  isCashBackVisible = true
+  pluginSlug
 }: SupportPageProps) {
   const { token } = theme.useToken()
   const [loading] = useState(false)
 
   const { data: supportInfo } = useQuery<SupportObject, Error>({
-    queryKey: ['support'],
     queryFn: () => fetch(`${SUPPORT_FETCH_URL}`).then(res => res.json() as Promise<SupportObject>),
+    queryKey: ['support'],
     staleTime: 1000 * 60 * 60 * 12 // 12 hours
   })
 
@@ -75,7 +75,7 @@ export default function SupportPage({
           <SupportLinks pluginSlug={pluginSlug} />
         </Col>
 
-        <Col md={{ span: 9, offset: 2 }} sm={{ span: 24 }}>
+        <Col md={{ offset: 2, span: 9 }} sm={{ span: 24 }}>
           <div className="mb-5">
             {isCashBackVisible && <GiveReview pluginSlug={pluginSlug} />}
 
@@ -85,37 +85,40 @@ export default function SupportPage({
       </Row>
 
       <Title level={5}>Recommended Plugins</Title>
-      <Flex wrap gap={10}>
+      <Flex gap={10} wrap>
         {supportInfo?.pluginsList
           .filter(item => item.slug !== config.PLUGIN_SLUG)
           .map((plugin, index: number) => (
             <Card
-              key={`${index * 2}`}
-              styles={{ body: { padding: 16, marginTop: 10 } }}
               css={{ width: 400 }}
+              key={`${index * 2}`}
+              styles={{ body: { marginTop: 10, padding: 16 } }}
             >
-              <Skeleton loading={loading} avatar active>
+              <Skeleton active avatar loading={loading}>
                 <Meta
                   avatar={
                     <Link
-                      target="_blank"
+                      css={{ '&:focus': { boxShadow: 'none' } }}
                       href={plugin.url}
                       rel="noopener noreferrer nofollow"
-                      css={{ '&:focus': { boxShadow: 'none' } }}
+                      target="_blank"
                     >
-                      <Avatar style={{ height: 70, width: 70 }} shape="square" src={plugin.icon} />
+                      <Avatar shape="square" src={plugin.icon} style={{ height: 70, width: 70 }} />
                     </Link>
+                  }
+                  description={
+                    <Text style={{ color: token.colorTextSecondary }}>{plugin.description}</Text>
                   }
                   title={
                     <Link
-                      rel="noopener noreferrer nofollow"
-                      target="_blank"
-                      href={plugin.url}
-                      style={{ color: token.colorTextSecondary, fontSize: '1rem' }}
                       css={{
                         '&:focus': { boxShadow: 'none' },
                         '&:hover': { textDecoration: 'underline !important' }
                       }}
+                      href={plugin.url}
+                      rel="noopener noreferrer nofollow"
+                      style={{ color: token.colorTextSecondary, fontSize: '1rem' }}
+                      target="_blank"
                     >
                       {plugin.name}{' '}
                       <LucideIcn
@@ -124,9 +127,6 @@ export default function SupportPage({
                         style={{ transform: 'translateY(-4px)' }}
                       />
                     </Link>
-                  }
-                  description={
-                    <Text style={{ color: token.colorTextSecondary }}>{plugin.description}</Text>
                   }
                 />
               </Skeleton>

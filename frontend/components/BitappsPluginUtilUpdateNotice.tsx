@@ -8,11 +8,7 @@ export function BitAppsPluginUtilUpdateNotice() {
   if (typeof VITE_PLUGIN_HAS_SUBMODULE_UPDATES !== 'undefined' && VITE_PLUGIN_HAS_SUBMODULE_UPDATES) {
     return (
       <Alert
-        type="warning"
-        showIcon
-        icon={<LucideIcn name="circle-alert" />}
         closable
-        message="Plugin Submodule Update Notice (Dev Only)"
         css={{ padding: 10 }}
         description={
           <>
@@ -24,6 +20,10 @@ export function BitAppsPluginUtilUpdateNotice() {
             <code>pnpm sync-plugin-commons</code> if needed.
           </>
         }
+        icon={<LucideIcn name="circle-alert" />}
+        message="Plugin Submodule Update Notice (Dev Only)"
+        showIcon
+        type="warning"
       />
     )
   }

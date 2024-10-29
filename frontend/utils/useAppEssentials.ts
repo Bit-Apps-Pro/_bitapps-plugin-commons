@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect } from 'react'
+
 import { setAppBgFromAdminBarBg, setCascadeLayerToWordpressStyles } from './themeUtils'
 
 interface UseAppEssentialsProps {
