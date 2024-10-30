@@ -21,6 +21,7 @@ export default tseslint.config(
   ...tseslint.configs.strict,
   ...tseslint.configs.stylistic,
   perfectionist.configs['recommended-natural'],
+  // i18next.configs['flat/recommended'],
   jsxA11Y.flatConfigs.recommended,
   {
     ignores: [
