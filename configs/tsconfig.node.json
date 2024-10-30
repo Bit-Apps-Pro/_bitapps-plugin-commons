@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "typeRoots": ["./node_modules/@types", "./frontend/src/types"],
     "forceConsistentCasingInFileNames": true,
-    "composite": true,
     "allowSyntheticDefaultImports": true,
     "target": "ES2022",
     "lib": ["ES2022", "DOM"],
