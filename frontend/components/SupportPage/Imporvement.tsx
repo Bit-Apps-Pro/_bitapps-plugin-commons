@@ -1,3 +1,4 @@
+import { __ } from '@common/helpers/i18nwrap'
 import { Checkbox, theme, Typography } from 'antd'
 import { type CheckboxChangeEvent } from 'antd/es/checkbox'
 
@@ -18,7 +19,7 @@ export default function Improvement() {
 
   return (
     <div css={{ marginBlock: 60 }}>
-      <Title level={5}>Improvement</Title>
+      <Title level={5}>{__('Improvement')} </Title>
       <Checkbox
         checked={tracking?.allowTracking}
         disabled={isTrackingLoading || isUpdatingTracking}
@@ -26,16 +27,17 @@ export default function Improvement() {
         style={{ color: token.colorTextSecondary }}
       >
         <Text underline>
-          Allow the collection of diagnostic data and error reports to enhance the application's
-          performance. Please review our{' '}
+          {__(
+            "Allow the collection of diagnostic data and error reports to enhance the application's performance. Please review our"
+          )}{' '}
           <Link
             href="https://bitapps.pro/privacy-policy/"
             rel="noopener noreferrer nofollow"
             target="_black"
           >
-            Privacy Policy
+            {__('Privacy Policy')}
           </Link>{' '}
-          for more information.
+          {__('for more information.')}
         </Text>
       </Checkbox>
     </div>

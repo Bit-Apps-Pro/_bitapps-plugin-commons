@@ -1,4 +1,5 @@
 import { SyncOutlined } from '@ant-design/icons'
+import { __ } from '@common/helpers/i18nwrap'
 import request from '@common/helpers/request'
 import config from '@config/config'
 import LucideIcn from '@icons/LucideIcn'
@@ -80,7 +81,7 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
 
   return (
     <>
-      <Title level={5}>License & Activation</Title>
+      <Title level={5}>{__('License & Activation')}</Title>
       <Paragraph>
         <Flex align="center" gap={15}>
           Version: {freeVersion}
@@ -104,7 +105,7 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
           )}
           {/* {!isCheckingUpdates && !isNewVersionAvailable && (
             <Flex gap={10}>
-              <b>Latest</b>
+              <b{__(Latest)}/b>
               <LucideIcn color={token.green6} name="circle-check" />
             </Flex>
           )} */}
@@ -151,7 +152,7 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
             </Flex>
             {/* {isProUptoDate && (
               <Flex gap={10}>
-                <b>Latest</b>
+                <b{__(Latest)}/b>
                 <LucideIcn color={token.green6} name="circle-check" />
               </Flex>
             )} */}

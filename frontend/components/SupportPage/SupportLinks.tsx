@@ -1,4 +1,5 @@
 import { XOutlined } from '@ant-design/icons'
+import { __ } from '@common/helpers/i18nwrap'
 import { type LucideIconNames } from '@icons/LucideIcn'
 import LucideIcn from '@icons/LucideIcn'
 import { Flex, theme, Typography } from 'antd'
@@ -30,7 +31,7 @@ export default function SupportLinks({ pluginSlug }: { pluginSlug: string }) {
   ]
   return (
     <div className="mb-5">
-      <Title level={5}>Support</Title>
+      <Title level={5}>{__('Support')} </Title>
 
       <div css={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
         {supportLinks.map(({ copyable, href, icon, text }) => (
