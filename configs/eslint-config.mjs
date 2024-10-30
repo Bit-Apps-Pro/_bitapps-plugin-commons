@@ -4,7 +4,6 @@ import stylisticTs from '@stylistic/eslint-plugin-ts'
 import cypress from 'eslint-plugin-cypress'
 import importPlugin from 'eslint-plugin-import'
 import jsxA11Y from 'eslint-plugin-jsx-a11y'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import perfectionist from 'eslint-plugin-perfectionist'
 import prettier from 'eslint-plugin-prettier'
 import promise from 'eslint-plugin-promise'
@@ -203,7 +202,7 @@ export default tseslint.config(
       ]
     },
     settings: {
-      'import/resolver': { typescript: true },
+      'import/resolver': { typescript: { alwaysTryTypes: true, project: ['./tsconfig.json'] } },
       react: { version: 'detect' }
     }
   }
