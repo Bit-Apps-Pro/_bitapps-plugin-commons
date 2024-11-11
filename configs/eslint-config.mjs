@@ -2,6 +2,7 @@ import { fixupPluginRules } from '@eslint/compat'
 import { default as eslint } from '@eslint/js'
 import stylisticTs from '@stylistic/eslint-plugin-ts'
 import cypress from 'eslint-plugin-cypress'
+import i18next from 'eslint-plugin-i18next'
 import importPlugin from 'eslint-plugin-import'
 import jsxA11Y from 'eslint-plugin-jsx-a11y'
 import perfectionist from 'eslint-plugin-perfectionist'
@@ -20,7 +21,7 @@ export default tseslint.config(
   ...tseslint.configs.strict,
   ...tseslint.configs.stylistic,
   perfectionist.configs['recommended-natural'],
-  // i18next.configs['flat/recommended'],
+  i18next.configs['flat/recommended'],
   jsxA11Y.flatConfigs.recommended,
   {
     ignores: [
@@ -73,6 +74,7 @@ export default tseslint.config(
       'arrow-parens': 0,
       camelcase: ['error', { properties: 'never' }],
       'consistent-return': 'off',
+      'i18next/no-literal-string': 'warn',
       'import/consistent-type-specifier-style': ['error', 'prefer-inline'],
       'import/extensions': 'off',
       'import/first': 'error',
