@@ -30,7 +30,7 @@ export default function SupportLinks({ pluginSlug }: { pluginSlug: string }) {
     { href: aboutPlugin.wpSupportThread, icon: 'messages-square', text: 'WordPress Support Thread' }
   ]
   return (
-    <div className="mb-5">
+    <div className="mb-12">
       <Title level={5}>{__('Support')} </Title>
 
       <div css={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>

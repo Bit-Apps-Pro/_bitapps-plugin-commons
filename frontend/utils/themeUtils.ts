@@ -69,7 +69,7 @@ export function setCascadeLayerToWordpressStyles(cssLayers: string) {
   }
 
   // const developmentAntdResetCss =
-  // '/wp-content/plugins/bit-social/frontend/_plugin-commons/resources/css/antd-reset.css'
+  // '/wp-content/plugins/bit-flow/frontend/_plugin-commons/resources/css/antd-reset.css'
   // const productionAntdResetCss = SERVER_VARIABLES.assetsURL + '/antd-reset.css'
   // const antdResetCss = import.meta.env.DEV ? developmentAntdResetCss : productionAntdResetCss
   // @import url('${antdResetCss}') layer(reset);

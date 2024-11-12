@@ -3,6 +3,15 @@ export default {
   facebookCommunity: 'https://www.facebook.com/groups/bitcommunityusers',
   linkedIn: 'https://www.linkedin.com/company/bitapps',
   plugins: {
+    'bit-pi': {
+      buyLink: 'https://bit-pi.com/#pricing/',
+      description: `Bit Pi - Zapier Alternative in WordPress Unlimited Task.`,
+      docLink: 'https://bit-pi.com/documentation/',
+      reviewLink: 'https://wordpress.org/support/plugin/bit-pi/reviews/',
+      title: 'Bit Pi',
+      website: 'https://bit-pi.com',
+      wpSupportThread: 'https://wordpress.org/support/plugin/bit-pi/'
+    },
     'bit-social': {
       buyLink: 'https://bit-social.com/#pricing/',
       description: `An social media management plugin for WordPress, that allows you to share your post to

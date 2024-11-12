@@ -34,9 +34,9 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
   const { token } = theme.useToken()
   const aboutPlugin = pluginInfo.plugins[pluginSlug as keyof typeof pluginInfo.plugins]
 
-  const isCheckingUpdates = false
-  const isNewVersionAvailable = false
-  const isProNewVersionAvailable = false
+  const isCheckingUpdates = true
+  const isNewVersionAvailable = true
+  const isProNewVersionAvailable = true
   const isPro = true
   const isProCheckingUpdates = true
   const freeVersion = '1.2.4'
@@ -80,7 +80,7 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
   }, [])
 
   return (
-    <>
+    <div className="mb-12">
       <Title level={5}>{__('License & Activation')}</Title>
       <Paragraph>
         <Flex align="center" gap={15}>
@@ -182,6 +182,6 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
           </Flex>
         )}
       </Paragraph>
-    </>
+    </div>
   )
 }

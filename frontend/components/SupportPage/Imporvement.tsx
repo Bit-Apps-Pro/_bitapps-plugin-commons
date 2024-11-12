@@ -18,7 +18,7 @@ export default function Improvement() {
   }
 
   return (
-    <div css={{ marginBlock: 60 }}>
+    <div className="mb-12">
       <Title level={5}>{__('Improvement')} </Title>
       <Checkbox
         checked={tracking?.allowTracking}
@@ -26,7 +26,7 @@ export default function Improvement() {
         onChange={handleCheckImprovement}
         style={{ color: token.colorTextSecondary }}
       >
-        <Text underline>
+        <Text>
           {__(
             "Allow the collection of diagnostic data and error reports to enhance the application's performance. Please review our"
           )}{' '}
@@ -34,6 +34,7 @@ export default function Improvement() {
             href="https://bitapps.pro/privacy-policy/"
             rel="noopener noreferrer nofollow"
             target="_black"
+            underline
           >
             {__('Privacy Policy')}
           </Link>{' '}

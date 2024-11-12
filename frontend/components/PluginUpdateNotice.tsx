@@ -8,6 +8,7 @@ import { Button } from 'antd'
 import { type CSSProperties } from 'react'
 import { useState } from 'react'
 
+import pluginInfoData from './SupportPage/data/pluginInfoData'
 import useUpdatePlugin from './VersionMismatchedNotice/useUpdatePlugin'
 
 export default function PluginUpdateNotice() {
@@ -46,6 +47,9 @@ export default function PluginUpdateNotice() {
     ? { background: '', color: 'red', marginBlock: 5, textTransform: 'capitalize' }
     : { background: '', color: 'green', marginBlock: 5, textTransform: 'capitalize' }
 
+  const aboutPlugin =
+    pluginInfoData.plugins[SERVER_VARIABLES.pluginSlug as keyof typeof pluginInfoData.plugins]
+
   return (
     <div
       style={{
@@ -56,7 +60,7 @@ export default function PluginUpdateNotice() {
       }}
     >
       <div className="notice notice-warning">
-        <h4 className="mt-2">Plugin Update Required (Bit Social) </h4>
+        <h4 className="mt-2">Plugin Update Required ({aboutPlugin.title}) </h4>
         <p>
           Please update both Free and Pro plugins to the latest version. Keeping them the same is crucial
           to avoid potential issues.

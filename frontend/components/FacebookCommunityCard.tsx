@@ -1,12 +1,14 @@
 import LucideIcn from '@icons/LucideIcn'
 import fbCommunityImg from '@plugin-commons/resources/img/fbCommunity.webp'
-import { Button, Flex, theme } from 'antd'
+import { Button, Flex, theme, Typography } from 'antd'
 
-export default function FacebookCommunityCard({
-  facebookCommunityLink
-}: {
+interface FBCommunityCardProps {
   facebookCommunityLink: string
-}) {
+}
+
+const { Title } = Typography
+
+export default function FacebookCommunityCard({ facebookCommunityLink }: FBCommunityCardProps) {
   const { token } = theme.useToken()
 
   return (
@@ -43,15 +45,17 @@ export default function FacebookCommunityCard({
         justify="end"
         vertical
       >
-        <h3 css={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>Join Our Facebook Community</h3>
+        <Title level={3} style={{ color: 'white' }}>
+          Join Our Facebook Community
+        </Title>
         <p css={{ color: 'white', fontSize: 18 }}>
           Connect, share, and grow with like-minded individuals
         </p>
       </Flex>
-      <Flex css={{ marginBlock: 0 }} gap={15} justify="center">
-        <span>🌟 Exclusive Content</span>
-        <span>💬 Daily Discussion</span>
-        <span>🎉 Special Events</span>
+      <Flex css={{ marginBlock: 0 }} gap={15} justify="center" wrap>
+        <span className="whitespace-nowrap">🌟 Exclusive Content</span>
+        <span className="whitespace-nowrap">💬 Daily Discussion</span>
+        <span className="whitespace-nowrap">🎉 Special Events</span>
       </Flex>
 
       <Button
