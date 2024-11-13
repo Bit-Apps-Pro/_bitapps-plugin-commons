@@ -42,6 +42,23 @@ final class PluginUpdateController
         return 'No updates available for your plugin.';
     }
 
+    public function isPluginUpdateAvailable()
+    {
+        $latestVersion = null;
+
+        $freePluginSlug = UtilsConfig::getFreePluginSlug();
+
+        $updatePlugins = get_site_transient('update_plugins');
+
+        if (isset($updatePlugins->response[$freePluginSlug . '/' . $freePluginSlug . '.php'])) {
+            $latestVersion = $updatePlugins->response[$freePluginSlug . '/' . $freePluginSlug . '.php']->new_version;
+        }
+
+        return wp_send_json_success([
+            'latest_version' => $latestVersion,
+        ]);
+    }
+
     private function getPluginSlug()
     {
         $freePluginSlug = UtilsConfig::getFreePluginSlug();
