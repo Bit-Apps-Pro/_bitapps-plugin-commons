@@ -160,20 +160,7 @@ final class ProPluginUpdater
         }
     }
 
-    private function registerHooks()
-    {
-        add_filter('pre_set_site_transient_update_plugins', [$this, 'checkUpdate']);
-
-        add_action('delete_site_transient_update_plugins', [$this, 'removeCache']);
-
-        add_filter('plugins_api', [$this, 'setProPluginInfo'], 10, 3);
-
-        remove_action('after_plugin_row_' . $this->name, 'wp_plugin_update_row');
-
-        add_action('after_plugin_row_' . $this->name, [$this, 'showUpdateInfo'], 10, 2);
-    }
-
-    private function checkCacheData($cacheData)
+    public function checkCacheData($cacheData)
     {
         if (!\is_object($cacheData)) {
             $cacheData = new stdClass();
@@ -236,6 +223,19 @@ final class ProPluginUpdater
         $cacheData->checked[$this->name] = $this->version;
 
         return $cacheData;
+    }
+
+    private function registerHooks()
+    {
+        add_filter('pre_set_site_transient_update_plugins', [$this, 'checkUpdate']);
+
+        add_action('delete_site_transient_update_plugins', [$this, 'removeCache']);
+
+        add_filter('plugins_api', [$this, 'setProPluginInfo'], 10, 3);
+
+        remove_action('after_plugin_row_' . $this->name, 'wp_plugin_update_row');
+
+        add_action('after_plugin_row_' . $this->name, [$this, 'showUpdateInfo'], 10, 2);
     }
 
     private function getCache()

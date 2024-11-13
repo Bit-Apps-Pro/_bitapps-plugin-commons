@@ -3,6 +3,7 @@
 namespace BitApps\Utils\HTTP\Controllers;
 
 use Automatic_Upgrader_Skin;
+use BitApps\Utils\ProPluginUpdater;
 use BitApps\Utils\UtilsConfig;
 use Plugin_Upgrader;
 
@@ -14,25 +15,13 @@ final class PluginUpdateController
 
         include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 
-        $proPluginVersion = UtilsConfig::getProPluginVersion();
+        $updatePlugins = get_site_transient('update_plugins');
 
-        $freePluginVersion = UtilsConfig::getFreePluginVersion();
-
-        $freePluginSlug = UtilsConfig::getFreePluginSlug();
-
-        $proPluginSlug = UtilsConfig::getProPluginSlug();
-
-        if ($proPluginVersion > $freePluginVersion) {
-            $pluginSlug = $freePluginSlug . '/' . $freePluginSlug . '.php';
-        } else {
-            $pluginSlug = $proPluginSlug . '/' . $proPluginSlug . '.php';
-        }
+        $pluginSlug = $this->getPluginSlug();
 
         $upgrader = (new Plugin_Upgrader(new Automatic_Upgrader_Skin()));
 
-        wp_update_plugins();
-
-        $updatePlugins = get_site_transient('update_plugins');
+        $updatePlugins = $this->checkAndUpdateProPluginInCache($pluginSlug, $updatePlugins);
 
         if (isset($updatePlugins->response[$pluginSlug])) {
             $pluginUpgraded = $upgrader->upgrade($pluginSlug);
@@ -51,5 +40,36 @@ final class PluginUpdateController
         }
 
         return 'No updates available for your plugin.';
+    }
+
+    private function getPluginSlug()
+    {
+        $freePluginSlug = UtilsConfig::getFreePluginSlug();
+
+        $proPluginSlug = UtilsConfig::getProPluginSlug();
+
+        $proPluginVersion = UtilsConfig::getProPluginVersion();
+
+        $freePluginVersion = UtilsConfig::getFreePluginVersion();
+
+        if ($proPluginVersion > $freePluginVersion) {
+            $pluginSlug = $freePluginSlug . '/' . $freePluginSlug . '.php';
+        } else {
+            $pluginSlug = $proPluginSlug . '/' . $proPluginSlug . '.php';
+        }
+
+        return $pluginSlug;
+    }
+
+    private function checkAndUpdateProPluginInCache($pluginSlug, $updatePlugins)
+    {
+        if ($pluginSlug === UtilsConfig::getProPluginSlug() . '.php' && !isset($updatePlugins->response[$pluginSlug])) {
+            $updatedPluginCache = (new ProPluginUpdater())->checkCacheData($updatePlugins);
+            set_site_transient('update_plugins', $updatedPluginCache);
+
+            return get_site_transient('update_plugins');
+        }
+
+        return $updatePlugins;
     }
 }
