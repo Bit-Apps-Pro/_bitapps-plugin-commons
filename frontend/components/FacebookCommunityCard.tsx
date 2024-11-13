@@ -14,6 +14,7 @@ export default function FacebookCommunityCard({ facebookCommunityLink }: FBCommu
   return (
     <Flex
       align="center"
+      className="bg-white dark:bg-slate-900"
       css={{
         border: `1px solid ${token.colorBorder}`,
         borderRadius: 10,

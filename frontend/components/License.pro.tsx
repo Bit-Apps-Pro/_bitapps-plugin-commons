@@ -1,16 +1,14 @@
-import { SyncOutlined } from '@ant-design/icons'
 import { __ } from '@common/helpers/i18nwrap'
 import request from '@common/helpers/request'
 import config from '@config/config'
 import LucideIcn from '@icons/LucideIcn'
-import { Badge, Button, Space, theme, Tooltip } from 'antd'
+import { Badge, Button, Space } from 'antd'
 import Title from 'antd/es/typography/Title'
 import { useEffect, useRef } from 'react'
 import { useSearchParam } from 'react-use'
 
-import { versionCompare } from '../utils/utils'
+import CheckNewUpdate from './SupportPage/CheckNewUpdate'
 import pluginInfo from './SupportPage/data/pluginInfoData'
-import useCheckUpdate from './SupportPage/data/useCheckUpdate'
 
 // TODO: add update functionality
 // TODO: changelog fetch
@@ -19,29 +17,27 @@ import useCheckUpdate from './SupportPage/data/useCheckUpdate'
 // TODO: deactivate license
 
 const SUBS_URL =
-  `h_t_tps_:/_/subscription_.bitapps_.pro/wp/activateLicense/?slug=${SERVER_VARIABLES.proSlug}&redirect=${window.location.href}`.replaceAll(
+  `h_t_tps_:/_/subscription_.bitapps_.pro/wp/activateLicense/?slug=${config.PRO_SLUG}&redirect=${encodeURIComponent(window.location.href)}`.replaceAll(
     '_',
     ''
   )
 
 const handleDeactivateLicense = async () => {
-  const res = await request('pro_license/deactivate')
-  console.log('==== ~ res:', res)
+  await request('pro_license/deactivate')
 
-  // window.location.reload()
+  window.location.reload()
 }
 
 export default function License({ pluginSlug }: { pluginSlug: string }) {
-  const { token } = theme.useToken()
-  const { isCheckingUpdates, latestAvailableVersion } = useCheckUpdate()
   const aboutPlugin = pluginInfo.plugins[pluginSlug as keyof typeof pluginInfo.plugins]
   const licenseKey = useRef(useSearchParam('licenseKey'))
 
-  const isUpdatable = versionCompare(config.FREE_VERSION, String(latestAvailableVersion), '<')
-  const hasProPlugin = config.PRO_VERSION
-  const freeVersion = config.FREE_VERSION
-  const proVersion = config.PRO_VERSION
-  const isLicenseConnected = config.IS_PRO
+  const {
+    FREE_VERSION: freeVersion,
+    IS_PRO: isLicenseConnected,
+    IS_PRO_EXIST: hasProPlugin,
+    PRO_VERSION: proVersion
+  } = config
 
   const handleActivateLicense = () => {
     if (isLicenseConnected) return
@@ -82,31 +78,37 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
       </div>
 
       {!hasProPlugin && (
-        <Space className="mb-2">
-          <div>
-            {__('Pro Version')}: <b>{__('Not Activated')}</b>
-          </div>
-          <Badge dot>
-            <Button
-              href={aboutPlugin.buyLink}
-              icon={<LucideIcn name="crown" />}
-              rel="noopener noreferrer nofollow"
-              target="_blank"
-              type="primary"
-            >
-              {__('Buy Pro Version')}
-            </Button>
-          </Badge>
-        </Space>
+        <div className="mb-2">
+          <Space className="mb-2">
+            <div>
+              {__('Pro Version')}: <b>{__('Not Activated')}</b>
+            </div>
+            <Badge dot>
+              <Button
+                href={aboutPlugin.buyLink}
+                icon={<LucideIcn name="crown" />}
+                rel="noopener noreferrer nofollow"
+                target="_blank"
+                type="primary"
+              >
+                {__('Buy Pro Version')}
+              </Button>
+            </Badge>
+          </Space>
+
+          <CheckNewUpdate />
+        </div>
       )}
 
       {hasProPlugin && (
-        <>
+        <div className="mb-2">
           <div className="mb-2">
             {__('Pro Version')}: {proVersion}
           </div>
 
-          <div className="mb-2">
+          <CheckNewUpdate />
+
+          <div>
             {isLicenseConnected ? (
               <Button
                 danger
@@ -128,41 +130,8 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
               </Button>
             )}
           </div>
-        </>
+        </div>
       )}
-
-      <Space>
-        {isCheckingUpdates && (
-          <Space>
-            <b>{__('Checking updates')}</b>
-            <SyncOutlined spin />
-          </Space>
-        )}
-
-        {isUpdatable && (
-          <Space>
-            <b>
-              {__('New version available')} ({latestAvailableVersion})
-            </b>
-            <Tooltip
-              title={__(
-                'Please update to the latest version to ensure plugin security and optimal performance. Stay safe and enjoy the enhanced features!'
-              )}
-            >
-              <div>
-                <LucideIcn css={{ color: token.colorTextTertiary }} name="info" size="1rem" />
-              </div>
-            </Tooltip>
-          </Space>
-        )}
-
-        {!isCheckingUpdates && !isUpdatable && (
-          <Space>
-            <b>{__('Latest')}</b>
-            <LucideIcn color={token.green6} name="circle-check" size="1rem" />
-          </Space>
-        )}
-      </Space>
     </div>
   )
 }

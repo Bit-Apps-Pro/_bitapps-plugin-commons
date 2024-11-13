@@ -1,15 +1,20 @@
 import queryRequest from '@common/helpers/request'
 import { useQuery } from '@tanstack/react-query'
 
+interface CheckUpdateResponse {
+  latest_version: string
+}
+
 export default function useCheckUpdate() {
-  const { data: latestAvailableVersion, isLoading: isCheckingUpdates } = useQuery({
-    queryFn: () => queryRequest('plugin-update-check', undefined, undefined, 'GET'),
+  const { data, isLoading: isCheckingUpdates } = useQuery({
+    queryFn: () =>
+      queryRequest<CheckUpdateResponse>('pro_plugin/update-check', undefined, undefined, 'GET'),
     queryKey: ['update'],
     select: res => res.data
   })
 
   return {
     isCheckingUpdates,
-    latestAvailableVersion
+    latestAvailableVersion: data?.latest_version || '0.0.0'
   }
 }
