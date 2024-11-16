@@ -2,19 +2,14 @@ import { __ } from '@common/helpers/i18nwrap'
 import request from '@common/helpers/request'
 import config from '@config/config'
 import LucideIcn from '@icons/LucideIcn'
-import { Badge, Button, Space } from 'antd'
+import { Alert, Badge, Button, Space } from 'antd'
 import Title from 'antd/es/typography/Title'
 import { useEffect, useRef } from 'react'
 import { useSearchParam } from 'react-use'
 
 import CheckNewUpdate from './SupportPage/CheckNewUpdate'
 import pluginInfo from './SupportPage/data/pluginInfoData'
-
-// TODO: add update functionality
-// TODO: changelog fetch
-// TODO: check license each time user opens the plugin,
-// TODO: activate license
-// TODO: deactivate license
+import useCheckLicenseValidity from './SupportPage/data/useCheckLicenseValidity'
 
 const SUBS_URL =
   `h_t_tps_:/_/subscription_.bitapps_.pro/wp/activateLicense/?slug=${config.PRO_SLUG}&redirect=${encodeURIComponent(window.location.href)}`.replaceAll(
@@ -31,6 +26,7 @@ const handleDeactivateLicense = async () => {
 export default function License({ pluginSlug }: { pluginSlug: string }) {
   const aboutPlugin = pluginInfo.plugins[pluginSlug as keyof typeof pluginInfo.plugins]
   const licenseKey = useRef(useSearchParam('licenseKey'))
+  const { isLicenseValid } = useCheckLicenseValidity()
 
   const {
     FREE_VERSION: freeVersion,
@@ -110,15 +106,30 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
 
           <div>
             {isLicenseConnected ? (
-              <Button
-                danger
-                icon={<LucideIcn name="circle-x" />}
-                onClick={handleDeactivateLicense}
-                size="large"
-                type="primary"
-              >
-                {__('Deactivate License')}
-              </Button>
+              <>
+                <Button
+                  className="mb-2"
+                  danger
+                  icon={<LucideIcn name="circle-x" />}
+                  onClick={handleDeactivateLicense}
+                  size="large"
+                  type="primary"
+                >
+                  {isLicenseValid ? __('Deactivate License') : __('Remove License')}
+                </Button>
+
+                {!isLicenseValid && (
+                  <Alert
+                    description={__(
+                      `Please update your license to ensure you receive the latest security updates and bug fixes. 
+                      Using an outdated or unofficial license may leave your system vulnerable to security breaches and data leaks. We cannot take responsibility for issues arising from such scenarios. For your safety, always download from the official Bit Apps server.`
+                    )}
+                    message={__('Your license is invalid')}
+                    showIcon
+                    type="error"
+                  />
+                )}
+              </>
             ) : (
               <Button
                 icon={<LucideIcn name="badge-check" />}
