@@ -3,8 +3,8 @@
 namespace BitApps\Utils\HTTP\Controllers;
 
 use Automatic_Upgrader_Skin;
+use BitApps\Utils\PluginCommonConfig;
 use BitApps\Utils\ProPluginUpdater;
-use BitApps\Utils\UtilsConfig;
 use Plugin_Upgrader;
 
 final class PluginUpdateController
@@ -46,7 +46,7 @@ final class PluginUpdateController
     {
         $latestVersion = null;
 
-        $freePluginSlug = UtilsConfig::getFreePluginSlug();
+        $freePluginSlug = PluginCommonConfig::getFreePluginSlug();
 
         $updatePlugins = get_site_transient('update_plugins');
 
@@ -61,13 +61,13 @@ final class PluginUpdateController
 
     private function getPluginSlug()
     {
-        $freePluginSlug = UtilsConfig::getFreePluginSlug();
+        $freePluginSlug = PluginCommonConfig::getFreePluginSlug();
 
-        $proPluginSlug = UtilsConfig::getProPluginSlug();
+        $proPluginSlug = PluginCommonConfig::getProPluginSlug();
 
-        $proPluginVersion = UtilsConfig::getProPluginVersion();
+        $proPluginVersion = PluginCommonConfig::getProPluginVersion();
 
-        $freePluginVersion = UtilsConfig::getFreePluginVersion();
+        $freePluginVersion = PluginCommonConfig::getFreePluginVersion();
 
         if ($proPluginVersion > $freePluginVersion) {
             $pluginSlug = $freePluginSlug . '/' . $freePluginSlug . '.php';
@@ -80,7 +80,7 @@ final class PluginUpdateController
 
     private function checkAndUpdateProPluginInCache($pluginSlug, $updatePlugins)
     {
-        if ($pluginSlug === UtilsConfig::getProPluginSlug() . '.php' && !isset($updatePlugins->response[$pluginSlug])) {
+        if ($pluginSlug === PluginCommonConfig::getProPluginSlug() . '.php' && !isset($updatePlugins->response[$pluginSlug])) {
             $updatedPluginCache = (new ProPluginUpdater())->checkCacheData($updatePlugins);
             set_site_transient('update_plugins', $updatedPluginCache);
 

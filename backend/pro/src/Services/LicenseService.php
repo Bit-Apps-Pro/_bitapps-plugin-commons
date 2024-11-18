@@ -2,21 +2,21 @@
 
 namespace BitApps\Utils\Services;
 
-use BitApps\Utils\UtilsConfig;
+use BitApps\Utils\PluginCommonConfig;
 use WP_Error;
 
 class LicenseService
 {
     public static function isLicenseActive()
     {
-        $licenseData = get_option(UtilsConfig::getProPluginPrefix() . 'license_data');
+        $licenseData = get_option(PluginCommonConfig::getProPluginPrefix() . 'license_data');
 
         return (bool) (!empty($licenseData) && \is_array($licenseData) && $licenseData['status'] === 'success');
     }
 
     public static function removeLicenseData()
     {
-        return delete_option(UtilsConfig::getProPluginPrefix() . 'license_data');
+        return delete_option(PluginCommonConfig::getProPluginPrefix() . 'license_data');
     }
 
     public static function setLicenseData($licenseKey, $licData)
@@ -27,22 +27,22 @@ class LicenseService
 
         $data['expireIn'] = $licData->expireIn;
 
-        return update_option(UtilsConfig::getProPluginPrefix() . 'license_data', $data, null);
+        return update_option(PluginCommonConfig::getProPluginPrefix() . 'license_data', $data, null);
     }
 
     public static function getUpdatedInfo()
     {
-        $licenseData = get_option(UtilsConfig::getProPluginPrefix() . 'license_data');
+        $licenseData = get_option(PluginCommonConfig::getProPluginPrefix() . 'license_data');
         $licenseKey = '';
 
         if (!empty($licenseData) && \is_array($licenseData) && $licenseData['status'] === 'success') {
             $licenseKey = $licenseData['key'];
         }
-        $httpClass = UtilsConfig::getClassPreFix() . 'WPKit\Http\Client\HttpClient';
+        $httpClass = PluginCommonConfig::getClassPreFix() . 'WPKit\Http\Client\HttpClient';
 
-        $client = (new $httpClass())->setBaseUri(UtilsConfig::getApiEndPoint());
+        $client = (new $httpClass())->setBaseUri(PluginCommonConfig::getApiEndPoint());
 
-        $pluginInfoResponse = $client->get('/update/' . UtilsConfig::getProPluginSlug());
+        $pluginInfoResponse = $client->get('/update/' . PluginCommonConfig::getProPluginSlug());
 
         if (is_wp_error($pluginInfoResponse)) {
             return $pluginInfoResponse;
@@ -60,7 +60,7 @@ class LicenseService
 
         $pluginData = $pluginInfoResponse->data;
 
-        $dateTimeClass = UtilsConfig::getClassPreFix() . 'WPKit\Helpers\DateTimeHelper';
+        $dateTimeClass = PluginCommonConfig::getClassPreFix() . 'WPKit\Helpers\DateTimeHelper';
 
         $dateTimeHelper = new $dateTimeClass();
 
@@ -79,7 +79,7 @@ class LicenseService
         }
 
         if ($licenseKey) {
-            $pluginData->downloadLink = UtilsConfig::getApiEndPoint() . '/download/' . $licenseKey;
+            $pluginData->downloadLink = PluginCommonConfig::getApiEndPoint() . '/download/' . $licenseKey;
         } else {
             $pluginData->downloadLink = '';
         }
