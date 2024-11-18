@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
 import fse from 'fs-extra'
+import fs from 'node:fs'
+import path from 'node:path'
 import process from 'node:process'
 
 console.log('🔄️ Syncing plugin common files...')
@@ -37,3 +39,56 @@ await Promise.all([
   .catch(error => {
     console.error('❌ Error syncing plugin common files', error)
   })
+
+const proComposerFilePath = './pro/composer.json'
+
+const backendDirectory = './pro/backend/_plugin-commons/src'
+
+if (!fse.existsSync(proComposerFilePath)) {
+  console.error('❌️ pro/composer.json file not found')
+  process.exit(1) // Exit the script
+}
+
+const composerData = await fse.readJson(proComposerFilePath)
+
+const psr4Namespaces = composerData.autoload?.['psr-4']
+
+if (!psr4Namespaces) {
+  console.error('❌️ psr-4 autoload section not found in', proComposerFilePath)
+  process.exit(1)
+}
+
+const namespaceKeys = Object.keys(psr4Namespaces)
+
+if (!namespaceKeys[1]) {
+  console.error('❌️ Common Namespace not found in', proComposerFilePath)
+  process.exit(1)
+}
+
+const newNamespace = namespaceKeys[1].replace(/\\$/, '')
+
+const targetNamespace = String.raw`BitApps\\Utils`
+
+// Function to update namespaces
+function updateNamespace(directoryPath, oldNamespace, newNamespace) {
+  const filesAndFolders = fs.readdirSync(directoryPath)
+
+  filesAndFolders.forEach(item => {
+    const itemPath = path.join(directoryPath, item)
+    const stat = fs.statSync(itemPath)
+
+    if (stat.isDirectory()) {
+      updateNamespace(itemPath, oldNamespace, newNamespace)
+    } else if (stat.isFile() && path.extname(itemPath) === '.php') {
+      const fileContent = fs.readFileSync(itemPath, 'utf8')
+
+      if (fileContent) {
+        const updatedContent = fileContent.replaceAll(new RegExp(oldNamespace, 'g'), newNamespace)
+
+        fs.writeFileSync(itemPath, updatedContent, 'utf8')
+      }
+    }
+  })
+}
+
+updateNamespace(backendDirectory, targetNamespace, newNamespace)
