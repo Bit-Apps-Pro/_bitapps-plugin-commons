@@ -2,9 +2,8 @@
 
 namespace BitApps\Utils\HTTP\Controllers;
 
+use BitApps\Utils\PluginCommonConfig;
 use BitApps\Utils\Services\LicenseService;
-
-use BitApps\Utils\UtilsConfig;
 
 final class LicenseController
 {
@@ -12,10 +11,10 @@ final class LicenseController
 
     public function __construct()
     {
-        $httpClass = UtilsConfig::getClassPreFix() . 'WPKit\Http\Client\HttpClient';
+        $httpClass = PluginCommonConfig::getClassPreFix() . 'WPKit\Http\Client\HttpClient';
 
         if (class_exists($httpClass)) {
-            $this->httpClient = (new $httpClass())->setBaseUri(UtilsConfig::getApiEndPoint());
+            $this->httpClient = (new $httpClass())->setBaseUri(PluginCommonConfig::getApiEndPoint());
         }
     }
 
@@ -37,7 +36,7 @@ final class LicenseController
 
         $data['domain'] = site_url();
 
-        $data['slug'] = UtilsConfig::getProPluginSlug();
+        $data['slug'] = PluginCommonConfig::getProPluginSlug();
 
         $this->httpClient->setHeaders([
             'content-type' => 'application/json',
@@ -62,7 +61,7 @@ final class LicenseController
 
     public function deactivateLicense()
     {
-        $licenseData = get_option(UtilsConfig::getProPluginPrefix() . 'license_data');
+        $licenseData = get_option(PluginCommonConfig::getProPluginPrefix() . 'license_data');
 
         if (empty($licenseData) || !\is_array($licenseData) || $licenseData['status'] !== 'success') {
             return wp_send_json_error(
@@ -97,7 +96,7 @@ final class LicenseController
 
     public function checkLicenseStatus()
     {
-        $licenseData = get_option(UtilsConfig::getProPluginPrefix() . 'license_data');
+        $licenseData = get_option(PluginCommonConfig::getProPluginPrefix() . 'license_data');
 
         $status = (bool) (!empty($licenseData) && \is_array($licenseData) && $licenseData['status'] === 'success');
 

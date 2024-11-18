@@ -29,13 +29,13 @@ final class ProPluginUpdater
 
     public function __construct()
     {
-        $this->slug = UtilsConfig::getProPluginSlug();
+        $this->slug = PluginCommonConfig::getProPluginSlug();
 
         $this->name = $this->slug . '/' . $this->slug . '.php';
 
-        $this->version = UtilsConfig::getProPluginVersion();
+        $this->version = PluginCommonConfig::getProPluginVersion();
 
-        $this->label = UtilsConfig::getFreePluginTitle() . ' Connect Wordpress Plugins And External Applications';
+        $this->label = PluginCommonConfig::getFreePluginTitle() . ' Connect Wordpress Plugins And External Applications';
 
         $this->cacheKey = md5($this->slug . '_plugin_info');
 
@@ -58,7 +58,7 @@ final class ProPluginUpdater
             return;
         }
 
-        $licenseData = get_option(UtilsConfig::getProPluginPrefix() . 'license_data', null);
+        $licenseData = get_option(PluginCommonConfig::getProPluginPrefix() . 'license_data', null);
 
         if (!empty($licenseData['expireIn'])) {
             $expireInDays = (strtotime($licenseData['expireIn']) - time()) / DAY_IN_SECONDS;
@@ -72,8 +72,8 @@ final class ProPluginUpdater
 
             if ($expireInDays < 25) {
                 $notice = $expireInDays > 0
-                    ? \sprintf('%s License will expire in %s days', (int) $expireInDays, UtilsConfig::getFreePluginTitle())
-                    : \sprintf('%s License is expired', UtilsConfig::getFreePluginTitle());
+                    ? \sprintf('%s License will expire in %s days', (int) $expireInDays, PluginCommonConfig::getFreePluginTitle())
+                    : \sprintf('%s License is expired', PluginCommonConfig::getFreePluginTitle());
 
                 echo wp_kses("<div class='notice notice-error is-dismissible'>
                 <p>{$notice}</p>
@@ -156,7 +156,7 @@ final class ProPluginUpdater
         global $pagenow;
 
         if ('update-core.php' === $pagenow && isset($_GET['force-check'])) {
-            delete_option(UtilsConfig::getProPluginPrefix() . $this->cacheKey);
+            delete_option(PluginCommonConfig::getProPluginPrefix() . $this->cacheKey);
         }
     }
 
@@ -240,7 +240,7 @@ final class ProPluginUpdater
 
     private function getCache()
     {
-        $cacheData = get_option(UtilsConfig::getProPluginPrefix() . $this->cacheKey);
+        $cacheData = get_option(PluginCommonConfig::getProPluginPrefix() . $this->cacheKey);
 
         if (empty($cacheData['timeout']) || current_time('timestamp') > $cacheData['timeout']) {
             return false;
@@ -258,7 +258,7 @@ final class ProPluginUpdater
             'value'   => $cacheValue,
         ];
 
-        update_option(UtilsConfig::getProPluginPrefix() . $this->cacheKey, $data, 'no');
+        update_option(PluginCommonConfig::getProPluginPrefix() . $this->cacheKey, $data, 'no');
     }
 
     private function formatApiResponse($apiResponse)

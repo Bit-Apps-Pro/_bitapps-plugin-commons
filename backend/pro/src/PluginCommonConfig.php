@@ -2,7 +2,7 @@
 
 namespace BitApps\Utils;
 
-final class UtilsConfig
+final class PluginCommonConfig
 {
     public static $freePluginVersion;
 
