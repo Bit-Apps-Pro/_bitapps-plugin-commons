@@ -1,9 +1,11 @@
+/* eslint-disable no-undef */
+/* eslint-disable unicorn/no-null */
 module.exports = {
   funcArgumentsMap: {
     __: ['msgid'],
     _n: ['msgid', 'msgid_plural'],
-    _x: ['msgid', 'msgctxt'],
-    _nx: ['msgid', 'msgid_plural', null, 'msgctxt']
+    _nx: ['msgid', 'msgid_plural', null, 'msgctxt'],
+    _x: ['msgid', 'msgctxt']
   },
   trim: true
 }
