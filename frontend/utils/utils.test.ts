@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { versionCompare } from './utils'
 
-describe('versionCompare', () => {
+describe.concurrent('versionCompare', () => {
   // Tests without operator (should return -1, 0, or 1)
   it('returns -1 when version1 is lower than version2', () => {
     expect(versionCompare('5.8.2', '5.8.3')).toBe(-1)
