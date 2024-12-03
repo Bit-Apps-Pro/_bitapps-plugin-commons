@@ -62,7 +62,7 @@ export default defineConfig(({ mode }) => {
             antd: ['antd'],
             'css-in-js': ['@emotion/react'],
             'react-query': ['@tanstack/react-query'],
-            router: ['react-router-dom']
+            router: ['react-router']
           }
         }
       }
