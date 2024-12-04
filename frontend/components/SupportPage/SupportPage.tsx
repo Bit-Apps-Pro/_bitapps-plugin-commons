@@ -1,7 +1,6 @@
 import { Col, Row, theme, Typography } from 'antd'
 import { type ReactNode } from 'react'
 
-import isPro from '../../utils/isPro'
 import FacebookCommunityCard from '../FacebookCommunityCard'
 import License from '../License.pro'
 import pluginInfoData from './data/pluginInfoData'
@@ -38,7 +37,7 @@ export default function SupportPage({
             <Paragraph style={{ color: token.colorTextSecondary }}>{aboutPlugin.description}</Paragraph>
           </div>
 
-          {isPro() && <License pluginSlug={pluginSlug} />}
+          <License pluginSlug={pluginSlug} />
 
           <Improvement />
 
