@@ -38,7 +38,7 @@ export function isConflictingCSS(cssUrl: string) {
  * @returns boolean indicating if the css file is from the plugin
  */
 function isPluginCss(cssUrl: string) {
-  return cssUrl.replaceAll(window.location.host, '').includes(SERVER_VARIABLES.slug)
+  return cssUrl.replaceAll(window.location.host, '').includes(`${SERVER_VARIABLES.pluginSlug}-ba-assets`)
 }
 
 /**
