@@ -1,3 +1,4 @@
+import { __ } from '@common/helpers/i18nwrap'
 import { Col, Row, theme, Typography } from 'antd'
 import { type ReactNode } from 'react'
 
@@ -33,7 +34,9 @@ export default function SupportPage({
       <Row gutter={20}>
         <Col md={15} sm={24}>
           <div className="mb-12">
-            <Title level={5}>About {aboutPlugin.title}</Title>
+            <Title level={5}>
+              {__('About')} {aboutPlugin.title}
+            </Title>
             <Paragraph style={{ color: token.colorTextSecondary }}>{aboutPlugin.description}</Paragraph>
           </div>
 
