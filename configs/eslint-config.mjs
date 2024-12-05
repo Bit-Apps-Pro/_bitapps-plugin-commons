@@ -90,7 +90,7 @@ export default tseslint.config(
       'linebreak-style': ['error', 'unix'],
       'max-len': ['error', { code: 350 }],
       'newline-per-chained-call': ['error', { ignoreChainWithDepth: 4 }],
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'no-console': ['error', { allow: ['warn', 'error'] }],
       'no-param-reassign': [
         'error',
         { ignorePropertyModificationsForRegex: ['^draft', '^prev', '^prv', 'acc'], props: true }
