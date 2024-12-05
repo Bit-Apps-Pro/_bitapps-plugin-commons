@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable no-console */
 
 import fse from 'fs-extra'
 import fs from 'node:fs'
