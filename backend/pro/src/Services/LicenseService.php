@@ -38,7 +38,7 @@ class LicenseService
         if (!empty($licenseData) && \is_array($licenseData) && $licenseData['status'] === 'success') {
             $licenseKey = $licenseData['key'];
         }
-        $httpClass = PluginCommonConfig::getClassPreFix() . 'WPKit\Http\Client\HttpClient';
+        $httpClass = PluginCommonConfig::getVendorClassPrefix() . 'WPKit\Http\Client\HttpClient';
 
         $client = (new $httpClass())->setBaseUri(PluginCommonConfig::getApiEndPoint());
 
@@ -60,7 +60,7 @@ class LicenseService
 
         $pluginData = $pluginInfoResponse->data;
 
-        $dateTimeClass = PluginCommonConfig::getClassPreFix() . 'WPKit\Helpers\DateTimeHelper';
+        $dateTimeClass = PluginCommonConfig::getVendorClassPrefix() . 'WPKit\Helpers\DateTimeHelper';
 
         $dateTimeHelper = new $dateTimeClass();
 

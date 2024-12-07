@@ -11,7 +11,7 @@ final class LicenseController
 
     public function __construct()
     {
-        $httpClass = PluginCommonConfig::getClassPreFix() . 'WPKit\Http\Client\HttpClient';
+        $httpClass = PluginCommonConfig::getVendorClassPrefix() . 'WPKit\Http\Client\HttpClient';
 
         if (class_exists($httpClass)) {
             $this->httpClient = (new $httpClass())->setBaseUri(PluginCommonConfig::getApiEndPoint());

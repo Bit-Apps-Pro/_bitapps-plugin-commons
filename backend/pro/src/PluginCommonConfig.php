@@ -107,9 +107,22 @@ final class PluginCommonConfig
         return self::$apiEndPoint;
     }
 
-    public static function getClassPreFix()
+    public static function getClassPrefix()
     {
-        return !empty(self::$pluginNamespace) ? self::$pluginNamespace : 'BitApps\\' . self::convertToCamelCase(self::$proPluginSlug) . '\\Deps\\BitApps\\';
+        if (!empty(self::$pluginNamespace)) {
+            return self::$pluginNamespace;
+        }
+
+        return 'BitApps\\' . self::convertToCamelCase(self::$proPluginSlug);
+    }
+
+    public static function getVendorClassPrefix()
+    {
+        if (!empty(self::$pluginNamespace)) {
+            return self::$pluginNamespace . '\\Deps\\BitApps\\';
+        }
+
+        return 'BitApps\\' . self::convertToCamelCase(self::$proPluginSlug) . '\\Deps\\BitApps\\';
     }
 
     private static function convertToCamelCase($slug)
