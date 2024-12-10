@@ -95,7 +95,6 @@ export default tseslint.config(
         'error',
         { ignorePropertyModificationsForRegex: ['^draft', '^prev', '^prv', 'acc'], props: true }
       ],
-
       'no-restricted-imports': [
         'error',
         {
@@ -122,6 +121,8 @@ export default tseslint.config(
           ObjectPattern: { consistent: true }
         }
       ],
+
+      'perfectionist/sort-objects': ['error', { partitionByComment: true }],
 
       'prettier/prettier': ['warn', {}],
       'react/destructuring-assignment': 0,
