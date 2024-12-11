@@ -122,9 +122,10 @@ export default tseslint.config(
         }
       ],
 
-      'perfectionist/sort-objects': ['error', { partitionByComment: true }],
+      'perfectionist/sort-objects': ['error', { partitionByComment: true, partitionByNewLine: true }],
 
       'prettier/prettier': ['warn', {}],
+      'react-hooks/exhaustive-deps': 'warn',
       'react/destructuring-assignment': 0,
       'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
       'react/jsx-uses-react': 'off',
@@ -141,7 +142,6 @@ export default tseslint.config(
       'react/prop-types': 0,
       'react/react-in-jsx-scope': 'off',
       'react/require-default-props': [0, { functions: 'ignore' }],
-      'react-hooks/exhaustive-deps': 'warn',
       'template-curly-spacing': 'off',
       'unicorn/explicit-length-check': 'off',
       'unicorn/filename-case': [
