@@ -7,7 +7,7 @@ import Title from 'antd/es/typography/Title'
 import { useEffect, useRef } from 'react'
 import { useSearchParam } from 'react-use'
 
-import LicenseInvalidAlert from './LicenseInvalidAlert.pro'
+import LicenseActivationNotice from './LicenseActivationNotice.pro'
 import CheckNewUpdate from './SupportPage/CheckNewUpdate'
 import pluginInfo from './SupportPage/data/pluginInfoData'
 
@@ -120,7 +120,7 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
                   {__('Deactivate License')}
                 </Button>
 
-                <LicenseInvalidAlert forceCheckLicense />
+                <LicenseActivationNotice />
               </>
             ) : (
               <Button

@@ -1,5 +1,7 @@
 import { __ } from '@common/helpers/i18nwrap'
+import LucideIcn from '@icons/LucideIcn'
 import { Alert } from 'antd'
+import { Link } from 'react-router-dom'
 
 import useCheckLicenseValidity from './SupportPage/data/useCheckLicenseValidity'
 
@@ -10,6 +12,12 @@ export default function LicenseInvalidAlert({ forceCheckLicense }: { forceCheckL
 
   return (
     <Alert
+      action={
+        <Link className="mt-2" to="/support">
+          {__('Manage license')}
+          <LucideIcn name="move-up-right" size={12} style={{ transform: 'translateY(-4px)' }} />
+        </Link>
+      }
       description={__(
         `Please update your license to ensure you receive the latest security updates and bug fixes. 
           Using an outdated or unofficial license may leave your system vulnerable to security breaches and data leaks. 
