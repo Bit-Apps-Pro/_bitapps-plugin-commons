@@ -1,7 +1,7 @@
 import { __ } from '@common/helpers/i18nwrap'
 import LucideIcn from '@icons/LucideIcn'
 import { Alert } from 'antd'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 
 import useCheckLicenseValidity from './SupportPage/data/useCheckLicenseValidity'
 

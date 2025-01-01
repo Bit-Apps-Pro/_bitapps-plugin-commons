@@ -50,7 +50,7 @@
     "react-draggable": "^4.4.6",
     "react-focus-bounder": "^1.1.6",
     "react-multiple-select-dropdown-lite": "^2.0.6",
-    "react-router-dom": "^6.24.0",
+    "react-router": "^7.1.1",
     "react-use": "^17.5.0",
     "react-virtualized-auto-sizer": "^1.0.24",
     "react-window": "^1.8.10",
