@@ -1,3 +1,4 @@
+import { __ } from '@common/helpers/i18nwrap'
 import LucideIcn from '@icons/LucideIcn'
 import { Alert } from 'antd'
 import Link from 'antd/es/typography/Link'
@@ -12,12 +13,13 @@ export function BitAppsPluginUtilUpdateNotice() {
         css={{ padding: 10 }}
         description={
           <>
-            <code>_bitapps-plugin-commons</code> submodule updated, please pull new changes from{' '}
+            <code>{__('_bitapps-plugin-commons')}</code>
+            {__('submodule updated, please pull new changes from')}
             <Link href="https://github.com/Bit-Apps-Pro/_bitapps-plugin-commons" target="_blank">
-              GitHub
+              {__('GitHub')}
             </Link>
-            . If you already pulled the changes, please restart the dev server. and run{' '}
-            <code>pnpm sync-plugin-commons</code> if needed.
+            {__('. If you already pulled the changes, please restart the dev server. and run')}
+            <code>{__('pnpm sync-plugin-commons')}</code> {__('if needed.')}
           </>
         }
         icon={<LucideIcn name="circle-alert" />}
