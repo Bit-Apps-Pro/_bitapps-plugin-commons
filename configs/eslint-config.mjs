@@ -74,7 +74,7 @@ export default tseslint.config(
       'arrow-parens': 0,
       camelcase: ['error', { properties: 'never' }],
       'consistent-return': 'off',
-      'i18next/no-literal-string': 'error',
+      'i18next/no-literal-string': 'warn',
       'import/consistent-type-specifier-style': ['error', 'prefer-inline'],
       'import/extensions': 'off',
       'import/first': 'error',
