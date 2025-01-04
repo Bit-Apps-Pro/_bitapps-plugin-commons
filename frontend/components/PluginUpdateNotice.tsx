@@ -4,6 +4,7 @@
 */
 
 import { SyncOutlined } from '@ant-design/icons'
+import { __, sprintf } from '@common/helpers/i18nwrap'
 import { Button } from 'antd'
 import { type CSSProperties } from 'react'
 import { useState } from 'react'
@@ -60,10 +61,11 @@ export default function PluginUpdateNotice() {
       }}
     >
       <div className="notice notice-warning">
-        <h4 className="mt-2">Plugin Update Required ({aboutPlugin.title}) </h4>
+        <h4 className="mt-2">{sprintf(__('Plugin Update Required (%s)'), aboutPlugin.title)} </h4>
         <p>
-          Please update both Free and Pro plugins to the latest version. Keeping them the same is crucial
-          to avoid potential issues.
+          {__(
+            'Please update both Free and Pro plugins to the latest version. Keeping them the same is crucial to avoid potential issues.'
+          )}
         </p>
         <Button
           disabled={isLoadingUpdatePlugin}

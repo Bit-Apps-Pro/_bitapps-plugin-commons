@@ -1,3 +1,4 @@
+import { __ } from '@common/helpers/i18nwrap'
 import LucideIcn from '@icons/LucideIcn'
 import fbCommunityImg from '@plugin-commons/resources/img/fbCommunity.webp'
 import { Button, Flex, theme, Typography } from 'antd'
@@ -47,16 +48,16 @@ export default function FacebookCommunityCard({ facebookCommunityLink }: FBCommu
         vertical
       >
         <Title level={3} style={{ color: 'white' }}>
-          Join Our Facebook Community
+          {__('Join Our Facebook Community')}
         </Title>
         <p css={{ color: 'white', fontSize: 18 }}>
-          Connect, share, and grow with like-minded individuals
+          {__('Connect, share, and grow with like-minded individuals')}
         </p>
       </Flex>
       <Flex css={{ marginBlock: 0 }} gap={15} justify="center" wrap>
-        <span className="whitespace-nowrap">🌟 Exclusive Content</span>
-        <span className="whitespace-nowrap">💬 Daily Discussion</span>
-        <span className="whitespace-nowrap">🎉 Special Events</span>
+        <span className="whitespace-nowrap">🌟 {__('Exclusive Content')}</span>
+        <span className="whitespace-nowrap">💬 {__('Daily Discussion')}</span>
+        <span className="whitespace-nowrap">🎉 {__('Special Events')}</span>
       </Flex>
 
       <Button
@@ -73,7 +74,7 @@ export default function FacebookCommunityCard({ facebookCommunityLink }: FBCommu
         size="large"
         target="_blank"
       >
-        Join Now
+        {__('Join Now')}
       </Button>
     </Flex>
   )

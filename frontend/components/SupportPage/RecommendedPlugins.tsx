@@ -1,3 +1,4 @@
+import { __ } from '@common/helpers/i18nwrap'
 import config from '@config/config'
 import LucideIcn from '@icons/LucideIcn'
 import { useQuery } from '@tanstack/react-query'
@@ -40,7 +41,7 @@ function RecommendedPlugins() {
 
   return (
     <>
-      <Title level={5}>Recommended Plugins</Title>
+      <Title level={5}>{__('Recommended Plugins')}</Title>
 
       <Flex gap={15} wrap>
         {supportInfo?.pluginsList

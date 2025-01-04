@@ -1,3 +1,4 @@
+import { __, sprintf } from '@common/helpers/i18nwrap'
 import config from '@config/config'
 import LucideIcn from '@icons/LucideIcn'
 import { Badge, Button } from 'antd'
@@ -23,7 +24,7 @@ export default function GiveReview({ pluginSlug }: { pluginSlug: string }) {
         color="geekblue"
         text={
           <span css={{ fontSize: 16, padding: 5 }}>
-            <LucideIcn name="dollar-sign" /> Cash Back
+            <LucideIcn name="dollar-sign" /> {__('Cash Back')}
           </span>
         }
       >
@@ -35,14 +36,18 @@ export default function GiveReview({ pluginSlug }: { pluginSlug: string }) {
           }}
         >
           <h4 css={{ color: 'white!important' }}>
-            Hi {SERVER_VARIABLES.loggedInUserName}, <span css={{ fontSize: 23 }}>👋</span>
+            {sprintf(__('Hi %s'), SERVER_VARIABLES.loggedInUserName)},{' '}
+            <span css={{ fontSize: 23 }}>👋</span>
           </h4>
           <p css={{ color: '#ccccd5', fontSize: 16 }}>
-            We want your feedback! <Link href={aboutPlugin.reviewLink}>Write a review</Link> of your
-            experience with {config.PRODUCT_NAME}, and we'll send you a{' '}
-            <b style={{ color: 'white' }}>$10 Cash back</b> to say thanks!
+            {__('We want your feedback!')}{' '}
+            <Link href={aboutPlugin.reviewLink}>{__('Write a review')}</Link>
+            {sprintf(__("of your experience with %s, and we'll send you a"), config.PRODUCT_NAME)}
+            <b style={{ color: 'white' }}>{__('$10 Cash back')}</b> {__('to say thanks!')}
             <br />
-            To claim your cash back, simply reply to support with a screenshot or link of your review.
+            {__(
+              'To claim your cash back, simply reply to support with a screenshot or link of your review.'
+            )}
             <br />
           </p>
           <Button
@@ -60,7 +65,7 @@ export default function GiveReview({ pluginSlug }: { pluginSlug: string }) {
             target="_blank"
             type="primary"
           >
-            Review Now
+            {__('Review Now')}
           </Button>
         </div>
       </Badge.Ribbon>
