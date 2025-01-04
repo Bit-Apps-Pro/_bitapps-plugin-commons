@@ -1,3 +1,4 @@
+/* eslint-disable i18next/no-literal-string */
 import LucideIcn from '@icons/LucideIcn'
 import { Alert } from 'antd'
 import Link from 'antd/es/typography/Link'
