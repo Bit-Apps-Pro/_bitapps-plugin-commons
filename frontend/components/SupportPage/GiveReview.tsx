@@ -36,8 +36,7 @@ export default function GiveReview({ pluginSlug }: { pluginSlug: string }) {
           }}
         >
           <h4 css={{ color: 'white!important' }}>
-            {sprintf(__('Hi %s'), SERVER_VARIABLES.loggedInUserName)},{' '}
-            <span css={{ fontSize: 23 }}>👋</span>
+            {__('Hi')} {SERVER_VARIABLES.loggedInUserName} , <span css={{ fontSize: 23 }}>👋</span>
           </h4>
           <p css={{ color: '#ccccd5', fontSize: 16 }}>
             {__('We want your feedback!')}{' '}
