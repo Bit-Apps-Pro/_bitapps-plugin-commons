@@ -24,7 +24,7 @@ export default function useCheckLicenseValidity(forceRequest = false) {
     enabled: config.IS_PRO && !!config.KEY && (isNeedValidityCheck || forceRequest),
     queryFn: () =>
       proxyRequest<CheckUpdateResponse>({
-        bodyParams: { domain: window.location.origin, licenseKey: [config.KEY || ''] },
+        bodyParams: { domain: config.SITE_URL, licenseKey: [config.KEY || ''] },
         encrypted: ['bodyParams.licenseKey.0'],
         method: 'POST',
         url: licenseCheckUrl
