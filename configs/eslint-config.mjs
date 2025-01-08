@@ -74,7 +74,46 @@ export default tseslint.config(
       'arrow-parens': 0,
       camelcase: ['error', { properties: 'never' }],
       'consistent-return': 'off',
-      'i18next/no-literal-string': 'warn',
+      'i18next/no-literal-string': [
+        'warn',
+        {
+          callees: {
+            exclude: [
+              '__',
+              'i18n(ext)?',
+              't',
+              'require',
+              'addEventListener',
+              'removeEventListener',
+              'postMessage',
+              'getElementById',
+              'dispatch',
+              'commit',
+              'includes',
+              'indexOf',
+              'endsWith',
+              'startsWith'
+            ]
+          },
+          'jsx-attributes': {
+            include: [
+              'title',
+              'aria-label',
+              'okText',
+              'cancelText',
+              'placeholder',
+              'description',
+              'label',
+              'helperText',
+              'invalidMessage'
+            ],
+            'object-properties': {
+              include: ['label', 'description', 'helperText', 'invalidMessage', 'title']
+            }
+          },
+          mode: 'jsx-only'
+        }
+      ],
       'import/consistent-type-specifier-style': ['error', 'prefer-inline'],
       'import/extensions': 'off',
       'import/first': 'error',
