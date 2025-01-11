@@ -43,6 +43,7 @@
     "immer": "^10.1.1",
     "jotai": "^2.8.3",
     "jotai-immer": "^0.4.1",
+    "jotai-devtools": "^0.10.1",
     "localforage": "^1.10.0",
     "lucide-react": "^0.397.0",
     "react": "^18.3.1",
