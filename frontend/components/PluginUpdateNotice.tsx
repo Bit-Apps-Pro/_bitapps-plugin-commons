@@ -80,7 +80,7 @@ export default function PluginUpdateNotice() {
             marginBottom: 10
           }}
         >
-          {isLoadingUpdatePlugin ? 'Updating...' : 'Update Now'}
+          {isLoadingUpdatePlugin ? __('Updating...') : __('Update Now')}
         </Button>
 
         {updateResponse.status && (
