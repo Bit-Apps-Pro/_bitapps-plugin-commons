@@ -13,17 +13,6 @@ export function createAntDesignStyleContainer() {
   return template
 }
 /**
- * Set the background color of the app from the admin bar background color
- */
-export function setAppBgFromAdminBarBg() {
-  const bitAppsRootElm = select('#bit-apps-root')
-  const wpAdminBarElm = select('#wpadminbar')
-  if (bitAppsRootElm && wpAdminBarElm) {
-    bitAppsRootElm.style.backgroundColor = globalThis.getComputedStyle(wpAdminBarElm)?.backgroundColor
-  }
-}
-
-/**
  * Check if the css file is conflicting with project styles
  * @param cssUrl a string containing the url of the css file
  * @returns boolean indicating if the css file is conflicting with project styles
@@ -33,12 +22,14 @@ export function isConflictingCSS(cssUrl: string) {
 }
 
 /**
- * Check if the css file is from the plugin
- * @param cssUrl url of the css file
- * @returns boolean indicating if the css file is from the plugin
+ * Set the background color of the app from the admin bar background color
  */
-function isPluginCss(cssUrl: string) {
-  return cssUrl.replaceAll(window.location.host, '').includes(`${SERVER_VARIABLES.pluginSlug}-ba-assets`)
+export function setAppBgFromAdminBarBg() {
+  const bitAppsRootElm = select('#bit-apps-root')
+  const wpAdminBarElm = select('#wpadminbar')
+  if (bitAppsRootElm && wpAdminBarElm) {
+    bitAppsRootElm.style.backgroundColor = globalThis.getComputedStyle(wpAdminBarElm)?.backgroundColor
+  }
 }
 
 /**
@@ -80,4 +71,13 @@ export function setCascadeLayerToWordpressStyles(cssLayers: string) {
     `
 
   document.head.insertBefore(wpStyles, document.head.firstChild)
+}
+
+/**
+ * Check if the css file is from the plugin
+ * @param cssUrl url of the css file
+ * @returns boolean indicating if the css file is from the plugin
+ */
+function isPluginCss(cssUrl: string) {
+  return cssUrl.replaceAll(window.location.host, '').includes(`${SERVER_VARIABLES.pluginSlug}-ba-assets`)
 }
