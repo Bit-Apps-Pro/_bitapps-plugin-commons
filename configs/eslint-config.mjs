@@ -25,6 +25,7 @@ export default tseslint.config(
   jsxA11Y.flatConfigs.recommended,
   {
     ignores: [
+      '**/routeTree.gen.ts',
       '**/vite.config.ts',
       '**/commitlint.config.js',
       '**/node_modules',
