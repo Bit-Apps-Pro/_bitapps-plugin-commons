@@ -1,3 +1,5 @@
+/* eslint-disable translate-obj-prop/translate-obj-prop */
+
 export default {
   parserPreset: 'conventional-changelog-conventionalcommits',
   prompt: {

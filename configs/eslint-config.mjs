@@ -16,6 +16,8 @@ import unusedImports from 'eslint-plugin-unused-imports'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
+import translateObjProp from './obj-prop-translate.mjs'
+
 export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.strict,
@@ -43,11 +45,6 @@ export default tseslint.config(
       }
     },
     plugins: {
-      // custom: {
-      //   rules: {
-      //     // 'plugin-name': importedPlugin,
-      //   }
-      // },
       cypress,
       import: fixupPluginRules(importPlugin),
       jsxA11Y,
@@ -57,6 +54,11 @@ export default tseslint.config(
       'react-hooks': fixupPluginRules(reactHooks),
       'react-refresh': reactRefresh,
       stylisticTs,
+      'translate-obj-prop': {
+        rules: {
+          'translate-obj-prop': translateObjProp['translate-obj-prop']
+        }
+      },
       unicorn: eslintPluginUnicorn,
       'unused-imports': unusedImports
     },
@@ -151,6 +153,7 @@ export default tseslint.config(
           ]
         }
       ],
+      'translate-obj-prop/translate-obj-prop': ['warn'],
 
       'object-curly-newline': [
         'error',
