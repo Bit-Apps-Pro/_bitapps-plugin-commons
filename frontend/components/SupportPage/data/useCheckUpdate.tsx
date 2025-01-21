@@ -1,4 +1,5 @@
 import queryRequest from '@common/helpers/request'
+import config from '@config/config'
 import { useQuery } from '@tanstack/react-query'
 
 interface CheckUpdateResponse {
@@ -7,6 +8,7 @@ interface CheckUpdateResponse {
 
 export default function useCheckUpdate() {
   const { data, isLoading: isCheckingUpdates } = useQuery({
+    enabled: config.IS_PRO_EXIST,
     queryFn: () =>
       queryRequest<CheckUpdateResponse>('pro_plugin/update-check', undefined, undefined, 'GET'),
     queryKey: ['update'],
