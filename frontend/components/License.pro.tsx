@@ -2,7 +2,7 @@ import { __ } from '@common/helpers/i18nwrap'
 import request from '@common/helpers/request'
 import config from '@config/config'
 import LucideIcn from '@icons/LucideIcn'
-import { Badge, Button, Space } from 'antd'
+import { Badge, Button, Space, Typography } from 'antd'
 import Title from 'antd/es/typography/Title'
 import { useEffect, useRef } from 'react'
 import { useSearchParam } from 'react-use'
@@ -23,9 +23,21 @@ const handleDeactivateLicense = async () => {
   window.location.reload()
 }
 
+const getCurrentBuildCodeName = (): string | undefined => {
+  const scripts = [...document.scripts]
+  for (const sc of scripts) {
+    if (sc.src.includes('bit-pi') && sc.src.includes('main')) {
+      return sc?.src?.split('/')?.at(-1)?.replace('main', '')?.replace('.js', '')
+        ?.replaceAll('-', ' ')
+    }
+  }
+}
+
 export default function License({ pluginSlug }: { pluginSlug: string }) {
   const aboutPlugin = pluginInfo.plugins[pluginSlug as keyof typeof pluginInfo.plugins]
   const licenseKey = useRef(useSearchParam('licenseKey'))
+
+  const buildCodeName = getCurrentBuildCodeName()
 
   const {
     FREE_VERSION: freeVersion,
@@ -70,11 +82,12 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
   return (
     <div className="mb-12">
       <Title level={5}>{__('License & Activation')}</Title>
-
+      <Typography.Text className="mb-2 inline-block text-xs" type="secondary">
+        {__('Build Code Name:')} {buildCodeName}
+      </Typography.Text>
       <div className="mb-2">
         {__('Version')}: {freeVersion}
       </div>
-
       {!hasProPlugin && (
         <div className="mb-2">
           <Space className="mb-2">
@@ -97,7 +110,6 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
           <CheckNewUpdate />
         </div>
       )}
-
       {hasProPlugin && (
         <div className="mb-2">
           <div className="mb-2">
