@@ -2,10 +2,11 @@ import { __ } from '@common/helpers/i18nwrap'
 import request from '@common/helpers/request'
 import config from '@config/config'
 import LucideIcn from '@icons/LucideIcn'
-import { Badge, Button, Space, Typography } from 'antd'
+import If from '@utilities/If'
+import { Badge, Button, Space, Tag, Typography } from 'antd'
 import Title from 'antd/es/typography/Title'
 import { useEffect, useRef } from 'react'
-import { useSearchParam } from 'react-use'
+import { useAsync, useSearchParam } from 'react-use'
 
 import LicenseActivationNotice from './LicenseActivationNotice.pro'
 import CheckNewUpdate from './SupportPage/CheckNewUpdate'
@@ -27,8 +28,14 @@ const getCurrentBuildCodeName = (): string | undefined => {
   const scripts = [...document.scripts]
   for (const sc of scripts) {
     if (sc.src.includes('bit-pi') && sc.src.includes('main')) {
-      return sc?.src?.split('/')?.at(-1)?.replace('main', '')?.replace('.js', '')
-        ?.replaceAll('-', ' ')
+      return sc?.src
+        ?.split('/')
+        ?.at(-1)
+        ?.replace('main', '')
+        ?.replace('.js', '')
+        ?.split('-')
+        .filter(Boolean)
+        .join('-')
     }
   }
 }
@@ -36,8 +43,19 @@ const getCurrentBuildCodeName = (): string | undefined => {
 export default function License({ pluginSlug }: { pluginSlug: string }) {
   const aboutPlugin = pluginInfo.plugins[pluginSlug as keyof typeof pluginInfo.plugins]
   const licenseKey = useRef(useSearchParam('licenseKey'))
+  const freeBuildCodeName = useAsync(async () => {
+    const res = await fetch(`/wp-content/plugins/${config.PLUGIN_SLUG}/assets/build-code-name.txt`)
+    const text = await res.text()
+    return text
+  })
 
-  const buildCodeName = getCurrentBuildCodeName()
+  const proBuildCodeName = useAsync(async () => {
+    const res = await fetch(`/wp-content/plugins/${config.PRO_SLUG}/assets/build-code-name.txt`)
+    const text = await res.text()
+    return text
+  })
+
+  const currentBuildCodeName = getCurrentBuildCodeName()
 
   const {
     FREE_VERSION: freeVersion,
@@ -82,13 +100,24 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
   return (
     <div className="mb-12">
       <Title level={5}>{__('License & Activation')}</Title>
-      <Typography.Text className="mb-2 inline-block text-xs" type="secondary">
-        {__('Build Code Name:')} {buildCodeName}
-      </Typography.Text>
+
+      <If conditions={currentBuildCodeName === '.tsx'}>
+        <Tag className="mb-2 font-bold" color="blue">
+          {__('Dev Version On')}
+        </Tag>
+      </If>
+
       <div className="mb-2">
         {__('Version')}: {freeVersion}
+        <Typography.Text className="ml-2 text-xs" type="secondary">
+          {__('Code Name: ')}
+          {freeBuildCodeName?.value}
+          <If conditions={freeBuildCodeName?.value === currentBuildCodeName}>
+            <LucideIcn className="ml-1" name="check" />
+          </If>
+        </Typography.Text>
       </div>
-      {!hasProPlugin && (
+      <If conditions={!hasProPlugin}>
         <div className="mb-2">
           <Space className="mb-2">
             <div>
@@ -109,11 +138,19 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
 
           <CheckNewUpdate />
         </div>
-      )}
-      {hasProPlugin && (
+      </If>
+
+      <If conditions={hasProPlugin}>
         <div className="mb-2">
           <div className="mb-2">
-            {__('Pro Version')}: {proVersion}
+            {__('Pro Version')}: {proVersion}{' '}
+            <Typography.Text className="ml-2 text-xs" type="secondary">
+              {__('Code Name: ')}
+              {proBuildCodeName?.value}
+              <If conditions={proBuildCodeName?.value === currentBuildCodeName}>
+                <LucideIcn className="ml-1" name="check" />
+              </If>
+            </Typography.Text>
           </div>
 
           <CheckNewUpdate />
@@ -146,7 +183,7 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
             )}
           </div>
         </div>
-      )}
+      </If>
     </div>
   )
 }
