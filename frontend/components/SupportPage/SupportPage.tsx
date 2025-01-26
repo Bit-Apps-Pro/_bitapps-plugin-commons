@@ -14,12 +14,14 @@ const { Paragraph, Title } = Typography
 
 interface SupportPageProps {
   isCashBackVisible: boolean
+  isTelemetryVisible: boolean
   logoComponent: ReactNode
   pluginSlug: string
 }
 
 export default function SupportPage({
   isCashBackVisible = true,
+  isTelemetryVisible = true,
   logoComponent,
   pluginSlug
 }: SupportPageProps) {
@@ -42,7 +44,7 @@ export default function SupportPage({
 
           <License pluginSlug={pluginSlug} />
 
-          <Improvement />
+          {isTelemetryVisible && <Improvement />}
 
           <SupportLinks pluginSlug={pluginSlug} />
         </Col>
