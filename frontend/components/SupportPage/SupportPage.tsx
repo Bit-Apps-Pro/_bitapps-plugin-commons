@@ -13,8 +13,8 @@ import SupportLinks from './SupportLinks'
 const { Paragraph, Title } = Typography
 
 interface SupportPageProps {
-  isCashBackVisible: boolean
-  isTelemetryVisible: boolean
+  isCashBackVisible?: boolean
+  isTelemetryVisible?: boolean
   logoComponent: ReactNode
   pluginSlug: string
 }
