@@ -28,7 +28,9 @@ export function setAppBgFromAdminBarBg() {
   const bitAppsRootElm = select('#bit-apps-root')
   const wpAdminBarElm = select('#wpadminbar')
   if (bitAppsRootElm && wpAdminBarElm) {
-    bitAppsRootElm.style.backgroundColor = globalThis.getComputedStyle(wpAdminBarElm)?.backgroundColor
+    const bgColor = globalThis.getComputedStyle(wpAdminBarElm)?.backgroundColor
+    bitAppsRootElm.style.backgroundColor = bgColor
+    document.documentElement.style.setProperty('--wp-bg-color', bgColor)
   }
 }
 
