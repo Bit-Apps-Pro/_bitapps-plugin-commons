@@ -26,7 +26,7 @@ export default function useCheckLicenseValidity(forceRequest = false) {
       proxyRequest<CheckUpdateResponse>({
         bodyParams: {
           domain: config.SITE_URL,
-          licenseKey: config.KEY ? `decrypt(${config.KEY})` : ''
+          licenseKey: config.KEY ? { encryption: 'hmac_decrypt', value: config.KEY } : ''
         },
         method: 'POST',
         url: licenseCheckUrl
