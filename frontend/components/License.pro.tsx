@@ -97,8 +97,6 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
     activateLicense()
   }, [])
 
-  console.log('', proBuildCodeName, freeBuildCodeName)
-
   return (
     <div className="mb-12">
       <Title level={5}>{__('License & Activation')}</Title>
