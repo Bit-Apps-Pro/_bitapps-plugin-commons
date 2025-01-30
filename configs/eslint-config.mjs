@@ -17,7 +17,6 @@ import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
 import translateObjProp from './obj-prop-translate.mjs'
-import { group } from 'console'
 
 export default tseslint.config(
   eslint.configs.recommended,
