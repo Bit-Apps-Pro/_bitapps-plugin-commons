@@ -17,6 +17,7 @@ import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
 import translateObjProp from './obj-prop-translate.mjs'
+import { group } from 'console'
 
 export default tseslint.config(
   eslint.configs.recommended,
@@ -149,6 +150,10 @@ export default tseslint.config(
             {
               group: ['lucide-react'],
               message: 'Use the <LucideIcn /> component instead.'
+            },
+            {
+              group: ['@wordpress/i18n'],
+              message: 'use `@common/helpers/i18nwrap` instead.'
             }
           ]
         }
