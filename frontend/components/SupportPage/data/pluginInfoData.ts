@@ -9,7 +9,7 @@ export default {
     'bit-pi': {
       buyLink: 'https://bit-flows.com/#pricing/',
       description: 'Bit Flows - ' + __('Zapier Alternative in WordPress Unlimited Task.'),
-      docLink: 'https://bit-flows.com/documentation/',
+      docLink: 'https://bit-flows.com/users-guide/',
       reviewLink: 'https://wordpress.org/support/plugin/bit-pi/reviews/',
       title: 'Bit Flows',
       website: 'https://bit-flows.com',
