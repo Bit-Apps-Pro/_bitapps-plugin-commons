@@ -97,6 +97,8 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
     activateLicense()
   }, [])
 
+  console.log('', proBuildCodeName, freeBuildCodeName)
+
   return (
     <div className="mb-12">
       <Title level={5}>{__('License & Activation')}</Title>
@@ -109,13 +111,16 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
 
       <div className="mb-2">
         {__('Version')}: {freeVersion}
-        <Typography.Text className="ml-2 text-xs" type="secondary">
-          {__('Code Name: ')}
-          {freeBuildCodeName?.value}
-          <If conditions={freeBuildCodeName?.value === currentBuildCodeName}>
-            <LucideIcn className="ml-1" name="check" />
-          </If>
-        </Typography.Text>
+        <If conditions={[!freeBuildCodeName?.loading, !freeBuildCodeName?.value?.includes('<html')]}>
+          <Typography.Text className="ml-2 text-xs" type="secondary">
+            {__('Code Name: ')}
+
+            {freeBuildCodeName?.value}
+            <If conditions={freeBuildCodeName?.value === currentBuildCodeName}>
+              <LucideIcn className="ml-1" name="check" />
+            </If>
+          </Typography.Text>
+        </If>
       </div>
       <If conditions={!hasProPlugin}>
         <div className="mb-2">
@@ -144,13 +149,15 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
         <div className="mb-2">
           <div className="mb-2">
             {__('Pro Version')}: {proVersion}{' '}
-            <Typography.Text className="ml-2 text-xs" type="secondary">
-              {__('Code Name: ')}
-              {proBuildCodeName?.value}
-              <If conditions={proBuildCodeName?.value === currentBuildCodeName}>
-                <LucideIcn className="ml-1" name="check" />
-              </If>
-            </Typography.Text>
+            <If conditions={[!proBuildCodeName?.loading, !proBuildCodeName?.value?.includes('<html')]}>
+              <Typography.Text className="ml-2 text-xs" type="secondary">
+                {__('Code Name: ')}
+                {proBuildCodeName?.value}
+                <If conditions={proBuildCodeName?.value === currentBuildCodeName}>
+                  <LucideIcn className="ml-1" name="check" />
+                </If>
+              </Typography.Text>
+            </If>
           </div>
 
           <CheckNewUpdate />
