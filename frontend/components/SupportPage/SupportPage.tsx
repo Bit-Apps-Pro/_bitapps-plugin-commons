@@ -2,6 +2,7 @@ import { __ } from '@common/helpers/i18nwrap'
 import { Col, Row, theme, Typography } from 'antd'
 import { type ReactNode } from 'react'
 
+import Changelog from '../Changelog'
 import FacebookCommunityCard from '../FacebookCommunityCard'
 import License from '../License.pro'
 import pluginInfoData from './data/pluginInfoData'
@@ -45,6 +46,8 @@ export default function SupportPage({
           <License pluginSlug={pluginSlug} />
 
           {isTelemetryVisible && <Improvement />}
+
+          <Changelog />
 
           <SupportLinks pluginSlug={pluginSlug} />
         </Col>
