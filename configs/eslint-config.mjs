@@ -147,10 +147,6 @@ export default tseslint.config(
                 'Use `@plugin-commons/*` instead, make sure plugin commons are synced and up to date.'
             },
             {
-              group: ['lucide-react'],
-              message: 'Use the <LucideIcn /> component instead.'
-            },
-            {
               group: ['@wordpress/i18n'],
               message: 'use `@common/helpers/i18nwrap` instead.'
             }
