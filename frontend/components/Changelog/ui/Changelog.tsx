@@ -1,4 +1,4 @@
-import { __ } from '@common/helpers/i18nwrap'
+import { __ } from '@common/helpers/i18nWrap'
 import LucideIcn from '@icons/LucideIcn'
 import { Button, Drawer } from 'antd'
 import { useToggle } from 'react-use'
