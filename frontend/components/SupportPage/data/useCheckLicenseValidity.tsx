@@ -44,7 +44,7 @@ export default function useCheckLicenseValidity(forceRequest = false) {
     setIsNeedValidityCheck(false)
 
     setLicenseValidity({ checkedAt: Date.now(), isValid: data.response === 'valid' })
-  }, [data?.response])
+  }, [data?.response, setLicenseValidity])
 
   // Check license validity every 24 hours
   useEffect(() => {
@@ -59,7 +59,7 @@ export default function useCheckLicenseValidity(forceRequest = false) {
     if (timeDiff >= TWENTY_FOUR_HOURS) {
       setIsNeedValidityCheck(true)
     }
-  }, [])
+  }, [licenseValidity?.checkedAt])
 
   return {
     isCheckingValidity,
