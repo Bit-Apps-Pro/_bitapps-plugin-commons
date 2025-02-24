@@ -1,4 +1,4 @@
-import { __, sprintf } from '@common/helpers/i18nwrap'
+import { __, sprintf } from '@common/helpers/i18nWrap'
 import config from '@config/config'
 import LucideIcn from '@icons/LucideIcn'
 import { Badge, Button } from 'antd'

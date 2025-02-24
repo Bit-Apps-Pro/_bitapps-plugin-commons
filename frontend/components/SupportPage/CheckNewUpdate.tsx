@@ -1,5 +1,5 @@
 import { SyncOutlined } from '@ant-design/icons'
-import { __ } from '@common/helpers/i18nwrap'
+import { __ } from '@common/helpers/i18nWrap'
 import config from '@config/config'
 import LucideIcn from '@icons/LucideIcn'
 import { Space, theme, Tooltip } from 'antd'

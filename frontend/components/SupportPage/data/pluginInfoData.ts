@@ -1,5 +1,5 @@
 /* eslint-disable translate-obj-prop/translate-obj-prop */
-import { __ } from '@common/helpers/i18nwrap'
+import { __ } from '@common/helpers/i18nWrap'
 
 export default {
   chatLink: 'https://tawk.to/chat/60eac4b6d6e7610a49aab375/1faah0r3e',

@@ -148,7 +148,7 @@ export default tseslint.config(
             },
             {
               group: ['@wordpress/i18n'],
-              message: 'use `@common/helpers/i18nwrap` instead.'
+              message: 'use `@common/helpers/i18nWrap` instead.'
             }
           ]
         }

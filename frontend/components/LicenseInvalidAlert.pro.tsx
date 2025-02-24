@@ -1,4 +1,4 @@
-import { __ } from '@common/helpers/i18nwrap'
+import { __ } from '@common/helpers/i18nWrap'
 import LucideIcn from '@icons/LucideIcn'
 import { Alert } from 'antd'
 import { Link } from 'react-router'

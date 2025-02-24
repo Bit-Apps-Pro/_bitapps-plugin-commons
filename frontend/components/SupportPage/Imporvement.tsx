@@ -1,4 +1,4 @@
-import { __ } from '@common/helpers/i18nwrap'
+import { __ } from '@common/helpers/i18nWrap'
 import { Checkbox, theme, Typography } from 'antd'
 import { type CheckboxChangeEvent } from 'antd/es/checkbox'
 

@@ -1,4 +1,4 @@
-import { __ } from '@common/helpers/i18nwrap'
+import { __ } from '@common/helpers/i18nWrap'
 import config from '@config/config'
 import LucideIcn from '@icons/LucideIcn'
 import { useQuery } from '@tanstack/react-query'

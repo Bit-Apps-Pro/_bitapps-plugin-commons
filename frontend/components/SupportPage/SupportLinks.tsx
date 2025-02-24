@@ -1,5 +1,5 @@
 import { XOutlined } from '@ant-design/icons'
-import { __ } from '@common/helpers/i18nwrap'
+import { __ } from '@common/helpers/i18nWrap'
 import { type LucideIconNames } from '@icons/LucideIcn'
 import LucideIcn from '@icons/LucideIcn'
 import { Flex, theme, Typography } from 'antd'

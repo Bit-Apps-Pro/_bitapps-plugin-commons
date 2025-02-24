@@ -1,4 +1,4 @@
-import { __ } from '@common/helpers/i18nwrap'
+import { __ } from '@common/helpers/i18nWrap'
 import { Col, Row, theme, Typography } from 'antd'
 import { type ReactNode } from 'react'
 

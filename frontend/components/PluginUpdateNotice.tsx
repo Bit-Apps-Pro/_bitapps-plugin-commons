@@ -4,7 +4,7 @@
 */
 
 import { SyncOutlined } from '@ant-design/icons'
-import { __, sprintf } from '@common/helpers/i18nwrap'
+import { __, sprintf } from '@common/helpers/i18nWrap'
 import { Button } from 'antd'
 import { type CSSProperties } from 'react'
 import { useState } from 'react'

@@ -1,4 +1,4 @@
-import { __ } from '@common/helpers/i18nwrap'
+import { __ } from '@common/helpers/i18nWrap'
 import LucideIcn from '@icons/LucideIcn'
 import fbCommunityImg from '@plugin-commons/resources/img/fbCommunity.webp'
 import { Button, Flex, theme, Typography } from 'antd'
