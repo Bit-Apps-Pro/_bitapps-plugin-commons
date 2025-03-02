@@ -25,7 +25,7 @@ export default function useCheckLicenseValidity(forceRequest = false) {
     queryFn: () =>
       proxyRequest<CheckUpdateResponse>({
         bodyParams: {
-          domain: config.SITE_URL,
+          domain: config.SITE_BASE_URL,
           licenseKey: config.KEY ? { encryption: 'hmac_decrypt', value: config.KEY } : ''
         },
         method: 'POST',

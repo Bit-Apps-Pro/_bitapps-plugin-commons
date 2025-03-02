@@ -27,7 +27,19 @@ class LicenseService
 
         $data['expireIn'] = $licData->expireIn;
 
-        return update_option(PluginCommonConfig::getProPluginPrefix() . 'license_data', $data, null);
+        if (is_multisite()) {
+            $networkSites = get_sites();
+
+            foreach ($networkSites as $site) {
+                switch_to_blog($site->blog_id);
+
+                update_option(PluginCommonConfig::getProPluginPrefix() . 'license_data', $data, null);
+
+                restore_current_blog();
+            }
+        } else {
+            update_option(PluginCommonConfig::getProPluginPrefix() . 'license_data', $data, null);
+        }
     }
 
     public static function getUpdatedInfo()
