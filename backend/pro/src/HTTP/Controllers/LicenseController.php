@@ -34,7 +34,7 @@ final class LicenseController
 
         $data['licenseKey'] = $licenseKey;
 
-        $data['domain'] = site_url();
+        $data['domain'] = is_multisite() ? network_site_url() : site_url();
 
         $data['slug'] = PluginCommonConfig::getProPluginSlug();
 
@@ -71,7 +71,7 @@ final class LicenseController
 
         $data['licenseKey'] = $licenseData['key'];
 
-        $data['domain'] = site_url();
+        $data['domain'] = is_multisite() ? network_site_url() : site_url();
 
         $this->httpClient->setHeaders([
             'content-type' => 'application/json',
