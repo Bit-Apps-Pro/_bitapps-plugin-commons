@@ -9,13 +9,16 @@ class LicenseService
 {
     public static function isLicenseActive()
     {
-        $licenseData = get_option(PluginCommonConfig::getProPluginPrefix() . 'license_data');
+        $licenseData = self::getLicenseData();
 
         return (bool) (!empty($licenseData) && \is_array($licenseData) && $licenseData['status'] === 'success');
     }
 
     public static function removeLicenseData()
     {
+        if (is_multisite()) {
+            return delete_network_option(get_main_network_id(), PluginCommonConfig::getProPluginPrefix() . 'license_data');
+        }
         return delete_option(PluginCommonConfig::getProPluginPrefix() . 'license_data');
     }
 
@@ -28,28 +31,31 @@ class LicenseService
         $data['expireIn'] = $licData->expireIn;
 
         if (is_multisite()) {
-            $networkSites = get_sites();
-
-            foreach ($networkSites as $site) {
-                switch_to_blog($site->blog_id);
-
-                update_option(PluginCommonConfig::getProPluginPrefix() . 'license_data', $data, null);
-
-                restore_current_blog();
-            }
+            update_network_option(get_main_network_id(), PluginCommonConfig::getProPluginPrefix() . 'license_data', $data);
         } else {
             update_option(PluginCommonConfig::getProPluginPrefix() . 'license_data', $data, null);
         }
     }
 
+    public static function getLicenseData()
+    {
+        if (is_multisite()) {
+            return get_network_option(get_main_network_id(), PluginCommonConfig::getProPluginPrefix() . 'license_data');
+        }
+        return get_option(PluginCommonConfig::getProPluginPrefix() . 'license_data');
+
+    }
+
     public static function getUpdatedInfo()
     {
-        $licenseData = get_option(PluginCommonConfig::getProPluginPrefix() . 'license_data');
+        $licenseData = self::getLicenseData();
+
         $licenseKey = '';
 
         if (!empty($licenseData) && \is_array($licenseData) && $licenseData['status'] === 'success') {
             $licenseKey = $licenseData['key'];
         }
+
         $httpClass = PluginCommonConfig::getVendorClassPrefix() . 'WPKit\Http\Client\HttpClient';
 
         $client = (new $httpClass())->setBaseUri(PluginCommonConfig::getApiEndPoint());

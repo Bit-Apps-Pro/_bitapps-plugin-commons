@@ -3,7 +3,6 @@
 namespace BitApps\Utils;
 
 use BitApps\Utils\Services\LicenseService;
-
 use stdClass;
 
 /**
@@ -58,7 +57,7 @@ final class ProPluginUpdater
             return;
         }
 
-        $licenseData = get_option(PluginCommonConfig::getProPluginPrefix() . 'license_data', null);
+        $licenseData = LicenseService::getLicenseData();
 
         if (!empty($licenseData['expireIn'])) {
             $expireInDays = (strtotime($licenseData['expireIn']) - time()) / DAY_IN_SECONDS;
@@ -72,8 +71,8 @@ final class ProPluginUpdater
 
             if ($expireInDays < 25) {
                 $notice = $expireInDays > 0
-                    ? \sprintf('%s License will expire in %s days', (int) $expireInDays, PluginCommonConfig::getFreePluginTitle())
-                    : \sprintf('%s License is expired', PluginCommonConfig::getFreePluginTitle());
+                ? \sprintf('%s License will expire in %s days', (int) $expireInDays, PluginCommonConfig::getFreePluginTitle())
+                : \sprintf('%s License is expired', PluginCommonConfig::getFreePluginTitle());
 
                 echo wp_kses("<div class='notice notice-error is-dismissible'>
                 <p>{$notice}</p>
@@ -202,18 +201,18 @@ final class ProPluginUpdater
             $cacheData->response[$this->name] = $this->formatApiResponse($versionInfo);
         } else {
             $noUpdateInfo = (object) [
-                'id'          => $this->name,
-                'slug'        => $this->slug,
-                'plugin'      => $this->name,
+                'id' => $this->name,
+                'slug' => $this->slug,
+                'plugin' => $this->name,
                 'new_version' => $this->version,
-                'url'         => '',
-                'package'     => '',
-                'banners'     => [
-                    'high' => 'https://ps.w.org/bit-flow/assets/banner-772x250.jpg?rev=2657199'
+                'url' => '',
+                'package' => '',
+                'banners' => [
+                    'high' => 'https://ps.w.org/bit-flow/assets/banner-772x250.jpg?rev=2657199',
                 ],
-                'banners_rtl'   => [],
-                'tested'        => '',
-                'requires_php'  => '',
+                'banners_rtl' => [],
+                'tested' => '',
+                'requires_php' => '',
                 'compatibility' => new stdClass(),
             ];
             $cacheData->no_update[$this->name] = $noUpdateInfo;
@@ -255,7 +254,7 @@ final class ProPluginUpdater
 
         $data = [
             'timeout' => $expiration,
-            'value'   => $cacheValue,
+            'value' => $cacheValue,
         ];
 
         update_option(PluginCommonConfig::getProPluginPrefix() . $this->cacheKey, $data, 'no');
@@ -288,7 +287,7 @@ final class ProPluginUpdater
             $formattedData->download_link = '';
 
             $formattedData->banners = [
-                'high' => 'https://ps.w.org/bit-flow/assets/banner-772x250.jpg?rev=2657199'
+                'high' => 'https://ps.w.org/bit-flow/assets/banner-772x250.jpg?rev=2657199',
             ];
 
             $formattedData->sections = null;
@@ -308,7 +307,7 @@ final class ProPluginUpdater
         $formattedData->package = !empty($apiResponse->downloadLink) ? $apiResponse->downloadLink . '/' . $this->slug . '.zip' : '';
 
         $formattedData->banners = [
-            'high' => 'https://ps.w.org/bit-flow/assets/banner-772x250.jpg?rev=2657199'
+            'high' => 'https://ps.w.org/bit-flow/assets/banner-772x250.jpg?rev=2657199',
         ];
         $formattedData->sections = $apiResponse->sections;
 

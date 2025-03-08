@@ -61,7 +61,7 @@ final class LicenseController
 
     public function deactivateLicense()
     {
-        $licenseData = get_option(PluginCommonConfig::getProPluginPrefix() . 'license_data');
+        $licenseData = LicenseService::getLicenseData();
 
         if (empty($licenseData) || !\is_array($licenseData) || $licenseData['status'] !== 'success') {
             return wp_send_json_error(
@@ -96,7 +96,7 @@ final class LicenseController
 
     public function checkLicenseStatus()
     {
-        $licenseData = get_option(PluginCommonConfig::getProPluginPrefix() . 'license_data');
+        $licenseData = LicenseService::getLicenseData();
 
         $status = (bool) (!empty($licenseData) && \is_array($licenseData) && $licenseData['status'] === 'success');
 
