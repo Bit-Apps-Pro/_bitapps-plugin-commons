@@ -18,8 +18,10 @@ const SUBS_URL =
     ''
   )
 
+const siteBaseUrl = config.SITE_BASE_URL.replace(/\/$/, '')
+
 const handleDeactivateLicense = async () => {
-  if (config.SITE_BASE_URL !== config.SITE_URL) return
+  if (siteBaseUrl !== config.SITE_URL) return
 
   await request('pro_license/deactivate')
 
@@ -67,7 +69,7 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
   } = config
 
   const handleActivateLicense = () => {
-    if (isLicenseConnected || config.SITE_BASE_URL !== config.SITE_URL) return
+    if (isLicenseConnected || siteBaseUrl !== config.SITE_URL) return
 
     const openedWindow = window.open(SUBS_URL, 'newWindow', 'width=800,height=600')
 
@@ -168,7 +170,7 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
                 <Button
                   className="mb-2"
                   danger
-                  disabled={config.SITE_BASE_URL !== config.SITE_URL}
+                  disabled={siteBaseUrl !== config.SITE_URL}
                   icon={<LucideIcn name="circle-x" />}
                   onClick={handleDeactivateLicense}
                   size="large"
@@ -181,7 +183,7 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
               </>
             ) : (
               <Button
-                disabled={config.SITE_BASE_URL !== config.SITE_URL}
+                disabled={siteBaseUrl !== config.SITE_URL}
                 icon={<LucideIcn name="badge-check" />}
                 onClick={handleActivateLicense}
                 size="large"
