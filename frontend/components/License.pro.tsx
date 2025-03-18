@@ -18,7 +18,9 @@ const SUBS_URL =
     ''
   )
 
-const SITE_BASE_URL = config.SITE_BASE_URL.replace(/\/$/, '')
+const SITE_BASE_URL = config.SITE_BASE_URL?.endsWith('/')
+  ? config.SITE_BASE_URL.slice(0, -1)
+  : config.SITE_BASE_URL
 
 const handleDeactivateLicense = async () => {
   if (SITE_BASE_URL !== config.SITE_URL) return
