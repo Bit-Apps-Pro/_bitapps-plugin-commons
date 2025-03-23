@@ -165,6 +165,7 @@ export default tseslint.config(
         }
       ],
 
+      'perfectionist/sort-modules': ['error', { partitionByComment: true, partitionByNewLine: true }],
       'perfectionist/sort-objects': ['error', { partitionByComment: true, partitionByNewLine: true }],
 
       'prettier/prettier': ['warn', {}],
