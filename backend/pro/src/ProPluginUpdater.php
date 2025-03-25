@@ -51,9 +51,9 @@ final class ProPluginUpdater
             return;
         }
 
-        global $pagenow;
+        global $pageNow;
 
-        if ('plugins.php' !== $pagenow) {
+        if ($pageNow !== 'plugins.php') {
             return;
         }
 
@@ -83,13 +83,13 @@ final class ProPluginUpdater
 
     public function checkUpdate($cacheData)
     {
-        global $pagenow;
+        global $pageNow;
 
         if (!\is_object($cacheData)) {
             $cacheData = new stdClass();
         }
 
-        if ('plugins.php' === $pagenow && is_multisite()) {
+        if ($pageNow === 'plugins.php' && is_multisite()) {
             return $cacheData;
         }
 
@@ -98,7 +98,7 @@ final class ProPluginUpdater
 
     public function setProPluginInfo($data, $action = '', $args = null)
     {
-        if ('plugin_information' !== $action) {
+        if ($action !== 'plugin_information') {
             return $data;
         }
         if (!isset($args->slug) || ($args->slug !== $this->slug)) {
@@ -152,9 +152,9 @@ final class ProPluginUpdater
 
     public function removeCache()
     {
-        global $pagenow;
+        global $pageNow;
 
-        if ('update-core.php' === $pagenow && isset($_GET['force-check'])) {
+        if ($pageNow === 'update-core.php' && isset($_GET['force-check'])) {
             delete_option(PluginCommonConfig::getProPluginPrefix() . $this->cacheKey);
         }
     }
@@ -201,18 +201,18 @@ final class ProPluginUpdater
             $cacheData->response[$this->name] = $this->formatApiResponse($versionInfo);
         } else {
             $noUpdateInfo = (object) [
-                'id' => $this->name,
-                'slug' => $this->slug,
-                'plugin' => $this->name,
+                'id'          => $this->name,
+                'slug'        => $this->slug,
+                'plugin'      => $this->name,
                 'new_version' => $this->version,
-                'url' => '',
-                'package' => '',
-                'banners' => [
+                'url'         => '',
+                'package'     => '',
+                'banners'     => [
                     'high' => 'https://ps.w.org/bit-flow/assets/banner-772x250.jpg?rev=2657199',
                 ],
-                'banners_rtl' => [],
-                'tested' => '',
-                'requires_php' => '',
+                'banners_rtl'   => [],
+                'tested'        => '',
+                'requires_php'  => '',
                 'compatibility' => new stdClass(),
             ];
             $cacheData->no_update[$this->name] = $noUpdateInfo;
@@ -254,7 +254,7 @@ final class ProPluginUpdater
 
         $data = [
             'timeout' => $expiration,
-            'value' => $cacheValue,
+            'value'   => $cacheValue,
         ];
 
         update_option(PluginCommonConfig::getProPluginPrefix() . $this->cacheKey, $data, 'no');
