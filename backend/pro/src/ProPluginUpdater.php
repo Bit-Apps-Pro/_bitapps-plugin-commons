@@ -6,7 +6,7 @@ use BitApps\Utils\Services\LicenseService;
 use stdClass;
 
 /**
- * Helps to update plugin
+ * Helps to update plugin.
  */
 final class ProPluginUpdater
 {
@@ -121,7 +121,7 @@ final class ProPluginUpdater
         return $apiResponseCache;
     }
 
-    public function showUpdateInfo($file, $plugin)
+    public function showUpdateInfo($file)
     {
         if ($this->name !== $file) {
             return;
