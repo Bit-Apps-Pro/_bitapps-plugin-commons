@@ -59,9 +59,11 @@ final class PluginUpdateController
             $latestVersion = $updatePlugins->response[$freePluginSlug . '/' . $freePluginSlug . '.php']->new_version;
         }
 
-        return wp_send_json_success([
-            'latest_version' => $latestVersion,
-        ]);
+        return wp_send_json_success(
+            [
+                'latest_version' => $latestVersion,
+            ]
+        );
     }
 
     private function getPluginSlug()

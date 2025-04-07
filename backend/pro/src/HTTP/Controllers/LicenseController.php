@@ -43,9 +43,11 @@ final class LicenseController
 
         $data['slug'] = PluginCommonConfig::getProPluginSlug();
 
-        $this->httpClient->setHeaders([
-            'content-type' => 'application/json',
-        ]);
+        $this->httpClient->setHeaders(
+            [
+                'content-type' => 'application/json',
+            ]
+        );
 
         $this->httpClient->setBody($data);
 
@@ -78,9 +80,11 @@ final class LicenseController
 
         $data['domain'] = is_multisite() ? network_site_url() : site_url();
 
-        $this->httpClient->setHeaders([
-            'content-type' => 'application/json',
-        ]);
+        $this->httpClient->setHeaders(
+            [
+                'content-type' => 'application/json',
+            ]
+        );
 
         $this->httpClient->setBody($data);
 

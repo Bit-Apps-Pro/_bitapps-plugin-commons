@@ -79,9 +79,13 @@ final class ProPluginUpdater
                 ? \sprintf('%s License will expire in %s days', (int) $expireInDays, PluginCommonConfig::getFreePluginTitle())
                 : \sprintf('%s License is expired', PluginCommonConfig::getFreePluginTitle());
 
-                echo wp_kses("<div class='notice notice-error is-dismissible'>
+                // phpcs:ignore Generic.PHP.ForbiddenFunctions.FoundWithAlternative
+                echo wp_kses(
+                    "<div class='notice notice-error is-dismissible'>
                 <p>{$notice}</p>
-            </div>", $allowedTags);
+            </div>",
+                    $allowedTags
+                );
             }
         }
     }
