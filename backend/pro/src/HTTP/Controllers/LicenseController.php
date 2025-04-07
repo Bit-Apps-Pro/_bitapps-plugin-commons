@@ -5,6 +5,11 @@ namespace BitApps\Utils\HTTP\Controllers;
 use BitApps\Utils\PluginCommonConfig;
 use BitApps\Utils\Services\LicenseService;
 
+// Prevent direct script access
+if (!\defined('ABSPATH')) {
+    exit;
+}
+
 final class LicenseController
 {
     private $httpClient;

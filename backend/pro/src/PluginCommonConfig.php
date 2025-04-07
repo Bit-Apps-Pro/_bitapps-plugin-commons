@@ -2,6 +2,11 @@
 
 namespace BitApps\Utils;
 
+// Prevent direct script access
+if (!\defined('ABSPATH')) {
+    exit;
+}
+
 final class PluginCommonConfig
 {
     public static $freePluginVersion;
@@ -119,10 +124,10 @@ final class PluginCommonConfig
     public static function getVendorClassPrefix()
     {
         if (!empty(self::$pluginNamespace)) {
-            return self::$pluginNamespace . '\\Deps\\BitApps\\';
+            return self::$pluginNamespace . '\Deps\BitApps\\';
         }
 
-        return 'BitApps\\' . self::convertToCamelCase(self::$proPluginSlug) . '\\Deps\\BitApps\\';
+        return 'BitApps\\' . self::convertToCamelCase(self::$proPluginSlug) . '\Deps\BitApps\\';
     }
 
     private static function convertToCamelCase($slug)

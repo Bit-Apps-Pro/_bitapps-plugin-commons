@@ -5,6 +5,11 @@ namespace BitApps\Utils;
 use BitApps\Utils\Services\LicenseService;
 use stdClass;
 
+// Prevent direct script access
+if (!\defined('ABSPATH')) {
+    exit;
+}
+
 /**
  * Helps to update plugin.
  */

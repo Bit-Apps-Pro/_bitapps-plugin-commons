@@ -5,6 +5,11 @@ namespace BitApps\Utils\Services;
 use BitApps\Utils\PluginCommonConfig;
 use WP_Error;
 
+// Prevent direct script access
+if (!\defined('ABSPATH')) {
+    exit;
+}
+
 class LicenseService
 {
     public static function isLicenseActive()
@@ -19,6 +24,7 @@ class LicenseService
         if (is_multisite()) {
             return delete_network_option(get_main_network_id(), PluginCommonConfig::getProPluginPrefix() . 'license_data');
         }
+
         return delete_option(PluginCommonConfig::getProPluginPrefix() . 'license_data');
     }
 
@@ -42,8 +48,8 @@ class LicenseService
         if (is_multisite()) {
             return get_network_option(get_main_network_id(), PluginCommonConfig::getProPluginPrefix() . 'license_data');
         }
-        return get_option(PluginCommonConfig::getProPluginPrefix() . 'license_data');
 
+        return get_option(PluginCommonConfig::getProPluginPrefix() . 'license_data');
     }
 
     public static function getUpdatedInfo()
