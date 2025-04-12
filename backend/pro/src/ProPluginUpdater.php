@@ -243,7 +243,7 @@ final class ProPluginUpdater
 
         remove_action('after_plugin_row_' . $this->name, 'wp_plugin_update_row');
 
-        add_action('after_plugin_row_' . $this->name, [$this, 'showUpdateInfo'], 10, 2);
+        add_action('after_plugin_row_' . $this->name, [$this, 'showUpdateInfo'], 10, 1);
     }
 
     private function getCache()
