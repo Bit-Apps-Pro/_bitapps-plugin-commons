@@ -1,7 +1,7 @@
 /* eslint-disable i18next/no-literal-string */
-import LucideIcn from '@icons/LucideIcn'
 import { Alert } from 'antd'
 import Link from 'antd/es/typography/Link'
+import { LuCircleAlert } from 'react-icons/lu'
 
 export function BitAppsPluginUtilUpdateNotice() {
   if (!import.meta.env.DEV) return
@@ -21,7 +21,7 @@ export function BitAppsPluginUtilUpdateNotice() {
             <code>pnpm sync-plugin-commons</code> if needed.
           </>
         }
-        icon={<LucideIcn name="circle-alert" />}
+        icon={<LuCircleAlert />}
         message="Plugin Submodule Update Notice (Dev Only)"
         showIcon
         type="warning"

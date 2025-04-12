@@ -1,9 +1,9 @@
 import { __ } from '@common/helpers/i18nWrap'
 import config from '@config/config'
-import LucideIcn from '@icons/LucideIcn'
 import { useQuery } from '@tanstack/react-query'
 import { Avatar, Card, Flex, Skeleton, theme, Typography } from 'antd'
 import { useState } from 'react'
+import { LuMoveUpRight } from 'react-icons/lu'
 
 interface Plugin {
   description: string
@@ -78,12 +78,7 @@ function RecommendedPlugins() {
                       style={{ color: token.colorTextSecondary, fontSize: '1rem' }}
                       target="_blank"
                     >
-                      {plugin.name}{' '}
-                      <LucideIcn
-                        name="move-up-right"
-                        size={12}
-                        style={{ transform: 'translateY(-4px)' }}
-                      />
+                      {plugin.name} <LuMoveUpRight size={12} style={{ transform: 'translateY(-4px)' }} />
                     </Link>
                   }
                 />

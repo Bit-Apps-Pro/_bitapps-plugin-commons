@@ -1,6 +1,6 @@
 import { __ } from '@common/helpers/i18nWrap'
-import LucideIcn from '@icons/LucideIcn'
 import { Alert } from 'antd'
+import { LuMoveUpRight } from 'react-icons/lu'
 import { Link } from 'react-router'
 
 import useCheckLicenseValidity from './SupportPage/data/useCheckLicenseValidity'
@@ -15,7 +15,7 @@ export default function LicenseInvalidAlert({ forceCheckLicense }: { forceCheckL
       action={
         <Link className="mt-2" to="/support">
           {__('Manage license')}
-          <LucideIcn name="move-up-right" size={12} style={{ transform: 'translateY(-4px)' }} />
+          <LuMoveUpRight size={12} style={{ transform: 'translateY(-4px)' }} />
         </Link>
       }
       description={__(

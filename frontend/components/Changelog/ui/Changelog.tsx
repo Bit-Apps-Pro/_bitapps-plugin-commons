@@ -1,6 +1,6 @@
 import { __ } from '@common/helpers/i18nWrap'
-import LucideIcn from '@icons/LucideIcn'
 import { Button, Drawer } from 'antd'
+import { LuFileClock } from 'react-icons/lu'
 import { useToggle } from 'react-use'
 import { twMerge } from 'tailwind-merge'
 
@@ -17,7 +17,7 @@ export default function Changelog() {
 
   return (
     <div>
-      <Button className="mb-12" icon={<LucideIcn name="file-clock" />} onClick={toggle}>
+      <Button className="mb-12" icon={<LuFileClock />} onClick={toggle}>
         {`Changelog`}
       </Button>
 

@@ -1,8 +1,8 @@
 import { __, sprintf } from '@common/helpers/i18nWrap'
 import config from '@config/config'
-import LucideIcn from '@icons/LucideIcn'
 import { Badge, Button } from 'antd'
 import Link from 'antd/es/typography/Link'
+import { LuDollarSign } from 'react-icons/lu'
 
 import pluginInfoData from './data/pluginInfoData'
 
@@ -24,7 +24,7 @@ export default function GiveReview({ pluginSlug }: { pluginSlug: string }) {
         color="geekblue"
         text={
           <span css={{ fontSize: 16, padding: 5 }}>
-            <LucideIcn name="dollar-sign" /> {__('Cash Back')}
+            <LuDollarSign /> {__('Cash Back')}
           </span>
         }
       >

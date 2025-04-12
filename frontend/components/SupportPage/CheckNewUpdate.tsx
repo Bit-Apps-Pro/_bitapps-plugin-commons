@@ -1,8 +1,8 @@
 import { SyncOutlined } from '@ant-design/icons'
 import { __ } from '@common/helpers/i18nWrap'
 import config from '@config/config'
-import LucideIcn from '@icons/LucideIcn'
 import { Space, theme, Tooltip } from 'antd'
+import { LuCircleCheck, LuInfo } from 'react-icons/lu'
 
 import { versionCompare } from '../../utils/utils'
 import useCheckUpdate from './data/useCheckUpdate'
@@ -39,7 +39,7 @@ export default function CheckNewUpdate() {
             )}
           >
             <div>
-              <LucideIcn css={{ color: token.orange6 }} name="info" size="1rem" />
+              <LuInfo css={{ color: token.orange6 }} size="1rem" />
             </div>
           </Tooltip>
         </Space>
@@ -52,7 +52,7 @@ export default function CheckNewUpdate() {
       <div className="mb-2">
         <Space>
           <b>{config.PRODUCT_NAME + ' ' + __('is up to date')}</b>
-          <LucideIcn color={token.green6} name="circle-check" size="1rem" />
+          <LuCircleCheck color={token.green6} size="1rem" />
         </Space>
       </div>
     )

@@ -1,7 +1,7 @@
 import { __ } from '@common/helpers/i18nWrap'
-import LucideIcn from '@icons/LucideIcn'
 import fbCommunityImg from '@plugin-commons/resources/img/fbCommunity.webp'
 import { Button, Flex, theme, Typography } from 'antd'
+import { LuFacebook } from 'react-icons/lu'
 
 interface FBCommunityCardProps {
   facebookCommunityLink: string
@@ -70,7 +70,7 @@ export default function FacebookCommunityCard({ facebookCommunityLink }: FBCommu
           width: '90%!important'
         }}
         href={facebookCommunityLink}
-        icon={<LucideIcn name="facebook" />}
+        icon={<LuFacebook />}
         size="large"
         target="_blank"
       >

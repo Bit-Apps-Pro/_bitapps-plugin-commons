@@ -1,11 +1,11 @@
 import { __ } from '@common/helpers/i18nWrap'
 import request from '@common/helpers/request'
 import config from '@config/config'
-import LucideIcn from '@icons/LucideIcn'
 import If from '@utilities/If'
 import { Badge, Button, Space, Tag, Typography } from 'antd'
 import Title from 'antd/es/typography/Title'
 import { useEffect, useRef } from 'react'
+import { LuBadgeCheck, LuCheck, LuCircleX, LuCrown } from 'react-icons/lu'
 import { useAsync, useSearchParam } from 'react-use'
 
 import LicenseActivationNotice from './LicenseActivationNotice.pro'
@@ -121,7 +121,7 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
 
             {freeBuildCodeName?.value}
             <If conditions={freeBuildCodeName?.value === currentBuildCodeName}>
-              <LucideIcn className="ml-1" name="check" />
+              <LuCheck className="ml-1" />
             </If>
           </Typography.Text>
         </If>
@@ -135,7 +135,7 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
             <Badge dot>
               <Button
                 href={aboutPlugin.buyLink}
-                icon={<LucideIcn name="crown" />}
+                icon={<LuCrown />}
                 rel="noopener noreferrer nofollow"
                 target="_blank"
                 type="primary"
@@ -158,7 +158,7 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
                 {__('Code Name: ')}
                 {proBuildCodeName?.value}
                 <If conditions={proBuildCodeName?.value === currentBuildCodeName}>
-                  <LucideIcn className="ml-1" name="check" />
+                  <LuCheck className="ml-1" />
                 </If>
               </Typography.Text>
             </If>
@@ -173,7 +173,7 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
                   className="mb-2"
                   danger
                   disabled={SITE_BASE_URL !== config.SITE_URL}
-                  icon={<LucideIcn name="circle-x" />}
+                  icon={<LuCircleX />}
                   onClick={handleDeactivateLicense}
                   size="large"
                   type="primary"
@@ -186,7 +186,7 @@ export default function License({ pluginSlug }: { pluginSlug: string }) {
             ) : (
               <Button
                 disabled={SITE_BASE_URL !== config.SITE_URL}
-                icon={<LucideIcn name="badge-check" />}
+                icon={<LuBadgeCheck />}
                 onClick={handleActivateLicense}
                 size="large"
                 type="primary"

@@ -1,12 +1,34 @@
 import { XOutlined } from '@ant-design/icons'
 import { __ } from '@common/helpers/i18nWrap'
-import { type LucideIconNames } from '@icons/LucideIcn'
-import LucideIcn from '@icons/LucideIcn'
 import { Flex, theme, Typography } from 'antd'
+import React from 'react'
+import {
+  LuBookCheck,
+  LuFacebook,
+  LuGlobe,
+  LuLinkedin,
+  LuMail,
+  LuMessageCircle,
+  LuMessagesSquare,
+  LuMoveUpRight,
+  LuYoutube
+} from 'react-icons/lu'
 
 import pluginInfoData from './data/pluginInfoData'
 
 const { Link, Text, Title } = Typography
+
+// Map of icon names to actual icon components
+const iconMap: Record<string, React.ReactNode> = {
+  'book-check': <LuBookCheck size={18} />,
+  facebook: <LuFacebook size={18} />,
+  globe: <LuGlobe size={18} />,
+  linkedin: <LuLinkedin size={18} />,
+  mail: <LuMail size={18} />,
+  'message-circle': <LuMessageCircle size={18} />,
+  'messages-square': <LuMessagesSquare size={18} />,
+  youtube: <LuYoutube size={18} />
+}
 
 export default function SupportLinks({ pluginSlug }: { pluginSlug: string }) {
   const { token } = theme.useToken()
@@ -37,7 +59,7 @@ export default function SupportLinks({ pluginSlug }: { pluginSlug: string }) {
         {supportLinks.map(({ copyable, href, icon, text }) => (
           <Text key={text}>
             <Flex gap={10}>
-              {typeof icon === 'string' ? <LucideIcn name={icon as LucideIconNames} size={18} /> : icon}
+              {typeof icon === 'string' ? iconMap[icon] || undefined : icon}
               {copyable ? (
                 <Text copyable={{ text }}>
                   <Link
@@ -53,7 +75,7 @@ export default function SupportLinks({ pluginSlug }: { pluginSlug: string }) {
               ) : (
                 <Link href={href} rel="noopener noreferrer nofollow" strong target="_blank">
                   {text}
-                  <LucideIcn name="move-up-right" size={12} style={{ transform: 'translateY(-4px)' }} />
+                  <LuMoveUpRight size={12} style={{ transform: 'translateY(-4px)' }} />
                 </Link>
               )}
             </Flex>
