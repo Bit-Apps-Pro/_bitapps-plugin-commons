@@ -149,6 +149,11 @@ export default tseslint.config(
             {
               group: ['@wordpress/i18n'],
               message: 'use `@common/helpers/i18nWrap` instead.'
+            },
+            {
+              group: ['react-icons/*', '!react-icons/lu'],
+              message:
+                'This project only use Lucide icon, different icons library are restricted unless missing icon. Use `react-icons/lu` instead. icons list `https://react-icons.github.io/react-icons/icons/lu/`'
             }
           ]
         }
