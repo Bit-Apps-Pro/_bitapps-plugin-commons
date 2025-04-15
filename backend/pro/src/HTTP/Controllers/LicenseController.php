@@ -2,6 +2,12 @@
 
 namespace BitApps\Utils\HTTP\Controllers;
 
+// Prevent direct script access
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+
 use BitApps\Utils\PluginCommonConfig;
 use BitApps\Utils\Services\LicenseService;
 

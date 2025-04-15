@@ -2,6 +2,12 @@
 
 namespace BitApps\Utils\Services;
 
+// Prevent direct script access
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+
 use BitApps\Utils\PluginCommonConfig;
 use WP_Error;
 
