@@ -7,7 +7,6 @@ if (!\defined('ABSPATH')) {
     exit;
 }
 
-
 use BitApps\Utils\PluginCommonConfig;
 use BitApps\Utils\Services\LicenseService;
 
