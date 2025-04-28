@@ -24,10 +24,6 @@ export default function PluginUpdateNotice() {
     return
   }
 
-  if (proPluginVersion === undefined || proPluginVersion === '') {
-    return
-  }
-
   if (proPluginVersion === freePLuginVersion) {
     return
   }
