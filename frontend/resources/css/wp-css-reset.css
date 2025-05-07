@@ -154,3 +154,8 @@
   float: left !important;
   margin-top: 15px !important;
 }
+
+[role='treeitem'] span[aria-hidden] {
+  display: initial;
+  position: initial;
+}
