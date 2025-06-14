@@ -1,7 +1,6 @@
 import { fixupPluginRules } from '@eslint/compat'
 import { default as eslint } from '@eslint/js'
 import stylisticTs from '@stylistic/eslint-plugin-ts'
-import cypress from 'eslint-plugin-cypress'
 import i18next from 'eslint-plugin-i18next'
 import importPlugin from 'eslint-plugin-import'
 import jsxA11Y from 'eslint-plugin-jsx-a11y'
@@ -45,7 +44,6 @@ export default tseslint.config(
       }
     },
     plugins: {
-      cypress,
       import: fixupPluginRules(importPlugin),
       jsxA11Y,
       prettier,

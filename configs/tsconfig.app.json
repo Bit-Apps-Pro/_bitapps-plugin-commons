@@ -50,5 +50,5 @@
     "_bitapps-plugin-commons"
   ],
   "exclude": ["node_modules"],
-  "types": ["cypress", "node", "vite/client"]
+  "types": ["node", "vite/client"]
 }
