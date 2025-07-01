@@ -130,6 +130,10 @@
     opacity: 0 !important;
   }
 
+  input[type='search'] {
+    min-height: 0;
+  }
+
   input[type='search']:focus {
     box-shadow: initial;
   }
