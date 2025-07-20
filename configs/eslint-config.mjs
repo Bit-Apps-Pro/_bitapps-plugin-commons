@@ -46,7 +46,6 @@ export default tseslint.config(
     plugins: {
       import: fixupPluginRules(importPlugin),
       jsxA11Y,
-      prettier,
       promise,
       react,
       'react-hooks': fixupPluginRules(reactHooks),
@@ -58,7 +57,9 @@ export default tseslint.config(
         }
       },
       unicorn: eslintPluginUnicorn,
-      'unused-imports': unusedImports
+      'unused-imports': unusedImports,
+
+      prettier
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
