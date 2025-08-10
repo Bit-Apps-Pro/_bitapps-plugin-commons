@@ -163,3 +163,11 @@
   display: initial;
   position: initial;
 }
+
+#adminmenu .wp-menu-open .wp-submenu {
+  left: auto;
+}
+
+#screen-meta-links {
+  display: none;
+}
