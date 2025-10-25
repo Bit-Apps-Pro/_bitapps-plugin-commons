@@ -12,28 +12,33 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import eslintPluginUnicorn from 'eslint-plugin-unicorn'
 import unusedImports from 'eslint-plugin-unused-imports'
+import { defineConfig } from 'eslint/config'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
 import translateObjProp from './obj-prop-translate.mjs'
 
-export default tseslint.config(
+export default defineConfig(
+  {
+    ignores: [
+      '**/*.gen.ts',
+      '**/vite.config.ts',
+      '**/commitlint.config.js',
+      '**/node_modules/**',
+      '**/build/**',
+      '**/dist/**',
+      '**/coverage/**',
+      '**/eslint-config.mjs'
+    ]
+  },
   eslint.configs.recommended,
+  tseslint.configs.recommended,
   ...tseslint.configs.strict,
   ...tseslint.configs.stylistic,
   perfectionist.configs['recommended-natural'],
   i18next.configs['flat/recommended'],
   jsxA11Y.flatConfigs.recommended,
   {
-    ignores: [
-      '**/routeTree.gen.ts',
-      '**/vite.config.ts',
-      '**/commitlint.config.js',
-      '**/node_modules',
-      '**/build',
-      '**/coverage',
-      '**/.eslintrc.js'
-    ],
     languageOptions: {
       ecmaVersion: 'latest',
       globals: globals.browser,
