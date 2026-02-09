@@ -5,7 +5,7 @@ import i18next from 'eslint-plugin-i18next'
 import importPlugin from 'eslint-plugin-import'
 import jsxA11Y from 'eslint-plugin-jsx-a11y'
 import perfectionist from 'eslint-plugin-perfectionist'
-import prettier from 'eslint-plugin-prettier'
+import eslintConfigPrettier from 'eslint-config-prettier/flat'
 import promise from 'eslint-plugin-promise'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
@@ -62,9 +62,7 @@ export default defineConfig(
         }
       },
       unicorn: eslintPluginUnicorn,
-      'unused-imports': unusedImports,
-
-      prettier
+      'unused-imports': unusedImports
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -177,7 +175,6 @@ export default defineConfig(
       'perfectionist/sort-modules': ['error', { partitionByComment: true, partitionByNewLine: true }],
       'perfectionist/sort-objects': ['error', { partitionByComment: true, partitionByNewLine: true }],
 
-      'prettier/prettier': ['warn', {}],
       'react-hooks/exhaustive-deps': 'warn',
       'react/destructuring-assignment': 0,
       'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
@@ -261,5 +258,6 @@ export default defineConfig(
       'import/resolver': { typescript: { alwaysTryTypes: true, project: ['./tsconfig.json'] } },
       react: { version: 'detect' }
     }
-  }
+  },
+  eslintConfigPrettier
 )
