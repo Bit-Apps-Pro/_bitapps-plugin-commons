@@ -3,7 +3,7 @@
 namespace BitApps\Utils\HTTP\Controllers;
 
 // Prevent direct script access
-if (!\defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit;
 }
 
@@ -11,11 +11,6 @@ use Automatic_Upgrader_Skin;
 use BitApps\Utils\PluginCommonConfig;
 use BitApps\Utils\ProPluginUpdater;
 use Plugin_Upgrader;
-
-// Prevent direct script access
-if (!\defined('ABSPATH')) {
-    exit;
-}
 
 final class PluginUpdateController
 {

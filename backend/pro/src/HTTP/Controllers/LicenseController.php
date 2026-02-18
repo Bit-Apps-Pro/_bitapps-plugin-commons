@@ -3,17 +3,12 @@
 namespace BitApps\Utils\HTTP\Controllers;
 
 // Prevent direct script access
-if (!\defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit;
 }
 
 use BitApps\Utils\PluginCommonConfig;
 use BitApps\Utils\Services\LicenseService;
-
-// Prevent direct script access
-if (!\defined('ABSPATH')) {
-    exit;
-}
 
 final class LicenseController
 {
